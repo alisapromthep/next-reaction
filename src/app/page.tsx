@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>HELLO WORLD</h1>
-      <Link href='/register'>Register here</Link>
+      <Link href='/register'>Register</Link>
     </main>
   );
 }
