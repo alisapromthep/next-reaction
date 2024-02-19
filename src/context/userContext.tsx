@@ -1,4 +1,4 @@
-import {createContext, useState} from 'react';
+import {createContext, useState, useContext, SetStateAction} from 'react';
 
 
 interface UserInfoType {
@@ -10,21 +10,32 @@ interface UserInfoType {
 
 interface UserContextType {
     userInfo: UserInfoType;
+    setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
     isLogin: Boolean;
+    setIsLogin:React.Dispatch<SetStateAction<Boolean>>;
     isRegister: Boolean;
+    setIsRegister:React.Dispatch<SetStateAction<Boolean>>;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const UserContext = createContext<UserContextType | null>(null);
-
-const UserInfo:UserInfoType = {
+const userInfoInitial:UserInfoType = {
     username: "",
     password: "",
     email: "",
 }
 
+export const UserContext = createContext<UserContextType>({
+    userInfo: userInfoInitial,
+    setUserInfo: ()=>{},
+    isLogin: false,
+    setIsLogin: ()=>{},
+    isRegister: false, 
+    setIsRegister: ()=>{},
+    handleChange: ()=> {}
+});
+
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const [userInfo, setUserInfo] = useState<UserInfoType>(UserInfo)
+    const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial)
     const [isLogin, setIsLogin] = useState<Boolean>(false)
     const [isRegister, setIsRegister] = useState<Boolean>(false)
 
@@ -38,16 +49,17 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     
 
     //sign up user 
-
-
-
     
 
     return (
-        <UserContext.Provider value={{userInfo, isLogin, isRegister, handleChange}}>
+        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin, isRegister, setIsRegister, handleChange}}>
             {children}
         </UserContext.Provider>
     )
 
+}
+
+export function useUserContext() {
+    return useContext(UserContext);
 }
 

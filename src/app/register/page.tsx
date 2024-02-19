@@ -1,22 +1,33 @@
 "use client"
 
-import React from 'react';
+import React, {FormEvent} from 'react';
 import Input from '../../components/Forms/Input'; 
+import {useUserContext} from '../../context/userContext';
 
 
+const RegisterPage: React.FC = ()=>{
 
-const RegisterPage = ()=>{
+    const {userInfo, handleChange} = useUserContext();
+
+    const handleSubmit = (event: FormEvent<HTMLFormElement>): void =>{
+        event.preventDefault()
+
+        console.log(userInfo)
+
+    }
+
 
     return(
         <div>
             <h1>Register</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Input
                 labelName='username'
                 label='username'
                 inputName='username'
                 placeholder='username'
                 inputType='text'
+                onChange={handleChange}
                 />
                 <Input
                 labelName='password'
@@ -24,6 +35,7 @@ const RegisterPage = ()=>{
                 inputName='password'
                 placeholder='password'
                 inputType='text'
+                onChange={handleChange}
                 />
                 <Input
                 labelName='email'
@@ -31,7 +43,11 @@ const RegisterPage = ()=>{
                 inputName='email'
                 placeholder='email'
                 inputType='email'
+                onChange={handleChange}
                 />
+                <button type='submit'>
+                    Submit
+                </button>
             </form>
         </div>
     )

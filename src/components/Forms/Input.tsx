@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {ChangeEvent} from 'react'
 
 interface InputProps {
     labelName: string;
@@ -6,10 +6,10 @@ interface InputProps {
     inputName: string;
     placeholder: string;
     inputType: string;
-    //onChange: React.ChangeEvent<HTMLInputElement>;
+    onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({labelName, label, inputName, placeholder, inputType}: InputProps) => {
+const Input = ({labelName, label, inputName, placeholder, inputType, onChange}: InputProps) => {
 
     return(
         <label className='font-bold flex flex-col'
@@ -21,6 +21,7 @@ const Input = ({labelName, label, inputName, placeholder, inputType}: InputProps
             type={inputType}
             className='border-b border-green placeholder:font-light'
             placeholder={placeholder}
+            onChange={onChange}
             />
         </label>
     )
