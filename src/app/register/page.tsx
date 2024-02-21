@@ -7,7 +7,7 @@ import {useUserContext} from '../../context/userContext';
 
 const RegisterPage: React.FC = ()=>{
 
-    const {userInfo, handleChange} = useUserContext();
+    const {userInfo, handleChange, handleRegister} = useUserContext();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void =>{
         event.preventDefault()
@@ -20,7 +20,7 @@ const RegisterPage: React.FC = ()=>{
     return(
         <div>
             <h1>Register</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleRegister}>
                 <Input
                 labelName='username'
                 label='username'
@@ -38,11 +38,11 @@ const RegisterPage: React.FC = ()=>{
                 onChange={handleChange}
                 />
                 <Input
-                labelName='email'
-                label='email'
-                inputName='email'
-                placeholder='email'
-                inputType='email'
+                labelName='passwordConfirm'
+                label='passwordConfirm'
+                inputName='passwordConfirm'
+                placeholder='passwordConfirm'
+                inputType='text'
                 onChange={handleChange}
                 />
                 <button type='submit'>
