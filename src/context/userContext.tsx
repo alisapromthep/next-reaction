@@ -66,7 +66,6 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                 passwordConfirm
             }
             )
-            console.log(result)
             return result;
         } catch (err){
             console.log(err)
@@ -78,6 +77,25 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         const {username, password, passwordConfirm} = userInfo;
         console.log(username,password)
         console.log(signUp(username,password,passwordConfirm));
+    }
+
+    async function signIn (username:string, password: string){
+        try {
+            const result = await pb.collection('users').authWithPassword(
+                username,
+                password
+            )
+
+            console.log(result)
+
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
+        event.preventDefault()
+
     }
     
 
