@@ -21,6 +21,7 @@ interface UserContextType {
     setIsRegister:React.Dispatch<SetStateAction<Boolean>>;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleRegister: (event: FormEvent<HTMLFormElement>) => void;
+    handleLogin: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 const userInfoInitial:UserInfoType = {
@@ -39,7 +40,8 @@ export const UserContext = createContext<UserContextType>({
     isRegister: false, 
     setIsRegister: ()=>{},
     handleChange: ()=> {},
-    handleRegister: ()=> {}
+    handleRegister: ()=> {},
+    handleLogin: ()=> {}
 });
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -100,7 +102,9 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     
 
     return (
-        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin, isRegister, setIsRegister, handleChange, handleRegister}}>
+        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin,
+        isRegister, setIsRegister,
+        handleChange, handleRegister, handleLogin}}>
             {children}
         </UserContext.Provider>
     )
