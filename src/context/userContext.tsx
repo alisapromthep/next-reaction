@@ -1,9 +1,13 @@
-import {createContext, useState, useContext, SetStateAction} from 'react';
-
+import {createContext, useState, useContext, SetStateAction, FormEvent} from 'react';
+import pb from '../../lib/pocketbase';
+import type { AuthProviderInfo } from 'pocketbase';
+import { useRouter } from 'next/router';
 
 interface UserInfoType {
+    id: string;
     username: string;
     password: string;
+    passwordConfirm: string;
     email: string;
     [key: string]: string;
 }
@@ -16,11 +20,14 @@ interface UserContextType {
     isRegister: Boolean;
     setIsRegister:React.Dispatch<SetStateAction<Boolean>>;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleRegister: (event: FormEvent<HTMLFormElement>) => void;
 }
 
 const userInfoInitial:UserInfoType = {
+    id: "",
     username: "",
     password: "",
+    passwordConfirm: "",
     email: "",
 }
 
@@ -31,7 +38,8 @@ export const UserContext = createContext<UserContextType>({
     setIsLogin: ()=>{},
     isRegister: false, 
     setIsRegister: ()=>{},
-    handleChange: ()=> {}
+    handleChange: ()=> {},
+    handleRegister: ()=> {}
 });
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -48,11 +56,33 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     };
     
 
-    //sign up user 
+    //register user 
+
+    async function signUp(username: string,password: string, passwordConfirm: string) {
+        try {
+            const result = await pb.collection('users').create({
+                username,
+                password,
+                passwordConfirm
+            }
+            )
+            console.log(result)
+            return result;
+        } catch (err){
+            console.log(err)
+        }
+    }
+
+    const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
+        event.preventDefault()
+        const {username, password, passwordConfirm} = userInfo;
+        console.log(username,password)
+        console.log(signUp(username,password,passwordConfirm));
+    }
     
 
     return (
-        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin, isRegister, setIsRegister, handleChange}}>
+        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin, isRegister, setIsRegister, handleChange, handleRegister}}>
             {children}
         </UserContext.Provider>
     )
