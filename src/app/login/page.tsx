@@ -3,6 +3,7 @@
 import React from 'react';
 import Input from '../../components/Forms/Input'; 
 import {useUserContext} from '../../context/userContext';
+import Button from '../../components/Buttons/Button';
 
 
 const LoginPage = ()=>{
@@ -28,9 +29,7 @@ const LoginPage = ()=>{
                 inputType='text'
                 onChange={handleChange}
                 />
-                <button type='submit'>
-                    Login
-                </button>
+                <Button text="Submit" buttonType='submit'/>
             </form>
         </div>
     )
