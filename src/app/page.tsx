@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from 'next/link';
 import heroImg from '../../public/images/home-hero.jpg';
 import {FaGithubSquare, FaLinkedin} from 'react-icons/fa';
+import NavBar from "@/components/NavBar/NavBar";
 
 export default function Home() {
   return (
     <main className= "bg-white flex flex-col font-NunitoSans">
+      <NavBar/>
       <div className="bg-transparent">
         <Image
         src={heroImg}
