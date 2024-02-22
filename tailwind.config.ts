@@ -11,8 +11,8 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily :{
-        NunitoSans: ['Nunito-Sans'],
-        sans: ['Nunito-Sans', 'sans-serif']
+        NunitoSans: 'Nunito-Sans',
+        sans: ['sans-serif']
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
