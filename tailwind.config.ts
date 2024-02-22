@@ -10,6 +10,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily :{
+        NunitoSans: ['Nunito-Sans'],
+        sans: ['Nunito-Sans', 'sans-serif']
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
@@ -33,5 +37,8 @@ const config: Config = {
     },
   },
   plugins: [],
+  corePlugins:{
+    fontFamily: true,
+  }
 };
 export default config;
