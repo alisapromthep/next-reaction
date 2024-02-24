@@ -1,11 +1,21 @@
+"use client"
 
+import { CldImage } from "next-cloudinary";
+import { useIconContext } from "@/context/iconContext";
 
 const NewEntryForm = ()=>{
+
+    const {symptoms, result} = useIconContext();
 
     return (
         <form
         className=""
         >
+            <div>
+                <p>
+                    {result}
+                </p>
+            </div>
             <label className="capitalize">
                 date
                 <input
@@ -29,6 +39,12 @@ const NewEntryForm = ()=>{
 
             <fieldset>
                 <legend>What was the reaction?</legend>
+                {/* <CldImage
+                width={20}
+                height={20}
+                src=""
+                alt="icon"
+                /> */}
             </fieldset>
         </form>
 
