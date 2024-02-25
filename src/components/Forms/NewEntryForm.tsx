@@ -1,21 +1,16 @@
 "use client"
 
 import { CldImage } from "next-cloudinary";
-import { useIconContext } from "@/context/iconContext";
+import symptomIcons from "./symptomsIcons.json";
 
 const NewEntryForm = ()=>{
 
-    const {symptoms, result} = useIconContext();
+    console.log(symptomIcons)
 
     return (
         <form
         className=""
         >
-            <div>
-                <p>
-                    {result}
-                </p>
-            </div>
             <label className="capitalize">
                 date
                 <input
@@ -39,12 +34,28 @@ const NewEntryForm = ()=>{
 
             <fieldset>
                 <legend>What was the reaction?</legend>
-                {/* <CldImage
-                width={20}
-                height={20}
-                src=""
-                alt="icon"
-                /> */}
+                {
+                    symptomIcons.map((symptom,i)=>{
+                        return (
+                            <label
+                            key={i}
+                            className="flex flex-col items-center"
+                            >
+                                <CldImage
+                                    width={35}
+                                    height={35}
+                                    src={symptom.img_file}
+                                    alt={symptom.name}
+                                />
+                                {symptom.name}
+                                <input
+                                type="checkbox"
+                                value={symptom.name}
+                                />
+                            </label>
+                        )
+                    })
+                }
             </fieldset>
         </form>
 
