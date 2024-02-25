@@ -1,0 +1,50 @@
+[
+    {
+    "name": "difficulty-breathing",
+    "img_file": "symptoms/difficulty-breathing_tpldk4"
+    },
+    {
+    "name": "dizzy",
+    "img_file": "symptoms/dizzy_sgmcr0"
+    },
+    {
+    "name": "cough",
+    "img_file": "symptoms/cough_ycp3gl"
+    },
+    {
+    "name": "swollen-eye",
+    "img_file": "symptoms/swollen-eye_vfgcc0"
+    },
+    {
+    "name": "itchy",
+    "img_file": "symptoms/itchy_v79thk"
+    },
+    {
+    "name": "swollen-mouth",
+    "img_file": "symptoms/swollen-mouth_gmuxxh"
+    },
+    {
+    "name": "nausea",
+    "img_file": "symptoms/nausea_gidu6v"
+  },
+  {
+    "name": "hay-fever",
+    "img_file": "symptoms/hay-fever_nyn3f6"
+    },
+    {
+        "name": "vomit",
+        "img_file": "symptoms/vomit_dpgdfa"
+    },
+    {
+        "name": "rash",
+        "img_file": "symptoms/rash_imivrv"
+    },
+    {
+        "name": "diarrhea",
+        "img_file": "symptoms/diarrhea_znlwsu"
+    },
+    {
+        "name": "stomach-cramp",
+        "img_file": "symptoms/stomach-cramp_wtxgik"
+    }
+]
