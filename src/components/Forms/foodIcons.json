@@ -1,0 +1,78 @@
+[
+    {
+        "name": "apple",
+        "img_file": "foods/apple_ehinp3"
+    },
+    {
+        "name": "berries",
+        "img_file": "foods/berries_j0epok"
+    },
+    {
+        "name": "boiled-egg",
+        "img_file": "foods/boiled-egg_xxbmqh"
+    },
+    {
+        "name": "crab",
+        "img_file": "foods/crab_zqouau"
+    },
+    {
+        "name": "fish",
+        "img_file": "foods/fish_z6nldx"
+    },
+    {
+        "name": "kiwi",
+        "img_file": "foods/kiwi_kaxp8gg"
+    },
+    {
+        "name": "lobster",
+        "img_file": "foods/lobster_srbngr"
+    },
+    {
+        "name": "milk",
+        "img_file": "foods/milk_wge3ue"
+    },
+    {
+        "name": "mustard",
+        "img_file": "foods/mustard_r2vbi4"
+    },
+    {
+        "name": "nuts",
+        "img_file": "foods/nuts_zqyphm"
+    },
+    {
+        "name": "orange",
+        "img_file": "foods/orange_ui257r"
+    },
+    {
+        "name": "peach",
+        "img_file": "foods/peach_vnxjwl"
+    },
+    {
+        "name": "peanut",
+        "img_file": "foods/peanut_wr7qlj"
+    },
+    {
+        "name": "sesame",
+        "img_file": "foods/sesame_xvi85x"
+    },
+    {
+        "name": "shrimp",
+        "img_file": "foods/shrimp_tl4hwng"
+    },
+    {
+        "name": "soybean",
+        "img_file": "foods/soybean_l9krcl"
+    },
+    {
+        "name": "spice",
+        "img_file": "foods/spice_zstjrl"
+    },
+    {
+        "name": "wheat",
+        "img_file": "foods/wheat_zvwoxd"
+    },
+    {
+        "name": "gluten",
+        "img_file": "foods/gluten_ybkjwp"
+    }
+]
