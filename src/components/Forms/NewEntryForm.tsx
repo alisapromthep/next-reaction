@@ -2,6 +2,8 @@
 
 import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
+import foodIcons from "./foodIcons.json";
+import Button from "../Buttons/Button";
 
 const NewEntryForm = ()=>{
 
@@ -11,7 +13,7 @@ const NewEntryForm = ()=>{
         <form
         className=""
         >
-            <label className="capitalize">
+            <label className="capitalize flex flex-col">
                 date
                 <input
                 required
@@ -21,7 +23,7 @@ const NewEntryForm = ()=>{
                 name='date'
                 />
             </label>
-            <label className="capitalize">
+            <label className="capitalize flex flex-col">
                 What time did the reaction happen?
                 <input
                 required
@@ -57,6 +59,31 @@ const NewEntryForm = ()=>{
                     })
                 }
             </fieldset>
+            <fieldset>
+                <legend>What did you eat?</legend>
+                {
+                    foodIcons.map((food,i)=>{
+                        return (
+                            <label key={i} className="flex flex-col items-center">
+                                <CldImage
+                                width={35}
+                                height={35}
+                                src={food.img_file}
+                                alt={food.name}                                
+                                />
+                                <input
+                                type="checkbox"
+                                value={food.name}
+                                />
+                            </label>
+                        )
+                    })
+                }
+            </fieldset>
+            <Button
+            text="Noted"
+            buttonType="submit"
+            />
         </form>
 
     )
