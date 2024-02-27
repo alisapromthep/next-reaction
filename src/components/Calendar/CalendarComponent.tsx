@@ -2,7 +2,9 @@ import Calendar from 'react-calendar';
 
 function CalendarComponent(){
     return (
-        <Calendar/>
+        <Calendar
+        
+        />
 
     )
 }

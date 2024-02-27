@@ -1,5 +1,6 @@
 import NewEntryForm from '../../../components/Forms/NewEntryForm';
 import CalendarComponent from '../../../components/Calendar/CalendarComponent';
+import mockUserData from '../../../data/mockData.json';
 
 function profilePage() {
 
