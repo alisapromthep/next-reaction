@@ -31,22 +31,20 @@ export const IconProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [result, setResult] = useState<any>();
     const [foods, setFoods] = useState<string[]>([]);
 
-    async function getIcons(){
-        try {
-            const result = await fetch(`https://${process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}.api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/resources/image/upload`)
-            console.log(result)
+    async function getStaticProps(){
 
-            setResult(result)
+        const result = await fetch(`https://${process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}:${process.env.CLOUDINARY_API_SECRET}.api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/resources/image/upload`)
+        const data = await result.json();
 
-        } 
-        catch (err) {
-            console.log(err)
+        console.log(data)
+
+        return{
+            props: {
+                results : data
+            }
         }
         
     }
-    useEffect(()=>{
-        getIcons()
-    },[])
 
 
     return (
