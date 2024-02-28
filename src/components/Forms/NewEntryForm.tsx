@@ -7,8 +7,6 @@ import Button from "../Buttons/Button";
 
 const NewEntryForm = ()=>{
 
-    console.log(symptomIcons)
-
     return (
         <form
         className="bg-gray"
