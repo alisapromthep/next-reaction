@@ -1,6 +1,7 @@
 "use client"
 
 import Calendar from 'react-calendar';
+import './CalendarComponent.css';
 import mockUserData from '../../data/mockData.json';
 import CalendarEvent from './CalendarEvent';
 
