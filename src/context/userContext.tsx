@@ -1,4 +1,4 @@
-import {createContext, useState, useContext, SetStateAction, FormEvent} from 'react';
+import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent} from 'react';
 import pb from '../../lib/pocketbase';
 import type { AuthProviderInfo } from 'pocketbase';
 import { useRouter } from 'next/router';
@@ -45,9 +45,19 @@ export const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+
+    const [token, setToken] = useState(pb.authStore.token);
+    const [model, setModel] = useState(pb.authStore.model);
     const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial)
     const [isLogin, setIsLogin] = useState<Boolean>(false)
     const [isRegister, setIsRegister] = useState<Boolean>(false)
+
+    useEffect(()=>{
+        return pb.authStore.onChange((token, model)=>{
+            setToken(token);
+            console.log('model',model)
+        })
+    })
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -88,7 +98,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                 password
             )
 
-            console.log(result)
+            console.log('result',result) 
+            //result has token
 
         }catch(err){
             console.log(err)
@@ -98,6 +109,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
         event.preventDefault()
 
+        const {username, password} = userInfo;
+        signIn(username,password);
     }
     
 
