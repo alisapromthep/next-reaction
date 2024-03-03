@@ -124,8 +124,9 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     }
 
     const handleLogout = (): void =>{
-        
         pb.authStore.clear();
+        setIsLogin(false);
+        console.log('logout')
     }
     
 
