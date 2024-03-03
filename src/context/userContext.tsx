@@ -1,4 +1,4 @@
-import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent} from 'react';
+import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
 import type { AuthProviderInfo } from 'pocketbase';
 import { useRouter } from 'next/router';
@@ -22,6 +22,7 @@ interface UserContextType {
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleRegister: (event: FormEvent<HTMLFormElement>) => void;
     handleLogin: (event: FormEvent<HTMLFormElement>) => void;
+    handleLogout: MouseEventHandler;
 }
 
 const userInfoInitial:UserInfoType = {
@@ -41,7 +42,8 @@ export const UserContext = createContext<UserContextType>({
     setIsRegister: ()=>{},
     handleChange: ()=> {},
     handleRegister: ()=> {},
-    handleLogin: ()=> {}
+    handleLogin: ()=> {},
+    handleLogout: ()=> {}
 });
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -55,9 +57,10 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     useEffect(()=>{
         return pb.authStore.onChange((token, model)=>{
             setToken(token);
-            console.log('model',model)
+            setModel(model)
+
         })
-    })
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -107,17 +110,22 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     }
 
     const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault()
+        event.preventDefault();
 
         const {username, password} = userInfo;
         signIn(username,password);
+    }
+
+    const handleLogout = (): void =>{
+        
+        pb.authStore.clear();
     }
     
 
     return (
         <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin,
         isRegister, setIsRegister,
-        handleChange, handleRegister, handleLogin}}>
+        handleChange, handleRegister, handleLogin, handleLogout}}>
             {children}
         </UserContext.Provider>
     )
