@@ -2,9 +2,11 @@
 
 import {AiOutlineCalendar, AiOutlineLogout} from 'react-icons/ai';
 import {TiDocumentAdd} from 'react-icons/ti';
+import { useUserContext } from '@/context/userContext';
 
 const NavBar = ()=>{
 
+    const {handleLogout} = useUserContext();
     const handleClick = ()=> console.log("click")
 
     return (
@@ -17,7 +19,7 @@ const NavBar = ()=>{
             onClick={handleClick}
             className='flex flex-col items-center'><TiDocumentAdd id="newEntry" className='text-3xl'/> New</button>
             <button
-            onClick={handleClick}
+            onClick={handleLogout}
             className='flex flex-col items-center'>< AiOutlineLogout id="logout" className='text-3xl'/>Log out</button>
         </nav>
     )
