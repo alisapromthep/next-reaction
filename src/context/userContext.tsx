@@ -1,7 +1,8 @@
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
 import type { AuthProviderInfo } from 'pocketbase';
-import { useRouter } from 'next/router';
+import { useRouter} from 'next/router';
+import {redirect} from 'next/navigation';
 
 interface UserInfoType {
     id: string;
@@ -73,25 +74,27 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     //register user 
 
-    async function signUp(username: string,password: string, passwordConfirm: string) {
-        try {
-            const result = await pb.collection('users').create({
-                username,
-                password,
-                passwordConfirm
-            }
-            )
-            return result;
-        } catch (err){
-            console.log(err)
-        }
-    }
-
     const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
         event.preventDefault()
         const {username, password, passwordConfirm} = userInfo;
-        console.log(username,password)
-        console.log(signUp(username,password,passwordConfirm));
+
+        const register = pb.collection('users').create({
+            username,
+            password,
+            passwordConfirm
+        }
+        )
+        register.then((res)=>{
+            console.log(res,'result from register')
+
+            let login = signIn(username,password);
+            login.then(res => {
+                console.log(res);
+                redirect(`profile/${username}`)
+            })
+        })
+        .catch(err => console.log(err,'error occured'))
+
     }
 
     async function signIn (username:string, password: string){
