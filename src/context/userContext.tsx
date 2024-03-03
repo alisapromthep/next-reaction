@@ -4,6 +4,7 @@ import type { AuthProviderInfo } from 'pocketbase';
 import { useRouter} from 'next/router';
 import {redirect} from 'next/navigation';
 
+
 interface UserInfoType {
     id: string;
     username: string;
@@ -84,16 +85,19 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             passwordConfirm
         }
         )
+
         register.then((res)=>{
             console.log(res,'result from register')
 
             let login = signIn(username,password);
             login.then(res => {
                 console.log(res);
-                redirect(`profile/${username}`)
+                setIsLogin(true)
             })
         })
-        .catch(err => console.log(err,'error occured'))
+        .catch(err => {
+            console.log(err,'error occured')
+        })
 
     }
 

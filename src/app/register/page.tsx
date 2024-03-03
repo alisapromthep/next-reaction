@@ -6,17 +6,24 @@ import Button from '../../components/Buttons/Button';
 import {useUserContext} from '../../context/userContext';
 import Image from 'next/image';
 import boyImg from '../../../public/images/watermelonboy.png';
+import { useRouter } from 'next/navigation';
 
 
 const RegisterPage: React.FC = ()=>{
 
-    const {userInfo, handleChange, handleRegister} = useUserContext();
+    const router = useRouter();
+
+    const {isLogin, userInfo, handleChange, handleRegister} = useUserContext();
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>): void =>{
         event.preventDefault()
 
         console.log(userInfo)
 
+    }
+
+    if(isLogin){
+        router.push(`profile/${userInfo.username}`)
     }
 
 
