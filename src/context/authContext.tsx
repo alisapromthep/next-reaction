@@ -13,7 +13,7 @@ interface modelType {
     [key: string]: string;
 }
 
-interface UserContextType {
+interface AuthContextType {
     token: string;
     currentUser: modelType;
     userInfo: UserInfoType;
@@ -36,7 +36,7 @@ const userInfoInitial:UserInfoType = {
     email: "",
 }
 
-export const UserContext = createContext<UserContextType>({
+export const AuthContext = createContext<AuthContextType>({
     token: "",
     currentUser: {},
     userInfo: userInfoInitial,
@@ -51,7 +51,7 @@ export const UserContext = createContext<UserContextType>({
     handleLogout: ()=> {}
 });
 
-export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
     const [token, setToken] = useState<string>(pb.authStore.token);
     const [currentUser, setCurrentUser] = useState(pb.authStore.model);
@@ -137,16 +137,16 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     
 
     return (
-        <UserContext.Provider value={{token, currentUser, userInfo, setUserInfo, isLogin, setIsLogin,
+        <AuthContext.Provider value={{token, currentUser, userInfo, setUserInfo, isLogin, setIsLogin,
         isRegister, setIsRegister,
         handleChange, handleRegister, handleLogin, handleLogout}}>
             {children}
-        </UserContext.Provider>
+        </AuthContext.Provider>
     )
 
 }
 
-export function useUserContext() {
-    return useContext(UserContext);
+export function useAuthContext() {
+    return useContext(AuthContext);
 }
 

@@ -4,7 +4,7 @@ import React from 'react';
 import Input from '../../components/Forms/Input'; 
 import Image from 'next/image';
 import boyImg from '../../../public/images/watermelonboy.png';
-import {useUserContext} from '../../context/userContext';
+import {useAuthContext} from '../../context/authContext';
 import Button from '../../components/Buttons/Button';
 import { useRouter } from 'next/navigation';
 
@@ -12,7 +12,7 @@ const LoginPage = ()=>{
 
     const router = useRouter();
 
-    const {currentUser, isLogin, handleChange, handleLogin} = useUserContext();
+    const {currentUser, isLogin, handleChange, handleLogin} = useAuthContext();
 
     if(isLogin){
         router.push(`profile/${currentUser.username}`)
