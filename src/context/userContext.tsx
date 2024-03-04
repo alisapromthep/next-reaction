@@ -6,15 +6,16 @@ import {redirect} from 'next/navigation';
 
 
 interface UserInfoType {
-    id: string;
-    username: string;
-    password: string;
-    passwordConfirm: string;
-    email: string;
+    [key: string]: string;
+}
+
+interface modelType {
     [key: string]: string;
 }
 
 interface UserContextType {
+    token: string;
+    currentUser: modelType;
     userInfo: UserInfoType;
     setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
     isLogin: Boolean;
@@ -36,6 +37,8 @@ const userInfoInitial:UserInfoType = {
 }
 
 export const UserContext = createContext<UserContextType>({
+    token: "",
+    currentUser: {},
     userInfo: userInfoInitial,
     setUserInfo: ()=>{},
     isLogin: false,
@@ -50,8 +53,8 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
-    const [token, setToken] = useState(pb.authStore.token);
-    const [model, setModel] = useState(pb.authStore.model);
+    const [token, setToken] = useState<string>(pb.authStore.token);
+    const [currentUser, setCurrentUser] = useState(pb.authStore.model);
     const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial)
     const [isLogin, setIsLogin] = useState<Boolean>(false)
     const [isRegister, setIsRegister] = useState<Boolean>(false)
@@ -59,8 +62,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     useEffect(()=>{
         return pb.authStore.onChange((token, model)=>{
             setToken(token);
-            setModel(model)
-
+            setCurrentUser(model)
         })
     }, [])
 
@@ -70,8 +72,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             ...prevUserInfo,
             [name]: value,
         }));
+        
     };
-    
 
     //register user 
 
@@ -92,7 +94,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             let login = signIn(username,password);
             login.then(res => {
                 console.log(res);
-                setIsLogin(true)
+                
             })
         })
         .catch(err => {
@@ -110,6 +112,10 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
             console.log('result',result) 
             //result has token
+            sessionStorage.setItem('token', pb.authStore.token);
+            setIsLogin(true)
+            console.log(pb.authStore.model)
+
 
         }catch(err){
             console.log(err)
@@ -131,7 +137,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     
 
     return (
-        <UserContext.Provider value={{userInfo, setUserInfo, isLogin, setIsLogin,
+        <UserContext.Provider value={{token, currentUser, userInfo, setUserInfo, isLogin, setIsLogin,
         isRegister, setIsRegister,
         handleChange, handleRegister, handleLogin, handleLogout}}>
             {children}
