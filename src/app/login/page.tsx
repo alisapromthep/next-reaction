@@ -6,11 +6,17 @@ import Image from 'next/image';
 import boyImg from '../../../public/images/watermelonboy.png';
 import {useUserContext} from '../../context/userContext';
 import Button from '../../components/Buttons/Button';
-
+import { useRouter } from 'next/navigation';
 
 const LoginPage = ()=>{
 
-    const {userInfo, handleChange, handleLogin} = useUserContext();
+    const router = useRouter();
+
+    const {currentUser, isLogin, handleChange, handleLogin} = useUserContext();
+
+    if(isLogin){
+        router.push(`profile/${currentUser.username}`)
+    }
 
     return(
         <div className="font-NunitoSans flex flex-col bg-green-light">

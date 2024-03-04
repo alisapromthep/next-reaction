@@ -13,17 +13,10 @@ const RegisterPage: React.FC = ()=>{
 
     const router = useRouter();
 
-    const {isLogin, userInfo, handleChange, handleRegister} = useUserContext();
-
-    const handleSubmit = (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault()
-
-        console.log(userInfo)
-
-    }
+    const {isLogin, currentUser, handleChange, handleRegister} = useUserContext();
 
     if(isLogin){
-        router.push(`profile/${userInfo.username}`)
+        router.push(`profile/${currentUser.username}`)
     }
 
 

@@ -7,7 +7,6 @@ import NavBar from "@/components/NavBar/NavBar";
 export default function Home() {
   return (
     <main className= "bg-white flex flex-col font-NunitoSans">
-      <NavBar/>
       <div className="bg-transparent">
         <Image
         src={heroImg}
