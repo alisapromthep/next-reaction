@@ -3,7 +3,7 @@
 import React, {FormEvent} from 'react';
 import Input from '../../components/Forms/Input'; 
 import Button from '../../components/Buttons/Button';
-import {useUserContext} from '../../context/userContext';
+import {useAuthContext} from '../../context/authContext';
 import Image from 'next/image';
 import boyImg from '../../../public/images/watermelonboy.png';
 import { useRouter } from 'next/navigation';
@@ -13,7 +13,7 @@ const RegisterPage: React.FC = ()=>{
 
     const router = useRouter();
 
-    const {isLogin, currentUser, handleChange, handleRegister} = useUserContext();
+    const {isLogin, currentUser, handleChange, handleRegister} = useAuthContext();
 
     if(isLogin){
         router.push(`profile/${currentUser.username}`)

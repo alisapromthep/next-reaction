@@ -2,11 +2,11 @@
 
 import {AiOutlineCalendar, AiOutlineLogout} from 'react-icons/ai';
 import {TiDocumentAdd} from 'react-icons/ti';
-import { useUserContext } from '@/context/userContext';
+import { useAuthContext } from '@/context/authContext';
 
 const NavBar = ()=>{
 
-    const {handleLogout} = useUserContext();
+    const {handleLogout} = useAuthContext();
     const handleClick = ()=> console.log("click")
 
     return (
