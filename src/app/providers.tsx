@@ -2,6 +2,8 @@
 
 import {ReactNode} from 'react';
 import { AuthProvider } from "@/context/authContext";
+import { UserProvider } from '@/context/userContext';
+import { IconProvider } from '@/context/iconContext';
 
 interface ProvidersProps {
     children: ReactNode;
@@ -10,7 +12,11 @@ interface ProvidersProps {
 export function Providers({children}: ProvidersProps){
     return (
         <AuthProvider>
-            {children}
+            <UserProvider>
+                <IconProvider>
+                    {children}
+                </IconProvider>
+            </UserProvider>
         </AuthProvider>
     )
 }
