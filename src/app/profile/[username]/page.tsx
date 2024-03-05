@@ -13,10 +13,12 @@ function profilePage() {
     const router = useRouter();
 
     const {isLogin} = useAuthContext();
+    const loginToken = sessionStorage.getItem('token');
 
-    if(!isLogin){
-        router.push('/')
+    if(!isLogin || !loginToken){
+        router.push('/login')
     }
+
 
     return (
         <div>
