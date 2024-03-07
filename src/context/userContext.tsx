@@ -12,10 +12,12 @@ interface userLogsType {
 
 interface UserContextType {
     userLogs: userLogsType[];
+    getUserLogs: ()=> void;
 }
 
 export const UserContext = createContext<UserContextType>({
-    userLogs: []
+    userLogs: [],
+    getUserLogs: ()=>{}
 })
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -25,20 +27,25 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     //fetch userLogs Data from pocketbase database
     //fetch according to user_id 
 
-    // const header = {
-    //     headers:{
-    //         Authorization: `Bearer ${}`
-    //     }
-    // }
 
     const getUserLogs = ()=>{
-        const logResult = pb.collection('entries').getList()
-    }
+        const logResult = pb.collection('entries').getList(1,50, {
+            filter: `user_id = "${pb.authStore.model?.id}"`,
+            headers: {
+                'token': `${sessionStorage.getItem('token')}`
+            }
+        })
+
+        logResult.then((res)=>{
+            console.log(res)})
+        .catch((err)=> console.log(err))
+
+    };
 
 
 
     return(
-        <UserContext.Provider value={({userLogs})}>
+        <UserContext.Provider value={({userLogs, getUserLogs})}>
             {children}
         </UserContext.Provider>
     )
