@@ -22,11 +22,10 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
-    const [userLogs, setUserLog] = useState([]);
+    const [userLogs, setUserLog] = useState<userLogsType[]>([]);
 
     //fetch userLogs Data from pocketbase database
     //fetch according to user_id 
-
 
     const getUserLogs = ()=>{
         const logResult = pb.collection('entries').getList(1,50, {
@@ -37,11 +36,19 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         })
 
         logResult.then((res)=>{
-            console.log(res)})
+        const allLogs = res.items.map((item:any)=> ({
+            user_id: item.user_id,
+            time_of_day: item.time_of_day,
+            food: item.food,
+            symptom: item.symptom,
+            notes: item.notes
+        }))
+            
+            setUserLog(allLogs)
+    })
         .catch((err)=> console.log(err))
 
     };
-
 
 
     return(
