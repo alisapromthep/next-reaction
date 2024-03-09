@@ -5,6 +5,7 @@ import { useRouter} from 'next/router';
 import {redirect} from 'next/navigation';
 
 
+
 interface UserInfoType {
     [key: string]: string;
 }
@@ -113,9 +114,9 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             console.log('result',result) 
             //result has token
             sessionStorage.setItem('token', pb.authStore.token);
+            document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             setIsLogin(true)
             console.log(pb.authStore.model)
-
 
         }catch(err){
             console.log(err)
@@ -132,7 +133,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const handleLogout = (): void =>{
         pb.authStore.clear();
         setIsLogin(false);
-        console.log('logout')
     }
     
 

@@ -15,11 +15,6 @@ const RegisterPage: React.FC = ()=>{
 
     const {isLogin, currentUser, handleChange, handleRegister} = useAuthContext();
 
-    if(isLogin){
-        router.push(`profile/${currentUser.username}`)
-    }
-
-
     return(
         <div className='font-NunitoSans flex flex-col bg-green-light'>
             <div className="self-end pr-16">

@@ -13,18 +13,16 @@ import { useUserContext } from '@/context/userContext';
 function profilePage() {
 
     const router = useRouter();
-    const {getUserLogs} = useUserContext();
+    const {userLogs, getUserLogs} = useUserContext();
 
     const {isLogin} = useAuthContext();
-    const loginToken = sessionStorage.getItem('token');
+    //need to change sessions to cookie
+
 
     useEffect(()=>{
-        getUserLogs();
+            getUserLogs();
     },[])
-
-    if(!isLogin || !loginToken){
-        router.push('/login')
-    }
+    
 
 
     return (
