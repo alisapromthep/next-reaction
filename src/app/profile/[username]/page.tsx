@@ -15,9 +15,6 @@ function profilePage() {
     const router = useRouter();
     const {userLogs, getUserLogs} = useUserContext();
 
-    const {isLogin} = useAuthContext();
-    //need to change sessions to cookie
-
 
     useEffect(()=>{
             getUserLogs();

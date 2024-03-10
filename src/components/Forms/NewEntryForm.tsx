@@ -4,6 +4,7 @@ import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
+import {convertDate, convertTime} from "../../utility/dateAndTime";
 
 const NewEntryForm = ()=>{
 
