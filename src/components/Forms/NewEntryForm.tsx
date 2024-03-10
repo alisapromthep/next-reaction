@@ -4,7 +4,7 @@ import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
-import {convertDate, convertTime} from "../../utility/dateAndTime";
+import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 
 const NewEntryForm = ()=>{
 
@@ -18,7 +18,7 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='date'
-                value=""
+                value={getTodaysDate()}
                 name='date'
                 />
             </label>
@@ -28,7 +28,7 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='time'
-                value=""
+                value={getTimeNow()}
                 name='time'
                 />
             </label>
