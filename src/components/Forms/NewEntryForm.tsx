@@ -9,16 +9,30 @@ import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 
 const NewEntryForm = ()=>{
 
-    const newEntry = {
+    interface formInfo {
+        [key: string]: string;
+    }
+
+    const initialForm = {
         date: "",
         time: "",
-        selectedSymptoms: [],
-        selectedFoods: [],
         notes: ""
     }
 
     const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
     const [selectFoods, setSelectFoods] = useState<string[]>([]);
+    const [formInfo, setFormInfo] = useState<formInfo>(initialForm)
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        const { name, value } = event.target;
+        setFormInfo(prev => (
+            {
+                ...prev,
+                [name]: value
+            }
+        ));
+
+    }
 
     const handleSymptoms = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const check = event.target.checked;
@@ -70,6 +84,7 @@ const NewEntryForm = ()=>{
                 type='date'
                 value={getTodaysDate()}
                 name='date'
+                onChange={handleChange}
                 />
             </label>
             <label className="capitalize flex flex-col">
@@ -80,6 +95,7 @@ const NewEntryForm = ()=>{
                 type='time'
                 value={getTimeNow()}
                 name='time'
+                onChange={handleChange}
                 />
             </label>
 
@@ -132,6 +148,14 @@ const NewEntryForm = ()=>{
                     })
                 }
             </fieldset>
+            <label className="capitalize flex flex-col">
+                notes, additional info
+                <input
+                type="text"
+                name="notes"
+                onChange={handleChange}
+                />
+            </label>
             <Button
             text="Noted"
             buttonType="submit"
