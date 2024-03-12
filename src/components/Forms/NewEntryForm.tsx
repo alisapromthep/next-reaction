@@ -14,8 +14,8 @@ const NewEntryForm = ()=>{
     }
 
     const initialForm = {
-        date: "",
-        time: "",
+        date: getTodaysDate(),
+        time: getTimeNow(),
         notes: ""
     }
 
@@ -64,9 +64,9 @@ const NewEntryForm = ()=>{
 
     const handleSummit = (event) =>{
         event.preventDefault();
-
         console.log(selectSymptoms)
         console.log(selectFoods)
+        console.log(formInfo)
     }
 
 
@@ -82,7 +82,7 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='date'
-                value={getTodaysDate()}
+                value={initialForm.date}
                 name='date'
                 onChange={handleChange}
                 />
@@ -93,7 +93,7 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='time'
-                value={getTimeNow()}
+                value={initialForm.time}
                 name='time'
                 onChange={handleChange}
                 />
