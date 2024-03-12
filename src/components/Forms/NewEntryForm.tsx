@@ -29,8 +29,21 @@ const NewEntryForm = ()=>{
             setSelectSymptoms((prev)=> [...prev, selected])
         } else{
             setSelectSymptoms((prev)=> {
-                let newArr = prev.filter((name)=> name !== selected)
-                return [...newArr]
+                return prev.filter((name)=> name !== selected)
+            })
+        }
+    }
+
+    const handleFoods = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        const check = event.target.checked;
+        const selected = event.target.value;
+
+        //check if the checked is true or false, to avoid double when uncheck
+        if(check){
+            setSelectFoods((prev)=> [...prev, selected])
+        } else{
+            setSelectFoods((prev)=> {
+                return prev.filter((name)=> name !== selected)
             })
         }
     }
@@ -39,6 +52,7 @@ const NewEntryForm = ()=>{
         event.preventDefault();
 
         console.log(selectSymptoms)
+        console.log(selectFoods)
     }
 
 
@@ -111,6 +125,7 @@ const NewEntryForm = ()=>{
                                 <input
                                 type="checkbox"
                                 value={food.name}
+                                onChange={handleFoods}
                                 />
                             </label>
                         )
