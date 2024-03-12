@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react";
 import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
@@ -8,9 +9,44 @@ import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 
 const NewEntryForm = ()=>{
 
+    const newEntry = {
+        date: "",
+        time: "",
+        selectedSymptoms: [],
+        selectedFoods: [],
+        notes: ""
+    }
+
+    const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
+    const [selectFoods, setSelectFoods] = useState<string[]>([]);
+
+    const handleSymptoms = (event: React.ChangeEvent<HTMLInputElement>) =>{
+        const check = event.target.checked;
+        const selected = event.target.value;
+
+        //check if the checked is true or false, to avoid double when uncheck
+        if(check){
+            setSelectSymptoms((prev)=> [...prev, selected])
+        } else{
+            setSelectSymptoms((prev)=> {
+                let newArr = prev.filter((name)=> name !== selected)
+                return [...newArr]
+            })
+        }
+    }
+
+    const handleSummit = (event) =>{
+        event.preventDefault();
+
+        console.log(selectSymptoms)
+    }
+
+
+
     return (
         <form
         className="bg-gray"
+        onSubmit={handleSummit}
         >
             <label className="capitalize flex flex-col">
                 date
@@ -52,6 +88,7 @@ const NewEntryForm = ()=>{
                                 <input
                                 type="checkbox"
                                 value={symptom.name}
+                                onChange={handleSymptoms}
                                 />
                             </label>
                         )
