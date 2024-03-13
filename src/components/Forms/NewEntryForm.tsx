@@ -7,6 +7,7 @@ import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 import { addNewEntry } from "@/utility/formFunction";
+import { get } from "http";
 
 
 const NewEntryForm = ()=>{
@@ -15,26 +16,19 @@ const NewEntryForm = ()=>{
         [key: string]: string;
     }
 
-    const initialForm = {
-        date: getTodaysDate(),
-        time: getTimeNow(),
-        notes: ""
-    }
-
     const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
     const [selectFoods, setSelectFoods] = useState<string[]>([]);
-    const [formInfo, setFormInfo] = useState<formInfo>(initialForm)
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        const { name, value } = event.target;
-        setFormInfo(prev => (
-            {
-                ...prev,
-                [name]: value
-            }
-        ));
+    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    //     const { name, value } = event.target;
+    //     setFormInfo(prev => (
+    //         {
+    //             ...prev,
+    //             [name]: value
+    //         }
+    //     ));
 
-    }
+    // }
 
     const handleSymptoms = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const check = event.target.checked;
@@ -66,28 +60,20 @@ const NewEntryForm = ()=>{
 
     const handleSummit = (event) =>{
         event.preventDefault();
-        console.log(selectSymptoms)
-        console.log(selectFoods)
-        console.log(formInfo)
+        // console.log(selectSymptoms)
+        // console.log(selectFoods)
 
-
-        const newEntry = {
-            "user_id": pb.authStore.model.id,
-            "time_of_day": `${formInfo.date} ${formInfo.time}`,
-            "food":selectFoods.join(","),
-            "symptom":selectSymptoms.join(","),
-            "notes": formInfo.notes
-        }
 
 
     }
 
+    const addNewEntryWithInfo = addNewEntry.bind(selectSymptoms)
 
 
     return (
         <form
         className="bg-gray"
-        action={addNewEntry}
+        action={addNewEntryWithInfo}
         >
             <label className="capitalize flex flex-col">
                 date
@@ -95,9 +81,8 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='date'
-                value={initialForm.date}
+                value={getTodaysDate()}
                 name='date'
-                onChange={handleChange}
                 />
             </label>
             <label className="capitalize flex flex-col">
@@ -106,9 +91,8 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='time'
-                value={initialForm.time}
+                value={getTimeNow()}
                 name='time'
-                onChange={handleChange}
                 />
             </label>
 
@@ -166,7 +150,6 @@ const NewEntryForm = ()=>{
                 <input
                 type="text"
                 name="notes"
-                onChange={handleChange}
                 />
             </label>
             <Button

@@ -108,9 +108,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                 password
             )
 
-            console.log('result',result) 
             //result has token
-            sessionStorage.setItem('token', pb.authStore.token);
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             console.log(pb.authStore.model)
 
