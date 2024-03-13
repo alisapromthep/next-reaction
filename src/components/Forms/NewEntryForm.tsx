@@ -6,6 +6,8 @@ import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
+import { addNewEntry } from "@/utility/formFunction";
+
 
 const NewEntryForm = ()=>{
 
@@ -67,6 +69,17 @@ const NewEntryForm = ()=>{
         console.log(selectSymptoms)
         console.log(selectFoods)
         console.log(formInfo)
+
+
+        const newEntry = {
+            "user_id": pb.authStore.model.id,
+            "time_of_day": `${formInfo.date} ${formInfo.time}`,
+            "food":selectFoods.join(","),
+            "symptom":selectSymptoms.join(","),
+            "notes": formInfo.notes
+        }
+
+
     }
 
 
@@ -74,7 +87,7 @@ const NewEntryForm = ()=>{
     return (
         <form
         className="bg-gray"
-        onSubmit={handleSummit}
+        action={addNewEntry}
         >
             <label className="capitalize flex flex-col">
                 date
