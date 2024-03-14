@@ -33,6 +33,20 @@ const config: Config = {
         orange:{
           DEFAULT:'#E27167'
         },
+      },
+      keyframes:{
+        slideLeft:{
+          '0%':{
+            transform: 'translateX(0)'
+          },
+          '100%':{
+            transform: 'translateX(-100px)'
+          }
+        }
+      },
+      animation:{
+        'slide-left':'slideLeft 1s cubic-bezier(.25,.46,.45,.94)',
+        'slide-right':'slideLeft 1s cubic-bezier(.25,.46,.45,.94) reverse',
       }
     },
   },
