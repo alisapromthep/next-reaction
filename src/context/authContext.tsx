@@ -18,6 +18,7 @@ interface AuthContextType {
     token: string;
     currentUser: modelType;
     userInfo: UserInfoType;
+    isLogin: Boolean;
     setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
     setIsLogin:React.Dispatch<SetStateAction<Boolean>>;
     isRegister: Boolean;
@@ -40,6 +41,7 @@ export const AuthContext = createContext<AuthContextType>({
     token: "",
     currentUser: {},
     userInfo: userInfoInitial,
+    isLogin: false,
     setUserInfo: ()=>{},
     setIsLogin: ()=>{},
     isRegister: false, 
@@ -54,8 +56,9 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     const [token, setToken] = useState<string>(pb.authStore.token);
     const [currentUser, setCurrentUser] = useState(pb.authStore.model);
-    const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial)
-    const [isRegister, setIsRegister] = useState<Boolean>(false)
+    const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial);
+    const [isRegister, setIsRegister] = useState<Boolean>(false);
+    const [isLogin, setIsLogin] = useState<Boolean>(false);
 
     useEffect(()=>{
         return pb.authStore.onChange((token, model)=>{
@@ -108,6 +111,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                 password
             )
 
+
             //result has token
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             console.log(pb.authStore.model)
@@ -130,7 +134,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     
 
     return (
-        <AuthContext.Provider value={{token, currentUser, userInfo, setUserInfo,
+        <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
         isRegister, setIsRegister,
         handleChange, handleRegister, handleLogin, handleLogout}}>
             {children}
