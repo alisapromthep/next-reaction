@@ -1,5 +1,4 @@
 import Input from '../../components/Forms/Input'; 
-import Image from 'next/image';
 import {useAuthContext} from '../../context/authContext';
 import Button from '../../components/Buttons/Button';
 import { useRouter } from 'next/navigation';
