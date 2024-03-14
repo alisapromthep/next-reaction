@@ -114,6 +114,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
             //result has token
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
+            setIsLogin(true)
             console.log(pb.authStore.model)
 
         }catch(err){
@@ -130,6 +131,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     const handleLogout = (): void =>{
         pb.authStore.clear();
+        
     }
     
 
