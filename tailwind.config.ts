@@ -40,17 +40,27 @@ const config: Config = {
             transform: 'translateX(0)'
           },
           '100%':{
-            transform: 'translateX(-100px)'
+            transform: 'translateX(-100%)'
+          }
+        },
+        slideRight:{
+          '0%':{
+            transform: 'translateX(0)'
+          },
+          '100%':{
+            transform: 'translateX(100%)'
           }
         }
       },
       animation:{
-        'slide-left':'slideLeft 1s cubic-bezier(.25,.46,.45,.94)',
-        'slide-right':'slideLeft 1s cubic-bezier(.25,.46,.45,.94) reverse',
+        'slide-left':'slideLeft 0.5s cubic-bezier(.25,.46,.45,.94)',
+        'slide-right':'slideRight 0.5s cubic-bezier(.25,.46,.45,.94)',
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwindcss-animate")
+  ],
   corePlugins:{
     fontFamily: true,
   }
