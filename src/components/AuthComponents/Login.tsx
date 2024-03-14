@@ -15,7 +15,10 @@ const Login = ()=>{
 
     return(
         <div className="font-NunitoSans flex flex-col bg-green-light">
-            <form onSubmit={handleLogin}>
+            <h1>Login</h1>
+            <form onSubmit={handleLogin}
+            className='flex flex-col justify-center'
+            >
                 <Input
                 labelName='username'
                 label='username'
