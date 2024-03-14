@@ -19,7 +19,7 @@ const Input = ({labelName, label, inputName, placeholder, inputType, onChange}: 
             <input
             name={inputName}
             type={inputType}
-            className='border-b border-green placeholder:font-light py-2'
+            className=' bg-green-light border-b border-green placeholder:font-light py-2'
             placeholder={placeholder}
             onChange={onChange}
             />
