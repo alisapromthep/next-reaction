@@ -8,7 +8,9 @@ const Register: React.FC = ()=>{
     return(
         <div className='font-NunitoSans flex flex-col bg-green-light'>
             <h1 className="text-4xl text-green-dark py-8">Register</h1>
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister}
+            className='flex flex-col justify-center'
+            >
                 <Input
                 labelName='username'
                 label='username'
