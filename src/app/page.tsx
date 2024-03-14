@@ -42,15 +42,17 @@ export default function Home() {
         <p>Made with ♡ by <a href="https://alisapromthep.dev/" target="_blank">Alisa</a> </p>
       </div>
       <div className="w-full bg-green-light flex flex-col items-center justify-center rounded-l-3xl">
-        <div className="mt-5">
+        <div className="mt-5 h-3/6 flex items-center">
           {
           login ? (<Login />):(<Register/>)
           }
         </div>
         <div className="relative mt-5 rounded-xl border-1 border-white bg-white bg-opacity-50">
-          <div className="w-3/6 h-full absolute top-0 end-0 bg-white rounded-xl"></div>
-          <button onClick={()=> setLogin(true)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Register</button>
-          <button onClick={()=> setLogin(false)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Login</button>
+          <div className={`w-3/6 h-full absolute top-0 end-0 bg-white rounded-xl
+          ${login ? "":"hover:animate-slide-left left-0"}
+          `}></div>
+          <button onClick={()=> setLogin(false)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Register</button>
+          <button onClick={()=> setLogin(true)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Login</button>
         </div>
       </div>
     </main>
