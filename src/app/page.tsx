@@ -17,7 +17,6 @@ export default function Home() {
 
   const [login, setLogin] = useState<boolean>(true);
 
-
   return (
     <main className= "h-screen bg-white flex font-NunitoSans">
       <div className="w-full bg-transparent flex flex-col items-center justify-center">
