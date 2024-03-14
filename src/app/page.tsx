@@ -27,7 +27,7 @@ export default function Home() {
         alt="illustration of three people with fruits"
         />
         <div className="flex flex-col items-center">
-          <h1 className="text-green-dark font-bold text-3xl">Welcome to Track Reaction</h1>
+          <h1 className="text-green-dark font-bold text-3xl text-center">Welcome to Track Reaction</h1>
           <h2 className="font-bold text-green">Navigate life with allergies</h2>
           <p>Keep track and manage your allergies and food intolerance, and enjoy eating!</p>
         </div>
@@ -42,12 +42,15 @@ export default function Home() {
         <p>Made with ♡ by <a href="https://alisapromthep.dev/" target="_blank">Alisa</a> </p>
       </div>
       <div className="w-full bg-green-light flex flex-col items-center justify-center rounded-l-3xl">
-        {
-        login ? (<Login />):(<Register/>)
-        }
-        <div className="py-4 rounded-xl border-1 border-white bg-white bg-opacity-50">
+        <div className="mt-5">
+          {
+          login ? (<Login />):(<Register/>)
+          }
+        </div>
+        <div className="mt-5 p-1 rounded-xl border-1 border-white bg-white bg-opacity-50">
+          <div className="p-4 bg-white rounded-xl"></div>
           <button onClick={()=> setLogin(true)} className="p-4 rounded-xl">Register</button>
-          <button onClick={()=> setLogin(false)} className="p-4 bg-white rounded-xl">Login</button>
+          <button onClick={()=> setLogin(false)} className="p-4 rounded-xl">Login</button>
         </div>
       </div>
     </main>
