@@ -48,7 +48,7 @@ export default function Home() {
           }
         </div>
         <div className="group relative mt-5 rounded-xl border-1 border-white bg-white bg-opacity-50">
-          <div className={`w-3/6 h-full absolute top-0 bg-white rounded-xl fill-mode-both
+          <div className={`w-3/6 h-full absolute top-0 bg-white rounded-xl fill-mode-forwards
           ${login ? "group-hover:animate-slide-left end-0":"group-hover:animate-slide-right left-0"}
           `}></div>
           <button onClick={()=> setLogin(false)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Register</button>
