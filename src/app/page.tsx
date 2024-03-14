@@ -47,10 +47,10 @@ export default function Home() {
           login ? (<Login />):(<Register/>)
           }
         </div>
-        <div className="mt-5 p-1 rounded-xl border-1 border-white bg-white bg-opacity-50">
-          <div className="p-4 bg-white rounded-xl"></div>
-          <button onClick={()=> setLogin(true)} className="p-4 rounded-xl">Register</button>
-          <button onClick={()=> setLogin(false)} className="p-4 rounded-xl">Login</button>
+        <div className="relative mt-5 rounded-xl border-1 border-white bg-white bg-opacity-50">
+          <div className="w-3/6 h-full absolute top-0 end-0 bg-white rounded-xl"></div>
+          <button onClick={()=> setLogin(true)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Register</button>
+          <button onClick={()=> setLogin(false)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Login</button>
         </div>
       </div>
     </main>
