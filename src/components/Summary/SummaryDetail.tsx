@@ -1,5 +1,6 @@
 import {RiDeleteBin5Line} from 'react-icons/ri';
-import { CldImage } from 'next-cloudinary';
+import { CldImage } from 'next-cloudinary'
+import foodIcons from '@/components/Forms/foodIcons.json';
 
 type propType = {
     [key: string]: string;
@@ -8,11 +9,13 @@ type propType = {
 interface summaryPropType {
     foodKey: string;
     foodLog: propType[];
-    foodIcon: propType[];
 }
 
-function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
+function SummaryDetail({foodKey, foodLog}:summaryPropType) {
 
+    let foodIcon = foodIcons.filter((icon)=> icon.name === foodKey);
+
+    const {name, img_file} = foodIcon[0];
 
     return (
         <article className='border border-white m-2 p-2'>
@@ -20,10 +23,10 @@ function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
                 <CldImage
                 width={20}
                 height={20}
-                src={foodIcon.img_file}
-                alt={foodIcon.name}
+                src={img_file}
+                alt={name}
                 />
-            <p className='capitalize font-bold'>{foodIcon.name}</p>
+            <p className='capitalize font-bold'>{name}</p>
             </div>
             <ul>
                 {foodLog.map((entry)=>{
