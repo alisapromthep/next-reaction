@@ -45,17 +45,19 @@ const NewEntryForm = ()=>{
     }
 
     const handleFoods = (event: React.ChangeEvent<HTMLInputElement>) =>{
-        const check = event.target.checked;
-        const selected = event.target.value;
 
-        //check if the checked is true or false, to avoid double when uncheck
-        if(check){
-            setSelectFoods((prev)=> [...prev, selected])
-        } else{
-            setSelectFoods((prev)=> {
-                return prev.filter((name)=> name !== selected)
-            })
-        }
+        console.log(event.target.value)
+        // const check = event.target.checked;
+        // const selected = event.target.value;
+
+        // //check if the checked is true or false, to avoid double when uncheck
+        // if(check){
+        //     setSelectFoods((prev)=> [...prev, selected])
+        // } else{
+        //     setSelectFoods((prev)=> {
+        //         return prev.filter((name)=> name !== selected)
+        //     })
+        // }
     }
 
     const handleSummit = (event) =>{
@@ -136,8 +138,9 @@ const NewEntryForm = ()=>{
                                 />
                                 {food.name}
                                 <input
-                                type="checkbox"
+                                type="radio"
                                 value={food.name}
+                                name="foodOption"
                                 onChange={handleFoods}
                                 />
                             </label>

@@ -35,7 +35,7 @@
         "user_id": "01_uuid",
         "date": "02/15/24",
         "time_of_day": "20:00",
-        "food": "apple",
+        "food": "fish",
         "symptom": "nausea",
         "note": "Had an apple as a snack in the evening. Experienced nausea afterwards. Developed a mild headache."
     },
@@ -75,7 +75,7 @@
         "user_id": "01_uuid",
         "date": "03/20/24",
         "time_of_day": "10:45",
-        "food": "lobster",
+        "food": "nuts",
         "symptom": "swollen-mouth",
         "note": ""
     },
