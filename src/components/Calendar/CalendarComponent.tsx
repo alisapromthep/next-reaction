@@ -18,7 +18,6 @@ function CalendarComponent(){
                     food={log.food}/> : null
                 })
             )
-
         }}
         />
 

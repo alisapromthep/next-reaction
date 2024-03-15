@@ -10,7 +10,7 @@ const NavBar = ()=>{
     const handleClick = ()=> console.log("click")
 
     return (
-        <nav className="py-2.5 fixed right-0 text-white bg-orange rounded-l-full flex justify-evenly w-1/2">
+        <nav className="py-2.5 fixed bottom-0 w-full md:right-0 text-white bg-orange md:rounded-l-full flex justify-evenly w-1/2">
             <button 
             onClick={handleClick}
             className='flex flex-col items-center'><AiOutlineCalendar id="calendar"

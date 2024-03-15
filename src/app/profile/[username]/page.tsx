@@ -14,6 +14,7 @@ function profilePage() {
 
     const router = useRouter();
     const {userLogs, getUserLogs} = useUserContext();
+    const {currentUser} = useAuthContext();
 
 
     useEffect(()=>{
@@ -23,12 +24,14 @@ function profilePage() {
 
 
     return (
-        <div>
-            <h1>Welcome Username</h1>
+        <div className='py-4'>
+            <h1 className='text-center'>Welcome {currentUser.username}</h1>
             <NavBar/>
-            <CalendarComponent/>
-            <SummarySection/>
-            <NewEntryForm/>
+            <div className='px-4'>
+                <CalendarComponent/>
+                <SummarySection/>
+                <NewEntryForm/>
+            </div>
         </div>
     )
 }

@@ -50,8 +50,8 @@ export default function Home() {
           }
         </div>
         <div className="group relative my-6 md:mb-0 rounded-xl border-1 border-white bg-white bg-opacity-50">
-          <div className={`w-3/6 h-full absolute top-0 bg-white rounded-xl fill-mode-forwards
-          ${login ? "group-hover:animate-slide-left end-0":"group-hover:animate-slide-right left-0"}
+          <div className={`w-3/6 h-full absolute top-0 bg-white rounded-xl
+          ${login ? "group-hover:animate-slide-left end-0 fill-mode-forwards":"group-hover:animate-slide-right left-0 fill-mode-forwards"}
           `}></div>
           <button onClick={()=> setLogin(false)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Register</button>
           <button onClick={()=> setLogin(true)} className="w-28 relative z-10 p-4 bg-transparent rounded-xl">Login</button>

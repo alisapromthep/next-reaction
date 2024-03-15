@@ -25,11 +25,9 @@ export async function middleware(request: NextRequest) {
         
         // Check if the current request is already targeting the profile route
         if (request.nextUrl.pathname !== profileUrl.pathname) {
-            console.log("is it here?")
             return NextResponse.redirect(profileUrl);
         }
     }
-    console.log("skipping the checking and redirecting?")
     return response;
 }
 
