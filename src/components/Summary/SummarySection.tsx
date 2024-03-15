@@ -33,7 +33,7 @@ function SummarySection(){
                 return <SummaryDetail
                 foodKey={foodKey}
                 foodLog={foodLog}
-                foodIcon={foodIcons}
+                foodIcon={foodIcon}
                 //handleDelete={handleDelete}
                 />
             })

@@ -9,13 +9,14 @@ type propType = {
 interface summaryPropType {
     foodKey: string;
     foodLog: propType[];
+    foodIcon: propType;
 }
 
-function SummaryDetail({foodKey, foodLog}:summaryPropType) {
+function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
 
-    let foodIcon = foodIcons.filter((icon)=> icon.name === foodKey);
+    // let foodIcon = foodIcons.find((icon)=> icon.name === foodKey);
 
-    const {name, img_file} = foodIcon[0];
+    // const {name, img_file} = foodIcon[0];
 
     return (
         <article className='border border-white m-2 p-2'>
@@ -23,10 +24,10 @@ function SummaryDetail({foodKey, foodLog}:summaryPropType) {
                 <CldImage
                 width={20}
                 height={20}
-                src={img_file}
-                alt={name}
+                src={foodIcon.img_file}
+                alt={foodIcon.name}
                 />
-            <p className='capitalize font-bold'>{name}</p>
+            <p className='capitalize font-bold'>{foodIcon.name}</p>
             </div>
             <ul>
                 {foodLog.map((entry)=>{
