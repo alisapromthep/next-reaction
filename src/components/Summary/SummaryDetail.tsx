@@ -1,52 +1,46 @@
 import {RiDeleteBin5Line} from 'react-icons/ri';
 import { CldImage } from 'next-cloudinary';
 
-type foodIconType = {
-    name: string;
-    img_file: string;
-}
-
-type foodLogType = {
-    date: string;
-    symptom: string;
-    notes: string;
+type propType = {
+    [key: string]: string;
 }
 
 interface summaryPropType {
     foodKey: string;
-    foodLog: foodLogType[];
-    foodIcon: foodIconType;
+    foodLog: propType[];
+    foodIcon: propType[];
 }
 
 function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
 
+
     return (
-        <article className='summary'>
-            <div className='summary__img-container'>
+        <article className='border border-white m-2 p-2'>
+            <div className=''>
                 <CldImage
                 width={20}
                 height={20}
                 src={foodIcon.img_file}
                 alt={foodIcon.name}
                 />
-            <p className='summary__img-name'>{foodIcon.name}</p>
+            <p className='capitalize font-bold'>{foodIcon.name}</p>
             </div>
-            <ul className='summary__list'>
+            <ul>
                 {foodLog.map((entry)=>{
                     const timestamp = Date.parse(entry.date);
                     let inputDate = new Date(timestamp);
                     return (
                         <li 
-                        className='summary__detail'
+                        className=''
                         >
-                            <p className='summary__text'>
-                            <span className='summary__detail--bold'>{inputDate.toLocaleDateString()}</span>: {entry.symptom}</p>
-                            <p className={`${entry.notes ? '': 'summary__detail--noinfo'}`}><span className='summary__detail--bold'>Note</span> {entry.notes}
+                            <p className=''>
+                            <span className='font-bold'>{inputDate.toLocaleDateString()}</span>: {entry.symptom}</p>
+                            <p className={`${entry.notes ? '': 'hidden'}`}><span className='font-bold capitalize'>note</span> {entry.notes}
                             </p>
-                            <button className='summary__delete'
+                            <button
                             onClick={()=>{}}
                             >
-                                <RiDeleteBin5Line id='' className='summary__delete-img'/>
+                                <RiDeleteBin5Line id='' className=''/>
                             </button>
                         </li>
                     )

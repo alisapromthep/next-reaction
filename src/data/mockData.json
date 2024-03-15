@@ -1,22 +1,103 @@
 [
     {
-    "id": 1,
-    "login_id": 1,
-    "user_id": "01_uuid",
-    "date": "02/02/24",
-    "time_of_day": "16:00",
-    "food": "nuts",
-    "symptom": "hives"
+        "id": 1,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "01/05/24",
+        "time_of_day": "08:30",
+        "food": "fish",
+        "symptom": "swollen-mouth",
+        "note": ""
     },
-
     {
-    "id": 2,
-    "login_id": 2,
-    "user_id": "02_uuid",
-    "date": "02/10/24",
-    "time_of_day": "13:00",
-    "food": "milk",
-    "symptom": "stomach cramp",
-    "notes": "milk in coffee, had cramps a couple of hours later"
+        "id": 2,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "01/10/24",
+        "time_of_day": "12:00",
+        "food": "nuts",
+        "symptom": "itchy",
+        "note": "Ate nuts for lunch. Experienced itching immediately after consumption."
+    },
+    {
+        "id": 3,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "02/03/24",
+        "time_of_day": "09:45",
+        "food": "milk",
+        "symptom": "dizzy",
+        "note": "Drank a glass of milk in the morning. Felt dizzy afterwards. Experienced slight nausea."
+    },
+    {
+        "id": 4,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "02/15/24",
+        "time_of_day": "20:00",
+        "food": "apple",
+        "symptom": "nausea",
+        "note": "Had an apple as a snack in the evening. Experienced nausea afterwards. Developed a mild headache."
+    },
+    {
+        "id": 5,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/01/24",
+        "time_of_day": "14:30",
+        "food": "berries",
+        "symptom": "cramp",
+        "note": "Consumed mixed berries for dessert. Developed stomach cramps soon after. Also experienced itchy throat and sneezing."
+    },
+    {
+        "id": 6,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/10/24",
+        "time_of_day": "07:00",
+        "food": "boiled-egg",
+        "symptom": "hay-fever",
+        "note": ""
+    },
+    {
+        "id": 7,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/15/24",
+        "time_of_day": "18:15",
+        "food": "crab",
+        "symptom": "itchy",
+        "note": "Ate pasta for dinner. Started feeling itchy and developed hives on arms and legs. Experienced difficulty breathing."
+    },
+    {
+        "id": 8,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/20/24",
+        "time_of_day": "10:45",
+        "food": "lobster",
+        "symptom": "swollen-mouth",
+        "note": ""
+    },
+    {
+        "id": 9,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/20/24",
+        "time_of_day": "10:45",
+        "food": "mustard",
+        "symptom": "dizzy",
+        "note": "Had a sandwich with mustard for lunch. Experienced dizziness, followed by headache and blurred vision. Also felt nauseous."
+    },
+    {
+        "id": 10,
+        "login_id": 1,
+        "user_id": "01_uuid",
+        "date": "03/20/24",
+        "time_of_day": "10:45",
+        "food": "kiwi",
+        "symptom": "nausea",
+        "note": "Ate a kiwi fruit. Experienced nausea and stomach discomfort. Also developed itchy skin and watery eyes."
     }
 ]
+  

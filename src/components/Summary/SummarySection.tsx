@@ -24,7 +24,7 @@ function SummarySection(){
     return (
         <article>
             <Header headerText='Allergy log'/>
-            <div>
+            <div className='grid bg-green-light p-2 rounded-xl'>
             {
             groupLogArray.map((food)=>{
                 const foodKey = Object.keys(food).toString()
@@ -33,7 +33,7 @@ function SummarySection(){
                 return <SummaryDetail
                 foodKey={foodKey}
                 foodLog={foodLog}
-                foodIcon={foodIcon}
+                foodIcon={foodIcons}
                 //handleDelete={handleDelete}
                 />
             })
