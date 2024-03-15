@@ -74,7 +74,7 @@ const NewEntryForm = ()=>{
 
     return (
         <form
-        className="bg-gray"
+        className="bg-gray mb-20"
         action={addNewEntryWithInfo}
         >
             <label className="capitalize flex flex-col">
@@ -97,19 +97,18 @@ const NewEntryForm = ()=>{
                 name='time'
                 />
             </label>
-
-            <fieldset className="grid grid-cols-5 border-2 rounded-lg bg-white">
+            <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white">
                 <legend>What was the reaction?</legend>
                 {
                     symptomIcons.map((symptom,i)=>{
                         return (
                             <label
                             key={i}
-                            className="flex flex-col items-center w-24"
+                            className="text-sm flex flex-col items-center w-24"
                             >
                                 <CldImage
-                                    width={35}
-                                    height={35}
+                                    width={30}
+                                    height={30}
                                     src={symptom.img_file}
                                     alt={symptom.name}
                                 />
@@ -124,15 +123,15 @@ const NewEntryForm = ()=>{
                     })
                 }
             </fieldset>
-            <fieldset className="grid grid-cols-5 border-2 rounded-lg bg-white ">
+            <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white ">
                 <legend>What did you eat?</legend>
                 {
                     foodIcons.map((food,i)=>{
                         return (
-                            <label key={i} className="flex flex-col items-center w-24">
+                            <label key={i} className="text-sm flex flex-col items-center w-24">
                                 <CldImage
-                                width={35}
-                                height={35}
+                                width={30}
+                                height={30}
                                 src={food.img_file}
                                 alt={food.name}                                
                                 />
