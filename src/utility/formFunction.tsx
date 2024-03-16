@@ -6,9 +6,9 @@ import pb from "../../lib/pocketbase";
 //formData --> collects info for you
 // revalidatePath --> make it once database is updated it rerender the component
 
-export async function addNewEntry(selected: string[], formData: FormData){
+export async function addNewEntry(selected: string[],formData: FormData){
         console.log('formData',formData)
         console.log('selected',selected)
         //await pb.collection('entires').create(newEntry)
-    
+
 }
