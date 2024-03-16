@@ -17,7 +17,7 @@ const NewEntryForm = ()=>{
     }
 
     const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
-    const [selectFoods, setSelectFoods] = useState<string[]>([]);
+    const [selectFood, setSelectFood] = useState<string>("");
 
     // const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
     //     const { name, value } = event.target;
@@ -47,29 +47,10 @@ const NewEntryForm = ()=>{
     const handleFoods = (event: React.ChangeEvent<HTMLInputElement>) =>{
 
         console.log(event.target.value)
-        // const check = event.target.checked;
-        // const selected = event.target.value;
-
-        // //check if the checked is true or false, to avoid double when uncheck
-        // if(check){
-        //     setSelectFoods((prev)=> [...prev, selected])
-        // } else{
-        //     setSelectFoods((prev)=> {
-        //         return prev.filter((name)=> name !== selected)
-        //     })
-        // }
+        setSelectFood(event.target.value)
     }
 
-    const handleSummit = (event) =>{
-        event.preventDefault();
-        // console.log(selectSymptoms)
-        // console.log(selectFoods)
-
-
-
-    }
-
-    const addNewEntryWithInfo = addNewEntry.bind(selectSymptoms)
+    const addNewEntryWithInfo = addNewEntry.bind(FormData,selectSymptoms)
 
 
     return (
@@ -116,6 +97,7 @@ const NewEntryForm = ()=>{
                                 <input
                                 type="checkbox"
                                 value={symptom.name}
+                                name="symptoms"
                                 onChange={handleSymptoms}
                                 />
                             </label>
@@ -140,7 +122,6 @@ const NewEntryForm = ()=>{
                                 type="radio"
                                 value={food.name}
                                 name="foodOption"
-                                onChange={handleFoods}
                                 />
                             </label>
                         )
