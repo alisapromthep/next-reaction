@@ -8,6 +8,7 @@ import CalendarEvent from './CalendarEvent';
 function CalendarComponent(){
     return (
         <Calendar
+        className="h-min"
         tileContent={({date,view})=>{
             return(
                 mockUserData.map((log)=>{

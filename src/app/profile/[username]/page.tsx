@@ -28,8 +28,12 @@ function profilePage() {
             <h1 className='text-center'>Welcome {currentUser.username}</h1>
             <NavBar/>
             <div className='px-4'>
-                <CalendarComponent/>
-                <SummarySection/>
+                <div className='grid md:grid-cols-2'>
+                    <CalendarComponent/>
+                    <div className=''>
+                        <SummarySection/>
+                    </div>
+                </div>
                 <NewEntryForm/>
             </div>
         </div>
