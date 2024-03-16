@@ -7,7 +7,7 @@
         "time_of_day": "08:30",
         "food": "fish",
         "symptom": "swollen-mouth",
-        "note": ""
+        "notes": ""
     },
     {
         "id": 2,
@@ -17,7 +17,7 @@
         "time_of_day": "12:00",
         "food": "nuts",
         "symptom": "itchy",
-        "note": "Ate nuts for lunch. Experienced itching immediately after consumption."
+        "notes": "Ate nuts for lunch. Experienced itching immediately after consumption."
     },
     {
         "id": 3,
@@ -27,7 +27,7 @@
         "time_of_day": "09:45",
         "food": "milk",
         "symptom": "dizzy",
-        "note": "Drank a glass of milk in the morning. Felt dizzy afterwards. Experienced slight nausea."
+        "notes": "Drank a glass of milk in the morning. Felt dizzy afterwards. Experienced slight nausea."
     },
     {
         "id": 4,
@@ -37,7 +37,7 @@
         "time_of_day": "20:00",
         "food": "fish",
         "symptom": "nausea",
-        "note": "Had an apple as a snack in the evening. Experienced nausea afterwards. Developed a mild headache."
+        "notes": "Had an apple as a snack in the evening. Experienced nausea afterwards. Developed a mild headache."
     },
     {
         "id": 5,
@@ -47,7 +47,7 @@
         "time_of_day": "14:30",
         "food": "berries",
         "symptom": "cramp",
-        "note": "Consumed mixed berries for dessert. Developed stomach cramps soon after. Also experienced itchy throat and sneezing."
+        "notes": "Consumed mixed berries for dessert. Developed stomach cramps soon after. Also experienced itchy throat and sneezing."
     },
     {
         "id": 6,
@@ -57,7 +57,7 @@
         "time_of_day": "07:00",
         "food": "boiled-egg",
         "symptom": "hay-fever",
-        "note": ""
+        "notes": ""
     },
     {
         "id": 7,
@@ -67,7 +67,7 @@
         "time_of_day": "18:15",
         "food": "crab",
         "symptom": "itchy",
-        "note": "Ate pasta for dinner. Started feeling itchy and developed hives on arms and legs. Experienced difficulty breathing."
+        "notes": "Ate pasta for dinner. Started feeling itchy and developed hives on arms and legs. Experienced difficulty breathing."
     },
     {
         "id": 8,
@@ -77,7 +77,7 @@
         "time_of_day": "10:45",
         "food": "nuts",
         "symptom": "swollen-mouth",
-        "note": ""
+        "notes": ""
     },
     {
         "id": 9,
@@ -87,7 +87,7 @@
         "time_of_day": "10:45",
         "food": "mustard",
         "symptom": "dizzy",
-        "note": "Had a sandwich with mustard for lunch. Experienced dizziness, followed by headache and blurred vision. Also felt nauseous."
+        "notes": "Had a sandwich with mustard for lunch. Experienced dizziness, followed by headache and blurred vision. Also felt nauseous."
     },
     {
         "id": 10,
@@ -97,7 +97,6 @@
         "time_of_day": "10:45",
         "food": "kiwi",
         "symptom": "nausea",
-        "note": "Ate a kiwi fruit. Experienced nausea and stomach discomfort. Also developed itchy skin and watery eyes."
+        "notes": "Ate a kiwi fruit. Experienced nausea and stomach discomfort. Also developed itchy skin and watery eyes."
     }
 ]
-  
