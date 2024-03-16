@@ -22,9 +22,9 @@ function SummarySection(){
     console.log(groupLogArray)
     
     return (
-        <article>
+        <article className=''>
             <Header headerText='Allergy log'/>
-            <div className='grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-green-light p-2 rounded-xl'>
+            <div className='w-full grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 bg-green-light p-2 rounded-xl'>
             {
             groupLogArray.map((food)=>{
                 const foodKey = Object.keys(food).toString()
