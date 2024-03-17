@@ -44,7 +44,7 @@ export default function Home() {
         </div>
       </div>
       <div className="md:py-10 w-full bg-green-light flex flex-col items-center justify-center rounded-t-3xl md:rounded-r-none md:rounded-l-3xl">
-        <div className="mt-8 mb-6 md:my-0 h-3/6 flex items-center">
+        <div className="md:w-full mt-8 mb-6 md:my-0 h-4/6 flex items-center justify-center">
           {
           login ? (<Login />):(<Register/>)
           }
