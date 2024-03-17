@@ -6,7 +6,7 @@ const Register: React.FC = ()=>{
     const {isLogin, currentUser, handleChange, handleRegister} = useAuthContext();
 
     return(
-        <div className='font-NunitoSans flex flex-col bg-green-light'>
+        <div className='md:w-3/5 font-NunitoSans flex flex-col bg-green-light'>
             <h2 className="text-xl font-bold text-green-dark">Register</h2>
             <form onSubmit={handleRegister}
             className='flex flex-col justify-center'
