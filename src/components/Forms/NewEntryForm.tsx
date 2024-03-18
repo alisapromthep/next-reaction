@@ -7,7 +7,6 @@ import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 import { addNewEntry } from "@/utility/formFunction";
-import { get } from "http";
 
 
 const NewEntryForm = ()=>{
@@ -17,18 +16,6 @@ const NewEntryForm = ()=>{
     }
 
     const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
-    const [selectFood, setSelectFood] = useState<string>("");
-
-    // const handleChange = (event: React.ChangeEvent<HTMLInputElement>)=>{
-    //     const { name, value } = event.target;
-    //     setFormInfo(prev => (
-    //         {
-    //             ...prev,
-    //             [name]: value
-    //         }
-    //     ));
-
-    // }
 
     const handleSymptoms = (event: React.ChangeEvent<HTMLInputElement>) =>{
         const check = event.target.checked;
@@ -44,19 +31,10 @@ const NewEntryForm = ()=>{
         }
     }
 
-    const handleFoods = (event: React.ChangeEvent<HTMLInputElement>) =>{
-
-        console.log(event.target.value)
-        setSelectFood(event.target.value)
-    }
-
-    const addNewEntryWithInfo = addNewEntry.bind(FormData,selectSymptoms)
-
-
     return (
         <form
         className="bg-gray mb-20"
-        action={addNewEntryWithInfo}
+        action={addNewEntry}
         >
             <label className="capitalize flex flex-col">
                 date
