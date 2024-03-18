@@ -11,26 +11,6 @@ import { addNewEntry } from "@/utility/formFunction";
 
 const NewEntryForm = ()=>{
 
-    interface formInfo {
-        [key: string]: string;
-    }
-
-    const [selectSymptoms, setSelectSymptoms] = useState<string[]>([]);
-
-    const handleSymptoms = (event: React.ChangeEvent<HTMLInputElement>) =>{
-        const check = event.target.checked;
-        const selected = event.target.value;
-
-        //check if the checked is true or false, to avoid double when uncheck
-        if(check){
-            setSelectSymptoms((prev)=> [...prev, selected])
-        } else{
-            setSelectSymptoms((prev)=> {
-                return prev.filter((name)=> name !== selected)
-            })
-        }
-    }
-
     return (
         <form
         className="bg-gray mb-20"
@@ -76,7 +56,6 @@ const NewEntryForm = ()=>{
                                 type="checkbox"
                                 value={symptom.name}
                                 name="symptoms"
-                                onChange={handleSymptoms}
                                 />
                             </label>
                         )
