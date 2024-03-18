@@ -1,6 +1,5 @@
 "use client"
 
-import { useState } from "react";
 import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
