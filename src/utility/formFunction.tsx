@@ -9,7 +9,18 @@ import pb from "../../lib/pocketbase";
 export async function addNewEntry(formData: FormData){
         console.log('formData',formData)
         let symptomsList = formData.getAll('symptoms')
-        console.log(symptomsList)
+        console.log(symptomsList.join(","))
+        let time = formData.get('time')?.toString()
+        let date = formData.get('date')?.toString()
+        let timeOfDay = `${time} ${date}`
+
+        const newEntry = {
+                "user_id": pb.authStore.model?.id,
+                "time_of_day": timeOfDay,
+                "food": formData.get('foodOptions')?.toString(),
+                "symptom": symptomsList.join(","),
+                "notes": formData.get('notes')?.toString()
+        };
 
         //await pb.collection('entires').create(newEntry)
 
