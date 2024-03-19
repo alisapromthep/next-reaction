@@ -19,7 +19,7 @@ function SummarySection(){
         groupLogArray.push(logDetail);
     }
 
-    console.log(groupLogArray)
+    //console.log(groupLogArray)
     
     return (
         <article className=''>
