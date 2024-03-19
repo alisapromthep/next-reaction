@@ -22,6 +22,12 @@ export async function addNewEntry(formData: FormData){
                 "notes": formData.get('notes')?.toString()
         };
 
-        //await pb.collection('entires').create(newEntry)
 
+
+        const record = await pb.collection('entires').create(newEntry, {
+                headers: {
+                        'token': pb.authStore.token
+                }
+        })
+        console.log(record)
 }
