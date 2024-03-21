@@ -34,7 +34,11 @@ export async function addNewEntry(formData: FormData){
 
 
         try {
-                const record = await pb.collection('entries').create(newEntry)
+                const record = await pb.collection('entries').create(newEntry,{
+                        headers: {
+                                "token": token
+                        }
+                })
                 console.log(record)
 
         } catch(err) {
