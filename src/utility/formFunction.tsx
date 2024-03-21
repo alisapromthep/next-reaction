@@ -17,31 +17,37 @@ export async function addNewEntry(formData: FormData){
 
         const cookieStore = cookies();
         const requestCookie = cookieStore.get('pb_auth');
-        const userCookie = JSON.parse(requestCookie?.value);
-        const {token, model } = userCookie; 
+        if(!requestCookie){
+                console.log("cookie 'pb_auth' not found")
+        } else{
+
+                const userCookie = JSON.parse(requestCookie.value);
+                const {token, model } = userCookie; 
+
+                const newEntry = {
+                        "user_id": model.id,
+                        "time_of_day": timeOfDay,
+                        "food": formData.get('foodOption')?.toString(),
+                        "symptom": symptomsList.join(","),
+                        "notes": formData.get('notes')?.toString()
+                };
+        
+                console.log(newEntry)
+                console.log(pb.authStore.token)
+        
+        
+                try {
+                        const record = await pb.collection('entries').create(newEntry,{
+                                headers: {
+                                        "token": token
+                                }
+                        })
+                        console.log(record)
+        
+                } catch(err) {
+                        console.log(err)
+                }
+        }
         
 
-        const newEntry = {
-                "user_id": model.id,
-                "time_of_day": timeOfDay,
-                "food": formData.get('foodOption')?.toString(),
-                "symptom": symptomsList.join(","),
-                "notes": formData.get('notes')?.toString()
-        };
-
-        console.log(newEntry)
-        console.log(pb.authStore.token)
-
-
-        try {
-                const record = await pb.collection('entries').create(newEntry,{
-                        headers: {
-                                "token": token
-                        }
-                })
-                console.log(record)
-
-        } catch(err) {
-                console.log(err)
-        }
 }
