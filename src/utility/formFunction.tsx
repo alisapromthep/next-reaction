@@ -1,8 +1,9 @@
 "use server"
 
+import { revalidatePath } from "next/cache";
 import pb from "../../lib/pocketbase";
 import {cookies} from 'next/headers';
-//since I need to connect with database, 
+
 //use server action here to be able to do a post request 
 //formData --> collects info for you
 // revalidatePath --> make it once database is updated it rerender the component
@@ -31,11 +32,7 @@ export async function addNewEntry(formData: FormData){
                         "symptom": symptomsList.join(","),
                         "notes": formData.get('notes')?.toString()
                 };
-        
-                console.log(newEntry)
-                console.log(pb.authStore.token)
-        
-        
+
                 try {
                         const record = await pb.collection('entries').create(newEntry,{
                                 headers: {
@@ -43,6 +40,7 @@ export async function addNewEntry(formData: FormData){
                                 }
                         })
                         console.log(record)
+                        revalidatePath('/profile/[username]', 'page')
         
                 } catch(err) {
                         console.log(err)
