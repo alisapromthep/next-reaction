@@ -13,21 +13,26 @@ export async function addNewEntry(formData: FormData){
         let time = formData.get('time')?.toString()
         let date = formData.get('date')?.toString()
         let timeOfDay = `${time} ${date}`
+        let user_id = pb.authStore.model?.id
+        console.log(pb.authStore.model)
 
         const newEntry = {
-                "user_id": pb.authStore.model?.id,
+                "user_id": user_id,
                 "time_of_day": timeOfDay,
-                "food": formData.get('foodOptions')?.toString(),
+                "food": formData.get('foodOption')?.toString(),
                 "symptom": symptomsList.join(","),
                 "notes": formData.get('notes')?.toString()
         };
 
+        console.log(newEntry)
+        console.log(pb.authStore.token)
 
 
-        const record = await pb.collection('entires').create(newEntry, {
-                headers: {
-                        'token': pb.authStore.token
-                }
-        })
-        console.log(record)
+        try {
+                const record = await pb.collection('entries').create(newEntry)
+                console.log(record)
+
+        } catch(err) {
+                console.log(err)
+        }
 }
