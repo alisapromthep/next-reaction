@@ -1,6 +1,7 @@
 "use server"
 
 import pb from "../../lib/pocketbase";
+import {cookies} from 'next/headers';
 //since I need to connect with database, 
 //use server action here to be able to do a post request 
 //formData --> collects info for you
@@ -13,11 +14,15 @@ export async function addNewEntry(formData: FormData){
         let time = formData.get('time')?.toString()
         let date = formData.get('date')?.toString()
         let timeOfDay = `${time} ${date}`
-        let user_id = pb.authStore.model?.id
-        console.log(pb.authStore.model)
+
+        const cookieStore = cookies();
+        const requestCookie = cookieStore.get('pb_auth');
+        const userCookie = JSON.parse(requestCookie?.value);
+        const {token, model } = userCookie; 
+        
 
         const newEntry = {
-                "user_id": user_id,
+                "user_id": model.id,
                 "time_of_day": timeOfDay,
                 "food": formData.get('foodOption')?.toString(),
                 "symptom": symptomsList.join(","),
