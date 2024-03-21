@@ -1,6 +1,6 @@
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
-
+import { useAuthContext } from './authContext';
 
 interface userLogsType {
     user_id: string;
@@ -22,16 +22,19 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
+    const {token} = useAuthContext();
+
     const [userLogs, setUserLog] = useState<userLogsType[]>([]);
 
     //fetch userLogs Data from pocketbase database
     //fetch according to user_id 
 
     const getUserLogs = ()=>{
+
         const logResult = pb.collection('entries').getList(1,50, {
             filter: `user_id = "${pb.authStore.model?.id}"`,
             headers: {
-                'token': `${sessionStorage.getItem('token')}`
+                'token': token
             }
         })
 
