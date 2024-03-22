@@ -7,19 +7,16 @@ import mockUserData from '../../../data/mockData.json';
 import SummarySection from '@/components/Summary/SummarySection';
 import NavBar from '@/components/NavBar/NavBar';
 import { useAuthContext } from '@/context/authContext';
-import {useRouter} from 'next/navigation';
 import { useUserContext } from '@/context/userContext';
 
 function profilePage() {
 
-    const router = useRouter();
     const {userLogs, getUserLogs} = useUserContext();
     const {currentUser} = useAuthContext();
 
 
     useEffect(()=>{
             getUserLogs();
-            console.log(userLogs)
     },[])
     
 
