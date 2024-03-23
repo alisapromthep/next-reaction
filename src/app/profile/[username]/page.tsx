@@ -22,9 +22,9 @@ function profilePage() {
 
 
     return (
-        <div className='py-4'>
-            <h1 className='text-center'>Welcome {currentUser.username}</h1>
+        <div className='pb-4'>
             <NavBar/>
+            <h1 className='text-center'>Welcome {currentUser.username}</h1>
             <div className='px-4'>
                 <div className='grid md:grid-cols-2'>
                     <CalendarComponent/>
