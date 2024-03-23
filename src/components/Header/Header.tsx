@@ -7,7 +7,7 @@ type HeaderTextType = {
 function Header({headerText}: HeaderTextType){
     return(
         <header>
-            <h1 className="text-green-dark capitalize">{headerText}</h1>
+            <h1 className="p-2 text-green-dark capitalize font-bold text-lg">{headerText}</h1>
         </header>
     )
 }
