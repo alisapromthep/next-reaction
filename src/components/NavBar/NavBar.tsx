@@ -6,13 +6,13 @@ import { useAuthContext } from '@/context/authContext';
 
 const NavBar = ()=>{
 
-    const {handleLogout} = useAuthContext();
+    const {currentUser, handleLogout} = useAuthContext();
     const handleClick = ()=> console.log("click")
 
     return (
-        <nav className="py-2.5 sticky bottom-0 w-full md:top-0 text-white bg-orange flex justify-evenly md:justify-between">
-            <div>
-                <h1></h1>
+        <nav className="p-2.5 sticky bottom-0 w-full md:top-0 text-white bg-orange flex justify-evenly md:justify-between">
+            <div className="hidden lg:block">
+                <h1 className='p-2.5 text-3xl'>{currentUser.username}</h1>
             </div>
             <div className='flex justify-evenly'>
                 <button 

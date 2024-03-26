@@ -24,11 +24,11 @@ function profilePage() {
     return (
         <div className='pb-4'>
             <NavBar/>
-            <h1 className='text-center'>Welcome {currentUser.username}</h1>
-            <div className='px-4'>
-                <div className='grid md:grid-cols-2'>
+            <h1 className='lg:hidden text-center'>Welcome {currentUser.username}</h1>
+            <div className='p-4'>
+                <div className='grid justify-items-center lg:grid-cols-2'>
                     <CalendarComponent/>
-                    <div className=''>
+                    <div className='lg:order-first'>
                         <SummarySection/>
                     </div>
                 </div>
