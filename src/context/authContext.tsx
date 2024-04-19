@@ -10,13 +10,9 @@ interface UserInfoType {
     [key: string]: string;
 }
 
-interface modelType {
-    [key: string]: string;
-}
-
 interface AuthContextType {
-    token: string;
-    currentUser: modelType;
+    token: string,
+    currentUser: UserInfoType;
     userInfo: UserInfoType;
     isLogin: Boolean;
     setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
@@ -54,18 +50,11 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
-    const [token, setToken] = useState<string>(pb.authStore.token);
-    const [currentUser, setCurrentUser] = useState(pb.authStore.model);
+    const [token, setToken] = useState("");
+    const [currentUser, setCurrentUser] = useState<UserInfoType>({});
     const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial);
     const [isRegister, setIsRegister] = useState<Boolean>(false);
     const [isLogin, setIsLogin] = useState<Boolean>(false);
-
-    useEffect(()=>{
-        return pb.authStore.onChange((token, model)=>{
-            setToken(token);
-            setCurrentUser(model)
-        })
-    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -99,7 +88,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             })
         })
         .catch(err => {
-            console.log(err,'error occured')
+            console.log(err,'error occurred')
         })
 
     }
@@ -114,6 +103,13 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             setIsLogin(true)
             console.log(pb.authStore.model)
+            const model = pb.authStore.model;
+            setToken(pb.authStore.token);
+            setCurrentUser({
+                id: model?.id,
+                username: model?.username,
+            })
+
         }catch(err){
             console.log(err)
         }
@@ -128,7 +124,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     const handleLogout = (): void =>{
         pb.authStore.clear();
-        
+        setIsLogin(false)
     }
     
 
