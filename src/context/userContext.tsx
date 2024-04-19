@@ -29,6 +29,12 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     //fetch userLogs Data from pocketbase database
     //fetch according to user_id 
 
+    useEffect(()=>{
+        if(token){
+            getUserLogs();
+        }
+},[token])
+
     const getUserLogs = ()=>{
 
         const logResult = pb.collection('entries').getList(1,50, {

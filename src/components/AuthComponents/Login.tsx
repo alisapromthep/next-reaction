@@ -9,7 +9,7 @@ const Login = ()=>{
 
     const {currentUser, isLogin, handleChange, handleLogin} = useAuthContext();
 
-    if(isLogin){
+    if(isLogin && currentUser.username){
         router.push(`profile/${currentUser.username}`)
     }
 

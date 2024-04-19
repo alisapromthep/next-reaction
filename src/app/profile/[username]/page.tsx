@@ -8,18 +8,20 @@ import SummarySection from '@/components/Summary/SummarySection';
 import NavBar from '@/components/NavBar/NavBar';
 import { useAuthContext } from '@/context/authContext';
 import { useUserContext } from '@/context/userContext';
+import { useRouter } from 'next/navigation';
 
 function profilePage() {
 
+    const router = useRouter();
+
     const {userLogs, getUserLogs} = useUserContext();
-    const {currentUser} = useAuthContext();
+    const {currentUser, isLogin} = useAuthContext();
+
+    if(!isLogin){
+        router.push('/')}
 
 
-    useEffect(()=>{
-            getUserLogs();
-    },[])
-    
-
+    console.log(userLogs)
 
     return (
         <div className='pb-4'>
