@@ -2,13 +2,16 @@
 
 import Header from '@/components/Header/Header';
 import {groupBy }from '@/utility/groupBy';
-import mockUserData from '@/data/mockData.json';
+//import mockUserData from '@/data/mockData.json';
 import foodIcons from '../Forms/foodIcons.json';
 import SummaryDetail from './SummaryDetail';
+import { useUserContext } from '@/context/userContext';
+
 
 function SummarySection(){
 
-    const groupByFood = groupBy('food', mockUserData);
+    const {userLogs} = useUserContext();
+    const groupByFood = groupBy('food', userLogs);
     
     let groupLogArray = [];
 

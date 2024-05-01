@@ -4,8 +4,12 @@ import Calendar from 'react-calendar';
 import './CalendarComponent.css';
 import mockUserData from '../../data/mockData.json';
 import CalendarEvent from './CalendarEvent';
+import { useUserContext } from '@/context/userContext';
 
 function CalendarComponent(){
+
+    const {userLogs} = useUserContext();
+    
     return (
         <Calendar
         className="h-min md:max-w-lg lg:max-w-xl"
