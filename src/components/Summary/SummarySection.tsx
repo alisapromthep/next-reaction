@@ -8,7 +8,6 @@ import SummaryDetail from './SummaryDetail';
 import { useUserContext } from '@/context/userContext';
 
 
-
 function SummarySection(){
 
     const {userLogs} = useUserContext();

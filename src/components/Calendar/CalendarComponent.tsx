@@ -10,7 +10,6 @@ import {convertDate, convertTime} from '@/utility/dateAndTime';
 function CalendarComponent(){
 
     const {userLogs} = useUserContext();
-
     return (
         <Calendar
         className="h-min md:max-w-lg lg:max-w-xl"

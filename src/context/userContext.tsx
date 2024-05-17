@@ -10,7 +10,7 @@ interface userLogsType {
     food: string;
     symptom: string[];
     notes: string;
-}
+ } 
 
 interface UserContextType {
     userLogs: userLogsType[];
@@ -56,7 +56,6 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             symptom: item.symptom,
             notes: item.notes
         }))
-
             setUserLog(allLogs)
     })
         .catch((err)=> console.log(err))
