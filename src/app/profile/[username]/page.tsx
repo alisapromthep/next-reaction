@@ -17,11 +17,14 @@ function profilePage() {
     const {userLogs, getUserLogs} = useUserContext();
     const {currentUser, isLogin} = useAuthContext();
 
-    if(!isLogin){
-        router.push('/')}
+    useEffect(()=>{
+        if(!isLogin){
+            router.push('/')}
+    })
 
-
-    console.log(userLogs)
+    useEffect(()=>{
+        getUserLogs();
+    },[userLogs])
 
     return (
         <div className='pb-4'>

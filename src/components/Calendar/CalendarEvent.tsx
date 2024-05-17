@@ -1,11 +1,7 @@
 import { CldImage } from "next-cloudinary";
 import foodIcons from "@/components/Forms/foodIcons.json";
 
-type foodType = {
-    food: string;
-}
-
-function CalendarEvent({food}: foodType){
+function CalendarEvent({food}: {food: string}){
 
     const foodInfo = foodIcons.find((icon)=> icon.name === food)
 

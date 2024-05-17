@@ -2,6 +2,7 @@ import Input from '../../components/Forms/Input';
 import {useAuthContext} from '../../context/authContext';
 import Button from '../../components/Buttons/Button';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const Login = ()=>{
 
@@ -9,9 +10,13 @@ const Login = ()=>{
 
     const {currentUser, isLogin, handleChange, handleLogin} = useAuthContext();
 
-    if(isLogin && currentUser.username){
-        router.push(`profile/${currentUser.username}`)
-    }
+    useEffect(()=>{
+        if(isLogin && currentUser.username){
+            router.push(`profile/${currentUser.username}`)
+        }
+
+    },[isLogin,currentUser,router])
+
 
     return(
         <div className="md:w-3/5 font-NunitoSans flex flex-col bg-green-light">

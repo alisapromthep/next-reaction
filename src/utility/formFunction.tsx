@@ -11,7 +11,7 @@ import {cookies} from 'next/headers';
 export async function addNewEntry(formData: FormData){
         console.log('formData',formData)
         let symptomsList = formData.getAll('symptoms')
-        console.log(symptomsList.join(","))
+        symptomsList.join(",")
         let time = formData.get('time')?.toString()
         let date = formData.get('date')?.toString()
         let timeOfDay = `${time} ${date}`
@@ -41,9 +41,11 @@ export async function addNewEntry(formData: FormData){
                         })
                         console.log(record)
                         revalidatePath('/profile/[username]', 'page')
+                        return {message: 'Successfully added new entry log'}
         
                 } catch(err) {
                         console.log(err)
+                        return {message: 'error has occured'}
                 }
         }
         

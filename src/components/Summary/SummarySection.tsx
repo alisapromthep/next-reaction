@@ -8,6 +8,7 @@ import SummaryDetail from './SummaryDetail';
 import { useUserContext } from '@/context/userContext';
 
 
+
 function SummarySection(){
 
     const {userLogs} = useUserContext();
@@ -31,6 +32,9 @@ function SummarySection(){
                 const foodKey = Object.keys(food).toString()
                 const foodLog = food[foodKey]
                 const foodIcon = (foodIcons.find((icon)=> icon.name === foodKey))
+                if(foodIcon === undefined){
+                    return;
+                }
                 return <SummaryDetail
                 foodKey={foodKey}
                 foodLog={foodLog}

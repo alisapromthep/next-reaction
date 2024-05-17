@@ -31,14 +31,12 @@ function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
             </div>
             <ul>
                 {foodLog.map((entry)=>{
-                    const timestamp = Date.parse(entry.date);
-                    let inputDate = new Date(timestamp);
                     return (
                         <li 
                         className=''
                         >
                             <p className=''>
-                            <span className='font-bold'>{inputDate.toLocaleDateString()}</span>: {entry.symptom}</p>
+                            <span className='font-bold'>{entry.date}</span>: {entry.symptom}</p>
                             <p className={`${entry.notes ? '': 'hidden'}`}><span className='font-bold capitalize'>note</span> {entry.notes}
                             </p>
                             <button

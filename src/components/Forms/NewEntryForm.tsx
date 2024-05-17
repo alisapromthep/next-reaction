@@ -1,5 +1,6 @@
 "use client"
 
+import {useState, useRef} from 'react';
 import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
@@ -8,12 +9,31 @@ import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 import { addNewEntry } from "@/utility/formFunction";
 
 
+
+
 const NewEntryForm = ()=>{
+
+    const [date, setDate] = useState(getTodaysDate());
+    const [time, setTime] = useState(getTimeNow());
+
+    const newEntryFormRef = useRef<HTMLFormElement>(null)
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setDate(e.target.value);
+    }
+
+    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTime(e.target.value);
+    }
 
     return (
         <form
+        ref={newEntryFormRef}
         className="bg-gray mb-20"
-        action={addNewEntry}
+        action={async (formData) => {
+            await addNewEntry(formData);
+            newEntryFormRef.current?.reset()
+            }}
         >
             <label className="capitalize flex flex-col">
                 date
@@ -21,8 +41,9 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='date'
-                value={getTodaysDate()}
+                value={date}
                 name='date'
+                onChange={handleDateChange}
                 />
             </label>
             <label className="capitalize flex flex-col">
@@ -31,8 +52,9 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='time'
-                value={getTimeNow()}
+                value={time}
                 name='time'
+                onChange={handleTimeChange}
                 />
             </label>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white">

@@ -1,12 +1,17 @@
 
 //convert date and time string from pocketbase 
-export const convertDate = (str: string) => {
-    return str.split(" ")[0]
 
+//receive the time_of_day from database
+//str = "time date"
+//return date and time separately 
+//make date into dd/mm/yy formate
+
+export const convertDate = (str: string) => {
+    return str.split(" ")[1]
 }
 
 export const convertTime = (str: string) =>{
-    return str.split(" ")[1]
+    return str.split(" ")[0]
 }
 
 export const getTodaysDate = () => {
@@ -31,3 +36,4 @@ export const getTimeNow = ()=>{
     return timeNow;
     
 }
+

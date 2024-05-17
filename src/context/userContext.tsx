@@ -1,11 +1,13 @@
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
 import { useAuthContext } from './authContext';
+import {convertDate, convertTime} from '@/utility/dateAndTime';
 
 interface userLogsType {
     user_id: string;
-    time_of_day: string;
-    food: string[];
+    date: string;
+    time: string;
+    food: string;
     symptom: string[];
     notes: string;
 }
@@ -45,14 +47,16 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         })
 
         logResult.then((res)=>{
+            
         const allLogs = res.items.map((item:any)=> ({
             user_id: item.user_id,
-            time_of_day: item.time_of_day,
+            date: convertDate(item.time_of_day),
+            time: convertTime(item.time_of_day),
             food: item.food,
             symptom: item.symptom,
             notes: item.notes
         }))
-            
+
             setUserLog(allLogs)
     })
         .catch((err)=> console.log(err))
