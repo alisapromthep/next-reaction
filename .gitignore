@@ -37,5 +37,5 @@ yarn-error.log*
 next-env.d.ts
 
 #pocketbase logs - large files 
-pb_data
-
+pb_data/
+pocketbase/pb_data/
