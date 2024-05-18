@@ -4,8 +4,6 @@ import type { AuthProviderInfo } from 'pocketbase';
 import { useRouter} from 'next/router';
 import {redirect} from 'next/navigation';
 
-
-
 interface UserInfoType {
     [key: string]: string;
 }
@@ -56,6 +54,17 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [isRegister, setIsRegister] = useState<Boolean>(false);
     const [isLogin, setIsLogin] = useState<Boolean>(false);
 
+    useEffect(()=>{
+        if(pb.authStore.isValid){
+            const model = pb.authStore.model;
+            setToken(pb.authStore.token);
+            setCurrentUser({
+                id: model?.id,
+                username: model?.username,
+            })
+        }
+    },[])
+
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
         setUserInfo(prevUserInfo => ({
@@ -84,7 +93,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             let login = signIn(username,password);
             login.then(res => {
                 console.log(res);
-                
             })
         })
         .catch(err => {

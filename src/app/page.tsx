@@ -17,6 +17,17 @@ export default function Home() {
 
   const [login, setLogin] = useState<boolean>(true);
 
+  const router = useRouter();
+
+  const {currentUser, isLogin} = useAuthContext();
+
+  useEffect(()=>{
+      if(isLogin && currentUser.username){
+          router.push(`profile/${currentUser.username}`)
+      }
+
+  },[isLogin,currentUser,router])
+
   return (
     <main className= "h-screen bg-white flex flex-col md:flex-row font-NunitoSans">
       <div className="w-full bg-transparent flex flex-col items-center justify-center">
