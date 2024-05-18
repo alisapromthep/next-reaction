@@ -55,8 +55,10 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [isLogin, setIsLogin] = useState<Boolean>(false);
 
     useEffect(()=>{
-        if(pb.authStore.isValid){
+
+        if(pb.authStore.isValid && pb.authStore.model){
             const model = pb.authStore.model;
+            setIsLogin(true);
             setToken(pb.authStore.token);
             setCurrentUser({
                 id: model?.id,
