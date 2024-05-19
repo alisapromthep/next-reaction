@@ -21,6 +21,8 @@ function CalendarComponent(){
                     // console.log(timestamp,'timestamp')
                     // console.log(log.date)
                     // console.log(inputDate,'inputDate')
+                    //console.log('date from calendar',date.toLocaleDateString());
+                    //need date to be in mm/dd/yyyy
                     return view === 'month' && date.toLocaleDateString() === inputDate.toLocaleDateString() ? 
                     <CalendarEvent
                     food={log.food}/> : null

@@ -22,9 +22,9 @@ function profilePage() {
             router.push('/')}
     })
 
-    // useEffect(()=>{
-    //     getUserLogs();
-    // },[userLogs])
+    useEffect(()=>{
+        getUserLogs();
+    },[userLogs])
 
     return (
         <div className='pb-4'>
