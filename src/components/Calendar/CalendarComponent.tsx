@@ -16,13 +16,7 @@ function CalendarComponent(){
         tileContent={({date,view})=>{
             return(
                 userLogs.map((log)=>{
-                    const timestamp = Date.parse(log.date);
-                    let inputDate = new Date(timestamp)
-                    // console.log(timestamp,'timestamp')
-                    // console.log(log.date)
-                    // console.log(inputDate,'inputDate')
-                    //console.log('date from calendar',date.toLocaleDateString());
-                    //need date to be in mm/dd/yyyy
+                    let inputDate = new Date(log.timestamp)
                     return view === 'month' && date.toLocaleDateString() === inputDate.toLocaleDateString() ? 
                     <CalendarEvent
                     food={log.food}/> : null

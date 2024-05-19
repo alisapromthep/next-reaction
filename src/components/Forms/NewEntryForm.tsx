@@ -32,7 +32,9 @@ const NewEntryForm = ()=>{
         className="bg-gray mb-20"
         action={async (formData) => {
             await addNewEntry(formData);
-            newEntryFormRef.current?.reset()
+            newEntryFormRef.current?.reset();
+            setDate(getTodaysDate());
+            setTime(getTimeNow());
             }}
         >
             <label className="capitalize flex flex-col">

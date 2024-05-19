@@ -7,10 +7,11 @@ interface userLogsType {
     user_id: string;
     date: string;
     time: string;
+    timestamp: string;
     food: string;
     symptom: string[];
     notes: string;
- } 
+} 
 
 interface UserContextType {
     userLogs: userLogsType[];
@@ -52,6 +53,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             user_id: item.user_id,
             date: convertDate(item.time_of_day),
             time: convertTime(item.time_of_day),
+            timestamp:item.timestamp,
             food: item.food,
             symptom: item.symptom,
             notes: item.notes
