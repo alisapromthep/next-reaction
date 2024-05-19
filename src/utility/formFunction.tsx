@@ -8,6 +8,17 @@ import {cookies} from 'next/headers';
 //formData --> collects info for you
 // revalidatePath --> make it once database is updated it rerender the component
 
+// const getCookie = ()=>{
+//         const cookieStore = cookies();
+//         const requestCookie = cookieStore.get('pb_auth');
+//         if(!requestCookie){
+//                 return console.log("cookie 'pb_auth' not found")
+//         } 
+//         //parse cookie before returning
+
+//         return 
+// }
+
 export async function addNewEntry(formData: FormData){
         console.log('formData',formData)
         let symptomsList = formData.getAll('symptoms')
@@ -59,12 +70,31 @@ export async function deleteEntry(formData: FormData){
         let postID = formData.get("postID")
         console.log(postID)
 
+        const cookieStore = cookies();
+        const requestCookie = cookieStore.get('pb_auth');
+        if(!requestCookie){
+                console.log("cookie 'pb_auth' not found")
+        } else{
+
+                const userCookie = JSON.parse(requestCookie.value);
+                const {token, model } = userCookie; 
 
         try{
+                const deleteRecord = await pb.collection('entries').delete(postID,{
+                        headers: {
+                                "token": token
+                        }
+                })
+
+                console.log(deleteRecord)
+                        revalidatePath('/profile/[username]', 'page')
+                        return {message: 'Successfully added new entry log'}
 
 
         } 
-        catch {
-
+        catch(err) {
+                console.log(err)
+                        return {message: 'error has occured'}
         }
+}
 }

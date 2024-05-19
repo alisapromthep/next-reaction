@@ -5,8 +5,10 @@ const DeleteForm = ({postID}: {postID:string}) =>{
 
     return (
         <form action={deleteEntry}>
-            <input type="hidden" name="id" value={postID}/>
+            <input type="hidden" name="postID" value={postID}/>
+            <button type="submit">
             <RiDeleteBin5Line/>
+            </button>
         </form>
     )
 
