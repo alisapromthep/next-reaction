@@ -1,6 +1,7 @@
-import {RiDeleteBin5Line} from 'react-icons/ri';
 import { CldImage } from 'next-cloudinary'
 import foodIcons from '@/components/Forms/foodIcons.json';
+import { deleteEntry } from '@/utility/formFunction';
+import DeleteForm from '@/components/Forms/DeleteForm';
 
 type propType = {
     [key: string]: string;
@@ -39,11 +40,7 @@ function SummaryDetail({foodKey, foodLog, foodIcon}:summaryPropType) {
                             <span className='font-bold'>{entry.date}</span>: {entry.symptom}</p>
                             <p className={`${entry.notes ? '': 'hidden'}`}><span className='font-bold capitalize'>note</span> {entry.notes}
                             </p>
-                            <button
-                            onClick={()=>{}}
-                            >
-                                <RiDeleteBin5Line id='' className=''/>
-                            </button>
+                            <DeleteForm postID={entry.post_id}/>
                         </li>
                     )
                 })}

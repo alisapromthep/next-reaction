@@ -30,6 +30,7 @@ function SummarySection(){
             groupLogArray.map((food)=>{
                 const foodKey = Object.keys(food).toString()
                 const foodLog = food[foodKey]
+                const postID = food[foodKey]
                 const foodIcon = (foodIcons.find((icon)=> icon.name === foodKey))
                 if(foodIcon === undefined){
                     return;
@@ -38,7 +39,7 @@ function SummarySection(){
                 foodKey={foodKey}
                 foodLog={foodLog}
                 foodIcon={foodIcon}
-                //handleDelete={handleDelete}
+
                 />
             })
             }

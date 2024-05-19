@@ -15,7 +15,7 @@ export async function addNewEntry(formData: FormData){
         let time = formData.get('time')?.toString()
         let date = formData.get('date')?.toString()
         let timeOfDay = `${time} ${date}`
-        
+
         const cookieStore = cookies();
         const requestCookie = cookieStore.get('pb_auth');
         if(!requestCookie){
@@ -51,4 +51,20 @@ export async function addNewEntry(formData: FormData){
         }
         
 
+}
+
+export async function deleteEntry(formData: FormData){
+
+        console.log(formData)
+        let postID = formData.get("postID")
+        console.log(postID)
+
+
+        try{
+
+
+        } 
+        catch {
+
+        }
 }

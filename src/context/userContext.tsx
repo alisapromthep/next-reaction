@@ -11,6 +11,7 @@ interface userLogsType {
     food: string;
     symptom: string[];
     notes: string;
+    post_id: string;
 } 
 
 interface UserContextType {
@@ -56,7 +57,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             timestamp:item.timestamp,
             food: item.food,
             symptom: item.symptom,
-            notes: item.notes
+            notes: item.notes,
+            post_id: item.id,
         }))
             setUserLog(allLogs)
     })
