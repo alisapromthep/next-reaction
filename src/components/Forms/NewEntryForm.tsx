@@ -8,22 +8,37 @@ import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
 import { addNewEntry } from "@/utility/formFunction";
 
-
-
+interface formDataType {
+    date: string;
+    time: string;
+    foodOption: string;
+    symptoms: string[];
+    notes: string;
+}
 
 const NewEntryForm = ()=>{
 
+    const initialFormData = {
+        date: getTodaysDate(),
+        time: getTimeNow(),
+        foodOption: "",
+        symptoms: [],
+        notes: ""
+    }
+
     const [date, setDate] = useState(getTodaysDate());
     const [time, setTime] = useState(getTimeNow());
+    const [formData, setFormData] = useState<formDataType>(initialFormData)
 
     const newEntryFormRef = useRef<HTMLFormElement>(null)
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setDate(e.target.value);
-    }
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
 
-    const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setTime(e.target.value);
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
     }
 
     return (
@@ -43,9 +58,9 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='date'
-                value={date}
+                value={formData.date}
                 name='date'
-                onChange={handleDateChange}
+                onChange={handleChange}
                 />
             </label>
             <label className="capitalize flex flex-col">
@@ -54,9 +69,9 @@ const NewEntryForm = ()=>{
                 required
                 className=""
                 type='time'
-                value={time}
+                value={formData.time}
                 name='time'
-                onChange={handleTimeChange}
+                onChange={handleChange}
                 />
             </label>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white">
