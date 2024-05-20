@@ -26,9 +26,8 @@ const NewEntryForm = ()=>{
         notes: ""
     }
 
-    const [date, setDate] = useState(getTodaysDate());
-    const [time, setTime] = useState(getTimeNow());
-    const [formData, setFormData] = useState<formDataType>(initialFormData)
+    const [formData, setFormData] = useState<formDataType>(initialFormData);
+    const [editEntry, setEditEntry] = useState<boolean>(false);
 
     const newEntryFormRef = useRef<HTMLFormElement>(null)
 
@@ -48,8 +47,7 @@ const NewEntryForm = ()=>{
         action={async (formData) => {
             await addNewEntry(formData);
             newEntryFormRef.current?.reset();
-            setDate(getTodaysDate());
-            setTime(getTimeNow());
+            setFormData(initialFormData);
             }}
         >
             <label className="capitalize flex flex-col">
