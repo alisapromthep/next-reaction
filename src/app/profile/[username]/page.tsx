@@ -1,9 +1,8 @@
 "use client"
 
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import NewEntryForm from '@/components/Forms/NewEntryForm';
 import CalendarComponent from '@/components/Calendar/CalendarComponent';
-import mockUserData from '../../../data/mockData.json';
 import SummarySection from '@/components/Summary/SummarySection';
 import NavBar from '@/components/NavBar/NavBar';
 import { useAuthContext } from '@/context/authContext';
@@ -16,6 +15,8 @@ function profilePage() {
 
     const {userLogs, getUserLogs} = useUserContext();
     const {currentUser, isLogin} = useAuthContext();
+    const [editEntry, setEditEntry] = useState<boolean>(false);
+    const [postID, setPostID] = useState<string>("");
 
     useEffect(()=>{
         if(!isLogin){
@@ -34,10 +35,15 @@ function profilePage() {
                 <div className='grid justify-items-center lg:grid-cols-2'>
                     <CalendarComponent/>
                     <div className='lg:order-first'>
-                        <SummarySection/>
+                        <SummarySection
+                        setEditEntry={setEditEntry}
+                        setPostID={setPostID}
+                        />
                     </div>
                 </div>
-                <NewEntryForm/>
+                <NewEntryForm
+                buttonText={editEntry ? "Edit Note":"Noted"}
+                />
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ import SummaryDetail from './SummaryDetail';
 import { useUserContext } from '@/context/userContext';
 
 
-function SummarySection(){
+function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<React.SetStateAction<boolean>>, setPostID: React.Dispatch<React.SetStateAction<string>>}){
 
     const {userLogs} = useUserContext();
     const groupByFood = groupBy('food', userLogs);
@@ -39,7 +39,8 @@ function SummarySection(){
                 foodKey={foodKey}
                 foodLog={foodLog}
                 foodIcon={foodIcon}
-
+                setEditEntry={setEditEntry}
+                setPostID= {setPostID}
                 />
             })
             }

@@ -1,7 +1,7 @@
 import {RiEditBoxLine} from 'react-icons/ri';
 import { editEntry } from '@/utility/formFunction';
 
-const DeleteForm = ({postID}: {postID:string}) =>{
+const EditForm = ({postID}: {postID:string}) =>{
 
     return (
         <form action={editEntry}>
@@ -14,4 +14,4 @@ const DeleteForm = ({postID}: {postID:string}) =>{
 
 }
 
-export default DeleteForm;
+export default EditForm;

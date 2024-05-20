@@ -16,7 +16,7 @@ interface formDataType {
     notes: string;
 }
 
-const NewEntryForm = ()=>{
+const NewEntryForm = ({buttonText}: {buttonText:string})=>{
 
     const initialFormData = {
         date: getTodaysDate(),
@@ -27,7 +27,6 @@ const NewEntryForm = ()=>{
     }
 
     const [formData, setFormData] = useState<formDataType>(initialFormData);
-    const [editEntry, setEditEntry] = useState<boolean>(false);
 
     const newEntryFormRef = useRef<HTMLFormElement>(null)
 
@@ -129,7 +128,7 @@ const NewEntryForm = ()=>{
                 />
             </label>
             <Button
-            text="Noted"
+            text={buttonText}
             buttonType="submit"
             />
         </form>
