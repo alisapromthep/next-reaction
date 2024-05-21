@@ -6,7 +6,7 @@ import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow, convertDate, convertTime} from "../../utility/dateAndTime";
-import { addNewEntry } from "@/utility/formFunction";
+import { addNewEntry, editEntryByID } from "@/utility/formFunction";
 import { useUserContext } from '@/context/userContext';
 
 interface formDataType {
@@ -106,7 +106,13 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
         ref={newEntryFormRef}
         className="bg-gray mb-20"
         action={async (formData) => {
-            await addNewEntry(formData);
+
+            if(editEntry){
+                await editEntryByID(formData);
+            } else{
+                await addNewEntry(formData);
+            }
+
             newEntryFormRef.current?.reset();
             setFormData(initialFormData);
             }}

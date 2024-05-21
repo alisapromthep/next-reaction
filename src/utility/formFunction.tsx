@@ -100,7 +100,7 @@ export async function deleteEntry(formData: FormData){
 }
 }
 
-export async function editEntry(formData: FormData){
+export async function editEntryByID(formData: FormData){
 
         console.log(formData)
         let postID = formData.get("postID")
