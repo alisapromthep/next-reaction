@@ -17,13 +17,13 @@ interface userLogsType {
 interface UserContextType {
     userLogs: userLogsType[];
     getUserLogs: ()=> void;
-    getEntryByID: ()=> object;
+    getEntryByID: (postId: string)=> Promise<object>;
 }
 
 export const UserContext = createContext<UserContextType>({
     userLogs: [],
     getUserLogs: ()=>{},
-    getEntryByID: ()=>{return {}}
+    getEntryByID: async()=>({})
 })
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -67,27 +67,29 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         .catch((err)=> console.log(err))
     };
 
-    async function getEntryByID(postID: string){
+    const getEntryByID = async (postID: string) => {
 
         try{
 
+            const entry = await pb.collection('entries').getOne(postID, {
+                headers: {
+                    "token": token
+            }
+            })
+
+            console.log(entry);
+            return entry;
+
         } 
         catch(err){
-            return {message: `error has occurred ${err}`}
-
+            return Promise.reject(`error has occurred ${err}`)
         }
-
-
-
-
-
-        return 
 
     }
 
 
     return(
-        <UserContext.Provider value={({userLogs, getUserLogs})}>
+        <UserContext.Provider value={({userLogs, getUserLogs,getEntryByID})}>
             {children}
         </UserContext.Provider>
     )

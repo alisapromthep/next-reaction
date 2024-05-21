@@ -5,8 +5,9 @@ import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
 import Button from "../Buttons/Button";
-import {getTodaysDate, getTimeNow} from "../../utility/dateAndTime";
+import {getTodaysDate, getTimeNow, convertDate, convertTime} from "../../utility/dateAndTime";
 import { addNewEntry } from "@/utility/formFunction";
+import { useUserContext } from '@/context/userContext';
 
 interface formDataType {
     date: string;
@@ -24,6 +25,8 @@ interface formType {
 
 const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
 
+    const {getEntryByID} = useUserContext();
+
     const initialFormData = {
         date: getTodaysDate(),
         time: getTimeNow(),
@@ -39,9 +42,25 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
 
     useEffect(()=>{
 
+        if(editEntry){
+            let entry = getEntryByID(postID);
+            entry.then(res => {
+                console.log(res)
 
+                const {id, time_of_day, food, symptom, notes} = res;
 
-
+                setFormData({
+                    date: convertDate(time_of_day),
+                    time: convertTime(time_of_day),
+                    foodOption:food,
+                    symptoms: symptom.split(" "),
+                    notes: notes,
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        }
     },[editEntry])
 
     const newEntryFormRef = useRef<HTMLFormElement>(null)
@@ -53,6 +72,33 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
             ...prev,
             [name]: value
         }))
+    }
+
+    const handleCheckBoxChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value, checked} = e.target;
+
+        setFormData(prev => {
+            if(checked){
+                return {
+                    ...prev,
+                    [name]:[...prev[name], value]
+                }
+            } else{
+                return {
+                    ...prev,
+                    [name]: prev[name].filter((item:string)=> item !== value)
+                }
+            }
+        })
+    }
+
+    const handleFoodChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value, checked} = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }))
+
     }
 
     return (
@@ -107,7 +153,8 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
                                 type="checkbox"
                                 value={symptom.name}
                                 name="symptoms"
-                                checked={}
+                                checked={formData.symptoms.includes(symptom.name)}
+                                onChange={handleCheckBoxChange}
                                 />
                             </label>
                         )
@@ -131,7 +178,8 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
                                 type="radio"
                                 value={food.name}
                                 name="foodOption"
-                                checked={}
+                                checked={formData.foodOption === food.name}
+                                onChange={handleFoodChange}
                                 />
                             </label>
                         )
