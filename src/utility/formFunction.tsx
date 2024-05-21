@@ -19,6 +19,7 @@ import {cookies} from 'next/headers';
 //         return 
 // }
 
+
 export async function addNewEntry(formData: FormData){
         console.log('formData',formData)
         let symptomsList = formData.getAll('symptoms')
@@ -68,6 +69,7 @@ export async function deleteEntry(formData: FormData){
 
         console.log(formData)
         let postID = formData.get("postID")
+        
         console.log(postID)
 
         const cookieStore = cookies();
@@ -104,6 +106,11 @@ export async function editEntryByID(formData: FormData){
 
         console.log(formData)
         let postID = formData.get("postID")
+        let symptomsList = formData.getAll('symptoms')
+        symptomsList.join(",")
+        let time = formData.get('time')?.toString()
+        let date = formData.get('date')?.toString()
+        let timeOfDay = `${time} ${date}`
         console.log(postID)
 
         const cookieStore = cookies();

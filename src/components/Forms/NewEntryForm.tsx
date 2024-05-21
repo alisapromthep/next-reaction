@@ -117,6 +117,11 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
             setFormData(initialFormData);
             }}
         >
+            {
+                editEntry ? 
+                <input type="hidden" name="postID" value={postID}/>:
+                <></>
+            }
             <label className="capitalize flex flex-col">
                 date
                 <input
