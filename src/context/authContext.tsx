@@ -21,6 +21,8 @@ interface AuthContextType {
     handleRegister: (event: FormEvent<HTMLFormElement>) => void;
     handleLogin: (event: FormEvent<HTMLFormElement>) => void;
     handleLogout: MouseEventHandler;
+    showPassword: Boolean,
+    setShowPassword: React.Dispatch<SetStateAction<Boolean>>;
 }
 
 const userInfoInitial:UserInfoType = {
@@ -43,7 +45,10 @@ export const AuthContext = createContext<AuthContextType>({
     handleChange: ()=> {},
     handleRegister: ()=> {},
     handleLogin: ()=> {},
-    handleLogout: ()=> {}
+    handleLogout: ()=> {},
+    showPassword: false,
+    setShowPassword: ()=>{},
+
 });
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -53,6 +58,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial);
     const [isRegister, setIsRegister] = useState<Boolean>(false);
     const [isLogin, setIsLogin] = useState<Boolean>(false);
+    const [showPassword, setShowPassword] = useState<Boolean>(false);
 
     useEffect(()=>{
 
@@ -141,7 +147,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     return (
         <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
         isRegister, setIsRegister,
-        handleChange, handleRegister, handleLogin, handleLogout}}>
+        handleChange, handleRegister, handleLogin, handleLogout,
+        showPassword,setShowPassword}}>
             {children}
         </AuthContext.Provider>
     )

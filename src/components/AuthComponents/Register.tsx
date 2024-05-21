@@ -1,9 +1,10 @@
 import Input from '@/components/Forms/Input'; 
 import Button from '@/components/Buttons/Button';
 import {useAuthContext} from '../../context/authContext';
+import EyeButton from '../Buttons/EyeButton';
 
 const Register: React.FC = ()=>{
-    const {isLogin, currentUser, handleChange, handleRegister} = useAuthContext();
+    const {handleChange, handleRegister,showPassword} = useAuthContext();
 
     return(
         <div className='md:w-3/5 font-NunitoSans flex flex-col bg-green-light'>
@@ -19,22 +20,28 @@ const Register: React.FC = ()=>{
                 inputType='text'
                 onChange={handleChange}
                 />
-                <Input
-                labelName='password'
-                label='password'
-                inputName='password'
-                placeholder='password'
-                inputType='text'
-                onChange={handleChange}
-                />
-                <Input
-                labelName='passwordConfirm'
-                label='passwordConfirm'
-                inputName='passwordConfirm'
-                placeholder='passwordConfirm'
-                inputType='text'
-                onChange={handleChange}
-                />
+                <div className='relative'>
+                    <Input
+                    labelName='password'
+                    label='password'
+                    inputName='password'
+                    placeholder='password'
+                    inputType={showPassword ? 'text':'password'}
+                    onChange={handleChange}
+                    />
+                    <EyeButton/>
+                </div>
+                <div className='relative'>
+                    <Input
+                    labelName='passwordConfirm'
+                    label='passwordConfirm'
+                    inputName='passwordConfirm'
+                    placeholder='passwordConfirm'
+                    inputType={showPassword ? 'text':'password'}
+                    onChange={handleChange}
+                    />
+                    <EyeButton/>
+                </div>
                 <Button text="Submit" buttonType='submit'/>
             </form>
         </div>

@@ -1,14 +1,14 @@
 import Input from '../../components/Forms/Input'; 
 import {useAuthContext} from '../../context/authContext';
 import Button from '../../components/Buttons/Button';
+import EyeButton from '../Buttons/EyeButton';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
-const Login = ()=>{
+const Login:React.FC = ()=>{
 
     const router = useRouter();
 
-    const {currentUser, isLogin, handleChange, handleLogin} = useAuthContext();
+    const {handleChange, handleLogin,showPassword} = useAuthContext();
 
     return(
         <div className="md:w-3/5 font-NunitoSans flex flex-col bg-green-light">
@@ -24,14 +24,17 @@ const Login = ()=>{
                 inputType='text'
                 onChange={handleChange}
                 />
-                <Input
-                labelName='password'
-                label='password'
-                inputName='password'
-                placeholder='password'
-                inputType='text'
-                onChange={handleChange}
-                />
+                <div  className='relative'>
+                    <Input
+                    labelName='password'
+                    label='password'
+                    inputName='password'
+                    placeholder='password'
+                    inputType={showPassword ? 'text':'password'}
+                    onChange={handleChange}
+                    />
+                    <EyeButton/>
+                </div>
                 <Button text="Login" buttonType='submit'/>
             </form>
         </div>
