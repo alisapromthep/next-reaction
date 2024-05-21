@@ -1,6 +1,6 @@
 "use client"
 
-import {useState, useRef} from 'react';
+import {useState, useRef, useEffect} from 'react';
 import { CldImage } from "next-cloudinary";
 import symptomIcons from "./symptomsIcons.json";
 import foodIcons from "./foodIcons.json";
@@ -16,7 +16,13 @@ interface formDataType {
     notes: string;
 }
 
-const NewEntryForm = ({buttonText}: {buttonText:string})=>{
+interface formType {
+    editEntry: boolean;
+    buttonText: string;
+    postID: string;
+}
+
+const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
 
     const initialFormData = {
         date: getTodaysDate(),
@@ -27,6 +33,16 @@ const NewEntryForm = ({buttonText}: {buttonText:string})=>{
     }
 
     const [formData, setFormData] = useState<formDataType>(initialFormData);
+
+
+    //if editing mode then, must retrive info for that post 
+
+    useEffect(()=>{
+
+
+
+
+    },[editEntry])
 
     const newEntryFormRef = useRef<HTMLFormElement>(null)
 
@@ -91,6 +107,7 @@ const NewEntryForm = ({buttonText}: {buttonText:string})=>{
                                 type="checkbox"
                                 value={symptom.name}
                                 name="symptoms"
+                                checked={}
                                 />
                             </label>
                         )
@@ -114,6 +131,7 @@ const NewEntryForm = ({buttonText}: {buttonText:string})=>{
                                 type="radio"
                                 value={food.name}
                                 name="foodOption"
+                                checked={}
                                 />
                             </label>
                         )

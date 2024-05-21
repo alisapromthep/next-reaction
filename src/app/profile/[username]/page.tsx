@@ -42,7 +42,9 @@ function profilePage() {
                     </div>
                 </div>
                 <NewEntryForm
+                editEntry={editEntry}
                 buttonText={editEntry ? "Edit Note":"Noted"}
+                postID = {postID}
                 />
             </div>
         </div>

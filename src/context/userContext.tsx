@@ -17,11 +17,13 @@ interface userLogsType {
 interface UserContextType {
     userLogs: userLogsType[];
     getUserLogs: ()=> void;
+    getEntryByID: ()=> object;
 }
 
 export const UserContext = createContext<UserContextType>({
     userLogs: [],
-    getUserLogs: ()=>{}
+    getUserLogs: ()=>{},
+    getEntryByID: ()=>{return {}}
 })
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -63,8 +65,25 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             setUserLog(allLogs)
     })
         .catch((err)=> console.log(err))
-
     };
+
+    async function getEntryByID(postID: string){
+
+        try{
+
+        } 
+        catch(err){
+            return {message: `error has occurred ${err}`}
+
+        }
+
+
+
+
+
+        return 
+
+    }
 
 
     return(
