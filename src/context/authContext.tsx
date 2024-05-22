@@ -12,11 +12,11 @@ interface AuthContextType {
     token: string,
     currentUser: UserInfoType;
     userInfo: UserInfoType;
+    setToken: React.Dispatch<SetStateAction<string>>;
     isLogin: Boolean;
     setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
+    setCurrentUser:React.Dispatch<SetStateAction<UserInfoType>>;
     setIsLogin:React.Dispatch<SetStateAction<Boolean>>;
-    isRegister: Boolean;
-    setIsRegister:React.Dispatch<SetStateAction<Boolean>>;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     handleRegister: (event: FormEvent<HTMLFormElement>) => void;
     handleLogin: (event: FormEvent<HTMLFormElement>) => void;
@@ -38,10 +38,10 @@ export const AuthContext = createContext<AuthContextType>({
     currentUser: {},
     userInfo: userInfoInitial,
     isLogin: false,
+    setToken:()=>{},
     setUserInfo: ()=>{},
     setIsLogin: ()=>{},
-    isRegister: false, 
-    setIsRegister: ()=>{},
+    setCurrentUser: ()=>{},
     handleChange: ()=> {},
     handleRegister: ()=> {},
     handleLogin: ()=> {},
@@ -56,7 +56,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [token, setToken] = useState("");
     const [currentUser, setCurrentUser] = useState<UserInfoType>({});
     const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial);
-    const [isRegister, setIsRegister] = useState<Boolean>(false);
     const [isLogin, setIsLogin] = useState<Boolean>(false);
     const [showPassword, setShowPassword] = useState<Boolean>(false);
 
@@ -146,7 +145,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     return (
         <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
-        isRegister, setIsRegister,
+        setCurrentUser, setToken,
         handleChange, handleRegister, handleLogin, handleLogout,
         showPassword,setShowPassword}}>
             {children}

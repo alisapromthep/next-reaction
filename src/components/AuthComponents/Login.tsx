@@ -3,35 +3,42 @@ import {useAuthContext} from '../../context/authContext';
 import Button from '../../components/Buttons/Button';
 import EyeButton from '../Buttons/EyeButton';
 import { useRouter } from 'next/navigation';
+import {handleLogin} from '@/utility/authFunction';
+import {useForm} from "react-hook-form";
+import {FormData} from "@/components/FormField/types";
+import FormField from '../FormField/FormField';
 
 const Login:React.FC = ()=>{
 
     const router = useRouter();
 
-    const {handleChange, handleLogin,showPassword} = useAuthContext();
+    const {handleChange,showPassword} = useAuthContext();
+    const {register, handleSubmit, formState:{errors}, setError} = useForm<FormData>();
 
     return(
         <div className="md:w-3/5 font-NunitoSans flex flex-col bg-green-light">
             <h2 className='text-xl font-bold text-green-dark'>Login</h2>
-            <form onSubmit={handleLogin}
+            <form action={handleLogin}
             className='flex flex-col justify-center'
             >
-                <Input
+                <FormField
                 labelName='username'
                 label='username'
-                inputName='username'
+                type="text"
                 placeholder='username'
-                inputType='text'
-                onChange={handleChange}
+                name="username"
+                register={register}
+                error={errors.username}
                 />
-                <div  className='relative'>
-                    <Input
+                <div className='relative'>
+                    <FormField
                     labelName='password'
                     label='password'
-                    inputName='password'
+                    type={showPassword ? 'text':'password'}
                     placeholder='password'
-                    inputType={showPassword ? 'text':'password'}
-                    onChange={handleChange}
+                    name="password"
+                    register={register}
+                    error={errors.password}
                     />
                     <EyeButton/>
                 </div>
