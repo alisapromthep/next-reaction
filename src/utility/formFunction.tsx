@@ -88,6 +88,10 @@ export async function deleteEntry(formData: FormData){
                 const userCookie = JSON.parse(requestCookie.value);
                 const {token} = userCookie; 
 
+                if(typeof postID !== 'string'){
+                        return;
+                }
+
         try{
                 const deleteRecord = await pb.collection('entries').delete(postID,{
                         headers: {
@@ -136,6 +140,10 @@ export async function editEntryByID(formData: FormData){
                         "food": formData.get('foodOption')?.toString(),
                         "symptom": symptomsList.join(","),
                         "notes": formData.get('notes')?.toString()
+                }
+
+                if(typeof postID !== 'string'){
+                        return;
                 }
 
         try{
