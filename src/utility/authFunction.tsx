@@ -3,52 +3,46 @@
 import { revalidatePath } from "next/cache";
 import pb from "../../lib/pocketbase";
 import {cookies} from 'next/headers';
-import { useAuthContext } from "@/context/authContext";
 
-const {setIsLogin, setToken, setCurrentUser } = useAuthContext();
-
-const completeLogin = ()=>{
-    document.cookie = pb.authStore.exportToCookie({httpOnly: false})
-    const model = pb.authStore.model;
-    setIsLogin(true);
-    setToken(pb.authStore.token);
-    setCurrentUser({
-        id: model?.id,
-                username: model?.username,
-    })
-    
-}
 
 export async function handleRegister(formData: FormData){
 
     const newUser = {
-        username:formData.get("username"),
-        password: formData.get("password"),
-        confirmPassword: formData.get("confirmPassword")
+        username:formData.get("username")?.toString(),
+        password: formData.get("password")?.toString(),
+        passwordConfirm: formData.get("confirmPassword")?.toString()
     }
+    console.log(newUser)
     
-    if(newUser.password === newUser.confirmPassword){
+    if(newUser.password === newUser.passwordConfirm){
         try{
-            const register = await pb.collection('users').create({
+            const register = await pb.collection('users').create(
                 newUser
-            })
-
-            completeLogin();
+            )
+            
+            if(!register?.token){
+                console.log(register)
+                return false;
+            }
+            document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             console.log(register,
                 "completed register")
+            return true;
             
     
         }catch (err){
             console.log(err)
+            console.log('error occured')
+            return false;
         }
 
     }
 }
 
-export async function handleLogin(formData: FormData){
+export async function handleLogin(data: FormData){
 
-    const username = formData.get("username");
-    const password = formData.get("password");
+    const username = data.get("username")?.toString();
+    const password = data.get("password")?.toString();
 
     if( typeof username !== 'string' || typeof password !== 'string'){
         console.error('username or password is not a string');
@@ -57,11 +51,17 @@ export async function handleLogin(formData: FormData){
     
     try{
         const loginResult = await pb.collection('users').authWithPassword( username, password);
-
-        completeLogin();
+        if(!loginResult?.token){
+            console.log('err', loginResult)
+            return false;
+        }
+        document.cookie = pb.authStore.exportToCookie({httpOnly: false})
+        
+        return true;
 
     } catch(err){
         console.log(err)
+        return false;
     }
 
 

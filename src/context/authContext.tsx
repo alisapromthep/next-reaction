@@ -1,8 +1,8 @@
+"use client"
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
-import type { AuthProviderInfo } from 'pocketbase';
-import { useRouter} from 'next/router';
-import {redirect} from 'next/navigation';
+import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+
 
 interface UserInfoType {
     [key: string]: string;
@@ -23,6 +23,7 @@ interface AuthContextType {
     handleLogout: MouseEventHandler;
     showPassword: Boolean,
     setShowPassword: React.Dispatch<SetStateAction<Boolean>>;
+    signIn: (username:string, password: string)=> Promise<object>;
 }
 
 const userInfoInitial:UserInfoType = {
@@ -48,7 +49,7 @@ export const AuthContext = createContext<AuthContextType>({
     handleLogout: ()=> {},
     showPassword: false,
     setShowPassword: ()=>{},
-
+    signIn: async()=>({})
 });
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -124,9 +125,11 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
                 id: model?.id,
                 username: model?.username,
             })
+            return result;
 
         }catch(err){
             console.log(err)
+            return Promise.reject(`error has occurred ${err}`)
         }
     }
 
@@ -147,7 +150,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
         setCurrentUser, setToken,
         handleChange, handleRegister, handleLogin, handleLogout,
-        showPassword,setShowPassword}}>
+        showPassword,setShowPassword, signIn}}>
             {children}
         </AuthContext.Provider>
     )
