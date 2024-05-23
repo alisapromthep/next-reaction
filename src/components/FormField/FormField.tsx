@@ -4,7 +4,7 @@ import { FormFieldProps} from './types';
 const FormField: React.FC<FormFieldProps> =({
     labelName, label, type,placeholder,name, register, error,valueAsNumber
 }) =>(
-    <label className='font-bold flex flex-col py-2 capitalize text-lg'
+    <label className='h-24 font-bold flex flex-col py-2 capitalize text-lg'
     htmlFor={labelName}>
         {label}
         <input
@@ -13,7 +13,7 @@ const FormField: React.FC<FormFieldProps> =({
         placeholder={placeholder}
         {...register(name, {valueAsNumber})}
         />
-    {error && <span className='error-message'>{error.message}</span>}
+    {error && <span className='text-sm text-red-600'>{error.message}</span>}
     </label>
 );
 

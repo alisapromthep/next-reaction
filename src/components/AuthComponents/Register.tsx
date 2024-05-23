@@ -4,15 +4,17 @@ import Button from '@/components/Buttons/Button';
 import {useAuthContext} from '../../context/authContext';
 import EyeButton from '../Buttons/EyeButton';
 import {useForm} from "react-hook-form";
-import {FormData} from "@/components/FormField/types";
-
+import {FormData, UserSchema} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
-import {redirect} from 'next/navigation';
+import {zodResolver} from "@hookform/resolvers/zod";
+
 
 const Register: React.FC = ()=>{
     const {registerNewUser, handleChange,showPassword} = useAuthContext();
 
-    const {register, handleSubmit,formState:{errors}, setError} = useForm<FormData>();
+    const {register, handleSubmit,formState:{errors}, setError} = useForm<FormData>({
+        resolver: zodResolver(UserSchema)
+    });
 
     return(
         <div className='md:w-3/5 font-NunitoSans flex flex-col bg-green-light'>
@@ -49,9 +51,9 @@ const Register: React.FC = ()=>{
                 <div className='relative'>
                 <FormField
                     labelName='confirmPassword'
-                    label='confirmPassword'
+                    label='Confirm password'
                     type={showPassword ? 'text':'password'}
-                    placeholder='confirmPassword'
+                    placeholder='confirm password'
                     name="confirmPassword"
                     register={register}
                     error={errors.confirmPassword}
