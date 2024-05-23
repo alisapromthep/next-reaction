@@ -18,11 +18,10 @@ interface AuthContextType {
     setCurrentUser:React.Dispatch<SetStateAction<UserInfoType>>;
     setIsLogin:React.Dispatch<SetStateAction<Boolean>>;
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleRegister: (event: FormEvent<HTMLFormElement>) => void;
-    handleLogin: (event: FormEvent<HTMLFormElement>) => void;
     handleLogout: MouseEventHandler;
     showPassword: Boolean,
     setShowPassword: React.Dispatch<SetStateAction<Boolean>>;
+    registerNewUser: (username:string, password:string, passwordConfirm:string)=> Promise<object>;
     signIn: (username:string, password: string)=> Promise<object>;
 }
 
@@ -44,11 +43,10 @@ export const AuthContext = createContext<AuthContextType>({
     setIsLogin: ()=>{},
     setCurrentUser: ()=>{},
     handleChange: ()=> {},
-    handleRegister: ()=> {},
-    handleLogin: ()=> {},
     handleLogout: ()=> {},
     showPassword: false,
     setShowPassword: ()=>{},
+    registerNewUser: async()=>({}),
     signIn: async()=>({})
 });
 
@@ -84,30 +82,54 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     //register user 
 
-    const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault()
-        const {username, password, passwordConfirm} = userInfo;
-
-        const register = pb.collection('users').create({
-            username,
-            password,
+    async function registerNewUser(username: string, password:string, passwordConfirm:string){
+        const userInfo = {
+            username, 
+            password, 
             passwordConfirm
         }
-        )
 
-        register.then((res)=>{
-            console.log(res,'result from register')
+        try{
+            const result = await pb.collection('users').create(userInfo)
+            console.log(result)
 
-            let login = signIn(username,password);
-            login.then(res => {
-                console.log(res);
-            })
-        })
-        .catch(err => {
-            console.log(err,'error occurred')
-        })
+            const loginResult = await signIn(username,password);
+
+            return loginResult;
+
+        } catch(err){
+            console.log(err)
+            return Promise.reject(`error occurred ${err}`)
+        }
+
+        
 
     }
+
+    // const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
+    //     event.preventDefault()
+    //     const {username, password, passwordConfirm} = userInfo;
+
+    //     const register = pb.collection('users').create({
+    //         username,
+    //         password,
+    //         passwordConfirm
+    //     }
+    //     )
+
+    //     register.then((res)=>{
+    //         console.log(res,'result from register')
+
+    //         let login = signIn(username,password);
+    //         login.then(res => {
+    //             console.log(res);
+    //         })
+    //     })
+    //     .catch(err => {
+    //         console.log(err,'error occurred')
+    //     })
+
+    // }
 
     async function signIn (username:string, password: string){
         try {
@@ -133,12 +155,12 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
         }
     }
 
-    const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault();
+    // const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
+    //     event.preventDefault();
 
-        const {username, password} = userInfo;
-        signIn(username,password);
-    }
+    //     const {username, password} = userInfo;
+    //     signIn(username,password);
+    // }
 
     const handleLogout = (): void =>{
         pb.authStore.clear();
@@ -149,8 +171,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     return (
         <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
         setCurrentUser, setToken,
-        handleChange, handleRegister, handleLogin, handleLogout,
-        showPassword,setShowPassword, signIn}}>
+        handleChange, handleLogout,
+        showPassword,setShowPassword, registerNewUser,signIn}}>
             {children}
         </AuthContext.Provider>
     )
