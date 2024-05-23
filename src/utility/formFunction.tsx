@@ -19,6 +19,12 @@ import {cookies} from 'next/headers';
 //         return 
 // }
 
+export async function deleteCookie(){
+        pb.authStore.clear();
+        cookies().delete("pb_auth");
+        return true;
+}
+
 
 export async function addNewEntry(formData: FormData){
         console.log('formData',formData)

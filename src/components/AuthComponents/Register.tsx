@@ -5,7 +5,7 @@ import {useAuthContext} from '../../context/authContext';
 import EyeButton from '../Buttons/EyeButton';
 import {useForm} from "react-hook-form";
 import {FormData} from "@/components/FormField/types";
-import { handleRegister } from '@/utility/authFunction';
+
 import FormField from '../FormField/FormField';
 import {redirect} from 'next/navigation';
 

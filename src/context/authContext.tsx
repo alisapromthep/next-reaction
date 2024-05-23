@@ -1,7 +1,7 @@
-"use client"
+
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
-import { ReadonlyRequestCookies } from 'next/dist/server/web/spec-extension/adapters/request-cookies';
+import { deleteCookie } from '@/utility/formFunction';
 
 
 interface UserInfoType {
@@ -101,9 +101,6 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             console.log(err)
             return Promise.reject(`error occurred ${err}`)
         }
-
-        
-
     }
 
     // const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
@@ -163,7 +160,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     // }
 
     const handleLogout = (): void =>{
-        pb.authStore.clear();
+        deleteCookie();
         setIsLogin(false)
     }
     
