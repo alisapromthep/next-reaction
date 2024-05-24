@@ -1,8 +1,11 @@
 
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
-import { deleteCookie } from '@/utility/formFunction';
-
+import { deleteCookie } from '@/utility/authFunction';
+import { ValidFieldNames } from '@/components/FormField/types';
+import {useForm} from "react-hook-form";
+import {FormData, UserSchema} from "@/components/FormField/types";
+import {zodResolver} from "@hookform/resolvers/zod";
 
 interface UserInfoType {
     [key: string]: string;
@@ -58,18 +61,22 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const [isLogin, setIsLogin] = useState<Boolean>(false);
     const [showPassword, setShowPassword] = useState<Boolean>(false);
 
+    const {formState:{errors}, setError} = useForm<FormData>({
+        resolver: zodResolver(UserSchema)
+    });
+
     useEffect(()=>{
 
-        if(pb.authStore.isValid && pb.authStore.model){
-            const model = pb.authStore.model;
-            setIsLogin(true);
-            setToken(pb.authStore.token);
-            setCurrentUser({
-                id: model?.id,
-                username: model?.username,
-            })
-        }
-    },[])
+        // if(pb.authStore.isValid && pb.authStore.model){
+        //     const model = pb.authStore.model;
+        //     setIsLogin(true);
+        //     setToken(pb.authStore.token);
+        //     setCurrentUser({
+        //         id: model?.id,
+        //         username: model?.username,
+        //     })
+        // }
+    },[token])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         const { name, value } = event.target;
@@ -91,6 +98,25 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
         try{
             const result = await pb.collection('users').create(userInfo)
+            const {errors = {}} = result.data;
+
+            const fieldErrorMapping: Record<string, ValidFieldNames> ={
+                username: "username",
+                password: "password",
+                confirmPassword: "confirmPassword"
+            }
+            
+            //find field with errors 
+            const fieldWithError = Object.keys(fieldErrorMapping).find(field => errors[field]);
+
+            //update error date to the error fields 
+            if(fieldWithError){
+                setError(fieldErrorMapping[fieldWithError],{
+                    type:'server',
+                    message:errors[fieldWithError],
+                })
+            }
+
             console.log(result)
 
             const loginResult = await signIn(username,password);
@@ -130,21 +156,22 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     async function signIn (username:string, password: string){
         try {
-            const result = await pb.collection('users').authWithPassword(
+            const response = await pb.collection('users').authWithPassword(
                 username,
                 password
             )
+            console.log(response)
+            const {token, record: model} = response;
+
             //result has token
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             setIsLogin(true)
-            console.log(pb.authStore.model)
-            const model = pb.authStore.model;
-            setToken(pb.authStore.token);
+            setToken(token);
             setCurrentUser({
                 id: model?.id,
                 username: model?.username,
             })
-            return result;
+            return response;
 
         }catch(err){
             console.log(err)

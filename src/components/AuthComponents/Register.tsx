@@ -12,7 +12,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 const Register: React.FC = ()=>{
     const {registerNewUser, handleChange,showPassword} = useAuthContext();
 
-    const {register, handleSubmit,formState:{errors}, setError} = useForm<FormData>({
+    const {register, handleSubmit,formState:{errors, isSubmitting, isSubmitSuccessful}, setError} = useForm<FormData>({
         resolver: zodResolver(UserSchema)
     });
 

@@ -3,6 +3,9 @@
 import { revalidatePath } from "next/cache";
 import pb from "../../lib/pocketbase";
 import {cookies} from 'next/headers';
+import { UserSchema } from "@/components/FormField/types";
+
+
 
 //use server action here to be able to do a post request 
 //formData --> collects info for you
@@ -19,11 +22,8 @@ import {cookies} from 'next/headers';
 //         return 
 // }
 
-export async function deleteCookie(){
-        pb.authStore.clear();
-        cookies().delete("pb_auth");
-        return true;
-}
+
+
 
 
 export async function addNewEntry(formData: FormData){

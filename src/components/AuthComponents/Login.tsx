@@ -7,13 +7,14 @@ import { useRouter } from 'next/navigation';
 import {useForm} from "react-hook-form";
 import {FormData} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
+import {zodResolver} from "@hookform/resolvers/zod";
 
 
 const Login:React.FC = ()=>{
 
     const router = useRouter();
 
-    const { signIn, handleChange,showPassword,currentUser} = useAuthContext();
+    const { signIn,showPassword} = useAuthContext();
     const {register, handleSubmit, formState:{errors}, setError} = useForm<FormData>();
 
     return(
