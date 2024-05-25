@@ -3,10 +3,11 @@ import Input from '@/components/Forms/Input';
 import Button from '@/components/Buttons/Button';
 import {useAuthContext} from '../../context/authContext';
 import EyeButton from '../Buttons/EyeButton';
-import {useForm} from "react-hook-form";
+import {useForm} from 'react-hook-form';
 import {FormData, UserSchema} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
 import {zodResolver} from "@hookform/resolvers/zod";
+import {useState} from 'react';
 
 
 const Register: React.FC = ()=>{
@@ -16,12 +17,23 @@ const Register: React.FC = ()=>{
         resolver: zodResolver(UserSchema)
     });
 
+    const onSubmit = async (data: FormData) => {
+        try {
+            await registerNewUser(data.username,data.password,data.confirmPassword)
+            
+        } catch(err){
+            setError("formError", {type: "manual", message: "Error registering"});
+        }
+    }
+
     return(
         <div className='md:w-3/5 font-NunitoSans flex flex-col bg-green-light'>
             <h2 className="text-xl font-bold text-green-dark">Register</h2>
-            <form onSubmit={handleSubmit(async (data)=>{
-                await registerNewUser(data.username,data.password,data.confirmPassword)
-            })}
+            {!isSubmitSuccessful && errors.formError && (
+                <span className='text-red-600'>Error registering</span>
+            )
+            }
+            <form onSubmit={handleSubmit(onSubmit)}
             className='flex flex-col justify-center'
             >
                 <FormField
