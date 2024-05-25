@@ -8,7 +8,6 @@ import NavBar from '@/components/NavBar/NavBar';
 import { useAuthContext } from '@/context/authContext';
 import { useUserContext } from '@/context/userContext';
 import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '@/utility/authFunction';
 
 function profilePage() {
 
@@ -20,10 +19,7 @@ function profilePage() {
     const [postID, setPostID] = useState<string>("");
 
     useEffect(()=>{
-
-        const isAuth = isAuthenticated();
-
-        if(!isAuth && !isLogin){
+        if(!isLogin){
             return router.push('/')}
     },[])
 
