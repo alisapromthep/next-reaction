@@ -7,11 +7,14 @@ import {useForm} from 'react-hook-form';
 import {FormData, UserSchema} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
 import {zodResolver} from "@hookform/resolvers/zod";
+import { revalidatePath } from 'next/cache';
+import { SetStateAction } from 'react';
 import {useState} from 'react';
 
-
 const Register: React.FC = ()=>{
-    const {registerNewUser, handleChange,showPassword} = useAuthContext();
+    const {registerNewUser,showPassword} = useAuthContext();
+
+    const [ formError, setFormError] = useState<string | null>(null);
 
     const {register, handleSubmit,formState:{errors, isSubmitting, isSubmitSuccessful}, setError} = useForm<FormData>({
         resolver: zodResolver(UserSchema)
@@ -19,18 +22,19 @@ const Register: React.FC = ()=>{
 
     const onSubmit = async (data: FormData) => {
         try {
-            await registerNewUser(data.username,data.password,data.confirmPassword)
+            await registerNewUser(data.username,data.password,data.passwordConfirm)
             
         } catch(err){
-            setError("formError", {type: "manual", message: "Error registering"});
+            setFormError("Error registering");
+            revalidatePath('/')
         }
     }
 
     return(
         <div className='md:w-3/5 font-NunitoSans flex flex-col bg-green-light'>
             <h2 className="text-xl font-bold text-green-dark">Register</h2>
-            {!isSubmitSuccessful && errors.formError && (
-                <span className='text-red-600'>Error registering</span>
+            {!isSubmitSuccessful && formError && (
+                <span className='text-red-600'>{formError}</span>
             )
             }
             <form onSubmit={handleSubmit(onSubmit)}
@@ -62,13 +66,13 @@ const Register: React.FC = ()=>{
                 </div>
                 <div className='relative'>
                 <FormField
-                    labelName='confirmPassword'
+                    labelName='passwordConfirm'
                     label='Confirm password'
                     type={showPassword ? 'text':'password'}
                     placeholder='confirm password'
-                    name="confirmPassword"
+                    name="passwordConfirm"
                     register={register}
-                    error={errors.confirmPassword}
+                    error={errors.passwordConfirm}
                     />
                     <EyeButton/>
                 </div>

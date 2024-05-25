@@ -103,7 +103,7 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             const fieldErrorMapping: Record<string, ValidFieldNames> ={
                 username: "username",
                 password: "password",
-                confirmPassword: "confirmPassword"
+                passwordConfirm: "passwordConfirm"
             }
             
             //find field with errors 

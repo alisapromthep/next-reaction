@@ -8,22 +8,24 @@ import {useForm} from "react-hook-form";
 import {FormData} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
 import {zodResolver} from "@hookform/resolvers/zod";
+import { revalidatePath } from 'next/cache';
+import {useState} from 'react';
 
-
-const Login:React.FC = ()=>{
+const Login:React.FC= ()=>{
 
     const router = useRouter();
 
     const { signIn,showPassword} = useAuthContext();
     const {register, handleSubmit, formState:{errors, isSubmitting, isSubmitSuccessful}, setError} = useForm<FormData>();
-
+    const [ formError, setFormError] = useState<string | null>(null);
 
     const onSubmit = async (data: FormData) => {
         try {
             await signIn(data.username,data.password)
             
         } catch(err){
-            setError("formError", {type: "manual", message: "Error Logging"});
+            setFormError("Error logging");
+            revalidatePath('/')
         }
     }
 
@@ -31,8 +33,8 @@ const Login:React.FC = ()=>{
     return(
         <div className="md:w-3/5 font-NunitoSans flex flex-col bg-green-light">
             <h2 className='text-xl font-bold text-green-dark'>Login</h2>
-            {!isSubmitSuccessful && errors.formError && (
-                <span className='text-red-600'>Error Logging in</span>
+            {!isSubmitSuccessful && formError && (
+                <span className='text-red-600'>{formError}</span>
             )
             }
             <form onSubmit={handleSubmit(onSubmit)}

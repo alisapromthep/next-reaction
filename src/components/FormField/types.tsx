@@ -4,7 +4,7 @@ import {z, ZodType} from "zod";
 export type FormData = {
     username: string;
     password: string;
-    confirmPassword: string;
+    passwordConfirm: string;
 }
 
 export type FormFieldProps = {
@@ -18,7 +18,7 @@ export type FormFieldProps = {
     valueAsNumber?:boolean;
 }
 
-export type ValidFieldNames =  | "username" | "password" | "confirmPassword";
+export type ValidFieldNames =  | "username" | "password" | "passwordConfirm";
 
 export const UserSchema: ZodType<FormData> = z
 .object({
@@ -26,9 +26,9 @@ export const UserSchema: ZodType<FormData> = z
     password: z
     .string()
     .min(8,{message: "Password is too short"}),
-    confirmPassword: z.string(),
+    passwordConfirm: z.string(),
 })
-.refine((data)=> data.password === data.confirmPassword, {
+.refine((data)=> data.password === data.passwordConfirm, {
     message: "Passwords do not match",
     path: ["confirmPassword",]
 })
