@@ -10,6 +10,7 @@ type propType = {
 }
 
 interface summaryPropType {
+    key: number;
     foodKey: string;
     foodLog: propType[];
     foodIcon: propType;
@@ -17,11 +18,7 @@ interface summaryPropType {
     setPostID: React.Dispatch<React.SetStateAction<string>>
 }
 
-function SummaryDetail({foodKey, foodLog, foodIcon, setEditEntry,setPostID}:summaryPropType) {
-
-    // let foodIcon = foodIcons.find((icon)=> icon.name === foodKey);
-
-    // const {name, img_file} = foodIcon[0];
+function SummaryDetail({key, foodKey, foodLog, foodIcon, setEditEntry,setPostID}:summaryPropType) {
 
     const handleClickEdit = (postID: string)=>{
         setEditEntry(true);
@@ -29,7 +26,9 @@ function SummaryDetail({foodKey, foodLog, foodIcon, setEditEntry,setPostID}:summ
     }
 
     return (
-        <article className='border border-white m-2 p-2'>
+        <article className='border border-white m-2 p-2'
+        key={key}
+        >
             <div className=''>
                 <CldImage
                 width={20}
@@ -44,6 +43,7 @@ function SummaryDetail({foodKey, foodLog, foodIcon, setEditEntry,setPostID}:summ
                     return (
                         <li 
                         className=''
+                        key={entry.postID}
                         >
                             <p className=''>
                             <span className='font-bold'>{entry.date}</span>: {entry.symptom}</p>

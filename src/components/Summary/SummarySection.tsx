@@ -27,7 +27,7 @@ function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<R
             <Header headerText='allergy logs'/>
             <div className='w-full grid md:grid-cols-2 lg:grid-cols-1 '>
             {
-            groupLogArray.map((food)=>{
+            groupLogArray.map((food,i)=>{
                 const foodKey = Object.keys(food).toString()
                 const foodLog = food[foodKey]
                 const postID = food[foodKey]
@@ -36,6 +36,7 @@ function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<R
                     return;
                 }
                 return <SummaryDetail
+                key={i}
                 foodKey={foodKey}
                 foodLog={foodLog}
                 foodIcon={foodIcon}
