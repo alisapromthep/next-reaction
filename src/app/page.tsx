@@ -19,10 +19,11 @@ export default function Home() {
 
   const router = useRouter();
 
-  const {currentUser, isLogin} = useAuthContext();
+  const {currentUser, isLogin, token} = useAuthContext();
 
   useEffect(()=>{
-      if(isLogin && currentUser.username){
+
+      if(token && currentUser.username){
           router.push(`profile/${currentUser.username}`)
       }
 

@@ -12,9 +12,11 @@ export async function middleware(request: NextRequest){
         const {token, model: {username}} = userCookie;
 
         try {
+            //get the up-to-date auth store state, verifying and refreshing the loaded auth 
             pb.authStore.isValid && await pb.collection('users').authRefresh();
 
         } catch(err){
+            //clear auth store if failed to refresh
             console.log(err)
             pb.authStore.clear();
         }

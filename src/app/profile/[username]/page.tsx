@@ -14,12 +14,13 @@ function profilePage() {
     const router = useRouter();
 
     const {userLogs, getUserLogs} = useUserContext();
-    const {currentUser, isLogin} = useAuthContext();
+    const {currentUser, isLogin, token} = useAuthContext();
     const [editEntry, setEditEntry] = useState<boolean>(false);
     const [postID, setPostID] = useState<string>("");
 
     useEffect(()=>{
-        if(!isLogin){
+        const userCookie = document.cookie;
+        if(!userCookie){
             return router.push('/')}
     },[])
 
