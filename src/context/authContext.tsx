@@ -129,12 +129,12 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
             //result has token
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
-            // setIsLogin(true)
-            // setToken(token);
-            // setCurrentUser({
-            //     id: model?.id,
-            //     username: model?.username,
-            // })
+            setIsLogin(true)
+            setToken(token);
+            setCurrentUser({
+                id: model?.id,
+                username: model?.username,
+            })
             return response;
 
         }catch(err){

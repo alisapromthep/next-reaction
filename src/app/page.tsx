@@ -23,7 +23,7 @@ export default function Home() {
 
   useEffect(()=>{
 
-      if(token && currentUser.username){
+      if(isLogin && currentUser.username){
           router.push(`profile/${currentUser.username}`)
       }
 
