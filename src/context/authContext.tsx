@@ -61,15 +61,17 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
     useEffect(()=>{
 
-        return pb.authStore.onChange((token,model)=>{
+        let isAuth = document.cookie;
+        if(isAuth && pb.authStore.isValid){
             setIsLogin(true);
-            setToken(token);
+            setToken(pb.authStore.token);
+            const model = pb.authStore.model;
             setCurrentUser({
                 id: model?.id,
                 username: model?.username,
             })
 
-        })
+        }
 
     },[])
 

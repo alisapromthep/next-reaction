@@ -19,8 +19,7 @@ function profilePage() {
     const [postID, setPostID] = useState<string>("");
 
     useEffect(()=>{
-        const userCookie = document.cookie;
-        if(!userCookie){
+        if(!isLogin){
             return router.push('/')}
     },[])
 
