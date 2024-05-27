@@ -171,6 +171,9 @@ const NewEntryForm = ()=>{
                         )
                     })
                 }
+                <input type='text'
+                name='customSymptom'
+                placeholder='others'/>
             </fieldset>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white ">
                 <legend>What did you eat?</legend>
@@ -196,6 +199,9 @@ const NewEntryForm = ()=>{
                         )
                     })
                 }
+                <input type='text'
+                name='customFood'
+                placeholder='others'/>
             </fieldset>
             <label className="capitalize flex flex-col">
                 notes, additional info
