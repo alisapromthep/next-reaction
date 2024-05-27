@@ -124,6 +124,9 @@ export async function deleteEntry(formData: FormData){
 
 export async function editEntryByID(formData: FormData){
 
+        //where to redirect to 
+        let redirectPath = '/'
+
         console.log(formData)
         let postID = formData.get("postID")
         let symptomsList = formData.getAll('symptoms')
@@ -149,6 +152,7 @@ export async function editEntryByID(formData: FormData){
                         "timestamp":Date.parse(timeOfDay),
                         "food": formData.get('foodOption')?.toString(),
                         "symptom": symptomsList.join(","),
+                        "custom_symptom":formData.get('customSymptom'),
                         "notes": formData.get('notes')?.toString()
                 }
 
@@ -165,6 +169,7 @@ export async function editEntryByID(formData: FormData){
 
                 console.log(updateRecord)
                         revalidatePath('/profile/[username]', 'page')
+                        redirectPath= `/profile/${model.username}`
                         return {message: 'Successfully added new entry log'}
 
 
@@ -172,6 +177,8 @@ export async function editEntryByID(formData: FormData){
         catch(err) {
                 console.log(err)
                         return {message: 'error has occured'}
+        } finally{
+                redirect(redirectPath)
         }
 }
 }

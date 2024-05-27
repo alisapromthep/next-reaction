@@ -14,6 +14,7 @@ interface formDataType {
     time: string;
     foodOption: string;
     symptoms: string[];
+    customSymptom: string,
     notes: string;
 }
 
@@ -32,10 +33,12 @@ const NewEntryForm = ()=>{
         time: getTimeNow(),
         foodOption: "",
         symptoms: [],
+        customSymptom: "",
         notes: ""
     }
 
     const [formData, setFormData] = useState<formDataType>(initialFormData);
+    console.log(editEntry,'edit in form')
 
 
     //if editing mode then, must retrive info for that post 
@@ -47,13 +50,14 @@ const NewEntryForm = ()=>{
             entry.then(res => {
                 console.log(res)
 
-                const {id, time_of_day, food, symptom, notes} = res;
+                const {id, time_of_day, food, symptom, notes, custom_symptom} = res;
 
                 setFormData({
                     date: convertDate(time_of_day),
                     time: convertTime(time_of_day),
                     foodOption:food,
                     symptoms: symptom.split(" "),
+                    customSymptom: custom_symptom,
                     notes: notes,
                 })
             })
@@ -90,6 +94,16 @@ const NewEntryForm = ()=>{
                 }
             }
         })
+    }
+
+    const handleCustomSymptom = (e:React.ChangeEvent<HTMLInputElement>)=>{
+        const {value} = e.target;
+        setFormData(prev => (
+            {
+                ...prev,
+                customSymptom: value,
+            }
+        ))
     }
 
     const handleFoodChange = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -173,6 +187,8 @@ const NewEntryForm = ()=>{
                 }
                 <input type='text'
                 name='customSymptom'
+                value={formData.customSymptom}
+                onChange={handleCustomSymptom}
                 placeholder='others'/>
             </fieldset>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white ">

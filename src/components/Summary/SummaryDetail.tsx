@@ -1,9 +1,7 @@
 import { CldImage } from 'next-cloudinary'
-import foodIcons from '@/components/Forms/foodIcons.json';
-import { deleteEntry } from '@/utility/formFunction';
 import DeleteForm from '@/components/Forms/DeleteForm';
 import {RiEditBoxLine} from 'react-icons/ri';
-
+import { useRouter } from 'next/navigation';
 
 type propType = {
     [key: string]: string;
@@ -20,9 +18,14 @@ interface summaryPropType {
 
 function SummaryDetail({key, foodKey, foodLog, foodIcon, setEditEntry,setPostID}:summaryPropType) {
 
+    const router = useRouter();
+
     const handleClickEdit = (postID: string)=>{
         setEditEntry(true);
         setPostID(postID)
+        console.log('click edit')
+
+        return router.push('/forms')
     }
 
     return (
@@ -46,7 +49,7 @@ function SummaryDetail({key, foodKey, foodLog, foodIcon, setEditEntry,setPostID}
                         key={entry.postID}
                         >
                             <p className=''>
-                            <span className='font-bold'>{entry.date}</span>: {entry.symptom}</p>
+                            <span className='font-bold'>{entry.date}</span>: {entry.symptom} , {entry.custom_symptom}</p>
                             <p className={`${entry.notes ? '': 'hidden'}`}><span className='font-bold capitalize'>note</span> {entry.notes}
                             </p>
                             <button onClick={()=> 

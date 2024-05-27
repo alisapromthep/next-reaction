@@ -69,6 +69,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             timestamp:item.timestamp,
             food: item.food,
             symptom: item.symptom,
+            custom_symptom: item.custom_symptom,
             notes: item.notes,
             post_id: item.id,
         }))

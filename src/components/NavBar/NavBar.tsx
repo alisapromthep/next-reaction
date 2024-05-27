@@ -8,7 +8,6 @@ import Link from 'next/link';
 const NavBar = ()=>{
 
     const {currentUser, handleLogout} = useAuthContext();
-    const handleClick = ()=> console.log("click")
 
 
     return (
@@ -17,10 +16,10 @@ const NavBar = ()=>{
                 <h1 className='p-2.5 text-3xl'>{currentUser.username}</h1>
             </div>
             <div className='flex justify-evenly'>
-                <button 
-                onClick={handleClick}
+                <Link 
+                href={`/profile/${currentUser.username}`}
                 className='md:px-4 flex flex-col items-center'><AiOutlineCalendar id="calendar"
-                className='text-3xl'/> Calendar </button>
+                className='text-3xl'/> Calendar </Link>
                 <Link
                 href="/forms"
                 className='md:px-4 flex flex-col items-center'
