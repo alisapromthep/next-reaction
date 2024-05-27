@@ -2,15 +2,14 @@
 
 import Header from '@/components/Header/Header';
 import {groupBy }from '@/utility/groupBy';
-//import mockUserData from '@/data/mockData.json';
 import foodIcons from '../Forms/foodIcons.json';
 import SummaryDetail from './SummaryDetail';
 import { useUserContext } from '@/context/userContext';
 
 
-function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<React.SetStateAction<boolean>>, setPostID: React.Dispatch<React.SetStateAction<string>>}){
+function SummarySection(){
 
-    const {userLogs} = useUserContext();
+    const {userLogs, setEditEntry, setPostID} = useUserContext();
     const groupByFood = groupBy('food', userLogs);
     
     let groupLogArray = [];
@@ -27,7 +26,7 @@ function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<R
             <Header headerText='allergy logs'/>
             <div className='w-full grid md:grid-cols-2 lg:grid-cols-1 '>
             {
-            groupLogArray.map((food)=>{
+            groupLogArray.map((food,i)=>{
                 const foodKey = Object.keys(food).toString()
                 const foodLog = food[foodKey]
                 const postID = food[foodKey]
@@ -36,6 +35,7 @@ function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<R
                     return;
                 }
                 return <SummaryDetail
+                key={i}
                 foodKey={foodKey}
                 foodLog={foodLog}
                 foodIcon={foodIcon}

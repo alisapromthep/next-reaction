@@ -18,12 +18,20 @@ interface UserContextType {
     userLogs: userLogsType[];
     getUserLogs: ()=> void;
     getEntryByID: (postId: string)=> Promise<object>;
+    editEntry: boolean;
+    setEditEntry: React.Dispatch<SetStateAction<boolean>>;
+    postID: string;
+    setPostID: React.Dispatch<SetStateAction<string>>;
 }
 
 export const UserContext = createContext<UserContextType>({
     userLogs: [],
     getUserLogs: ()=>{},
-    getEntryByID: async()=>({})
+    getEntryByID: async()=>({}),
+    editEntry: false,
+    setEditEntry: ()=>{},
+    postID: "",
+    setPostID:()=>{}
 })
 
 export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
@@ -31,6 +39,8 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     const {token} = useAuthContext();
 
     const [userLogs, setUserLog] = useState<userLogsType[]>([]);
+    const [editEntry, setEditEntry] = useState<boolean>(false);
+    const [postID, setPostID] = useState<string>("");
 
     //fetch userLogs Data from pocketbase database
     //fetch according to user_id 
@@ -59,6 +69,7 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
             timestamp:item.timestamp,
             food: item.food,
             symptom: item.symptom,
+            custom_symptom: item.custom_symptom,
             notes: item.notes,
             post_id: item.id,
         }))
@@ -89,7 +100,10 @@ export const UserProvider: React.FC<{children: React.ReactNode}> = ({children}) 
 
 
     return(
-        <UserContext.Provider value={({userLogs, getUserLogs,getEntryByID})}>
+        <UserContext.Provider value={({userLogs, getUserLogs,getEntryByID,
+        editEntry, setEditEntry,
+        postID, setPostID
+        })}>
             {children}
         </UserContext.Provider>
     )

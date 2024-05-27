@@ -19,9 +19,10 @@ export default function Home() {
 
   const router = useRouter();
 
-  const {currentUser, isLogin} = useAuthContext();
+  const {currentUser, isLogin, token} = useAuthContext();
 
   useEffect(()=>{
+
       if(isLogin && currentUser.username){
           router.push(`profile/${currentUser.username}`)
       }
@@ -57,7 +58,7 @@ export default function Home() {
       <div className="md:py-10 w-full bg-green-light flex flex-col items-center justify-center rounded-t-3xl md:rounded-r-none md:rounded-l-3xl">
         <div className="md:w-full mt-8 mb-6 md:my-0 h-4/6 flex items-center justify-center">
           {
-          login ? (<Login />):(<Register/>)
+          login ? (<Login/>):(<Register/>)
           }
         </div>
         <div className="group relative my-6 md:mb-0 rounded-xl border-1 border-white bg-white bg-opacity-50">

@@ -1,8 +1,12 @@
 "use server"
 
-import { revalidatePath } from "next/cache";
+
 import pb from "../../lib/pocketbase";
 import {cookies} from 'next/headers';
+import { UserSchema } from "@/components/AuthComponents/types";
+import {redirect} from "next/navigation";
+import { revalidatePath } from "next/cache";
+
 
 //use server action here to be able to do a post request 
 //formData --> collects info for you
@@ -20,7 +24,14 @@ import {cookies} from 'next/headers';
 // }
 
 
+
+
+
 export async function addNewEntry(formData: FormData){
+
+        //where to redirect to 
+        let redirectPath = '/'
+
         console.log('formData',formData)
         let symptomsList = formData.getAll('symptoms')
         symptomsList.join(",")
@@ -43,7 +54,9 @@ export async function addNewEntry(formData: FormData){
                         "timestamp":Date.parse(timeOfDay),
                         "food": formData.get('foodOption')?.toString(),
                         "symptom": symptomsList.join(","),
-                        "notes": formData.get('notes')?.toString()
+                        "notes": formData.get('notes')?.toString(),
+                        "custom_symptom": formData.get('customSymptom')?.toString(),
+                        // "custom_food": formData.get('customFood')?.toString(),
                 };
 
                 try {
@@ -54,11 +67,14 @@ export async function addNewEntry(formData: FormData){
                         })
                         console.log(record)
                         revalidatePath('/profile/[username]', 'page')
+                        redirectPath= `/profile/${model.username}`
                         return {message: 'Successfully added new entry log'}
         
                 } catch(err) {
                         console.log(err)
-                        return {message: 'error has occured'}
+                        return {message: 'error has occurred'}
+                } finally{
+                        redirect(redirectPath)
                 }
         }
         
@@ -82,6 +98,10 @@ export async function deleteEntry(formData: FormData){
                 const userCookie = JSON.parse(requestCookie.value);
                 const {token} = userCookie; 
 
+                if(typeof postID !== 'string'){
+                        return;
+                }
+
         try{
                 const deleteRecord = await pb.collection('entries').delete(postID,{
                         headers: {
@@ -103,6 +123,9 @@ export async function deleteEntry(formData: FormData){
 }
 
 export async function editEntryByID(formData: FormData){
+
+        //where to redirect to 
+        let redirectPath = '/'
 
         console.log(formData)
         let postID = formData.get("postID")
@@ -129,7 +152,12 @@ export async function editEntryByID(formData: FormData){
                         "timestamp":Date.parse(timeOfDay),
                         "food": formData.get('foodOption')?.toString(),
                         "symptom": symptomsList.join(","),
+                        "custom_symptom":formData.get('customSymptom'),
                         "notes": formData.get('notes')?.toString()
+                }
+
+                if(typeof postID !== 'string'){
+                        return;
                 }
 
         try{
@@ -141,6 +169,7 @@ export async function editEntryByID(formData: FormData){
 
                 console.log(updateRecord)
                         revalidatePath('/profile/[username]', 'page')
+                        redirectPath= `/profile/${model.username}`
                         return {message: 'Successfully added new entry log'}
 
 
@@ -148,6 +177,8 @@ export async function editEntryByID(formData: FormData){
         catch(err) {
                 console.log(err)
                         return {message: 'error has occured'}
+        } finally{
+                redirect(redirectPath)
         }
 }
 }

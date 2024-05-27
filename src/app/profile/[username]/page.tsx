@@ -15,13 +15,12 @@ function profilePage() {
 
     const {userLogs, getUserLogs} = useUserContext();
     const {currentUser, isLogin} = useAuthContext();
-    const [editEntry, setEditEntry] = useState<boolean>(false);
-    const [postID, setPostID] = useState<string>("");
+    
 
     useEffect(()=>{
         if(!isLogin){
-            router.push('/')}
-    })
+            return router.push('/')}
+    },[])
 
     useEffect(()=>{
         getUserLogs();
@@ -35,17 +34,9 @@ function profilePage() {
                 <div className='grid justify-items-center lg:grid-cols-2'>
                     <CalendarComponent/>
                     <div className='lg:order-first'>
-                        <SummarySection
-                        setEditEntry={setEditEntry}
-                        setPostID={setPostID}
-                        />
+                        <SummarySection/>
                     </div>
                 </div>
-                <NewEntryForm
-                editEntry={editEntry}
-                buttonText={editEntry ? "Edit Note":"Noted"}
-                postID = {postID}
-                />
             </div>
         </div>
     )

@@ -14,7 +14,7 @@ const Button = ({text, buttonType}: ButtonProp)=>{
 
     return (
         <button type={buttonType}
-        className="bg-orange text-white font-bold rounded-lg px-8 py-2"
+        className="bg-orange text-white font-bold rounded-lg px-8 py-2 my-4"
         disabled={pending}
         >
             {text}

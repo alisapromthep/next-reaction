@@ -1,8 +1,12 @@
+
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
-import type { AuthProviderInfo } from 'pocketbase';
-import { useRouter} from 'next/router';
-import {redirect} from 'next/navigation';
+import { deleteCookie } from '@/utility/authFunction';
+import { ValidFieldNames } from '@/components/AuthComponents/types';
+import {useForm} from "react-hook-form";
+import {FormData, UserSchema} from "@/components/AuthComponents/types";
+import {zodResolver} from "@hookform/resolvers/zod";
+
 
 interface UserInfoType {
     [key: string]: string;
@@ -11,16 +15,15 @@ interface UserInfoType {
 interface AuthContextType {
     token: string,
     currentUser: UserInfoType;
-    userInfo: UserInfoType;
+    setToken: React.Dispatch<SetStateAction<string>>;
     isLogin: Boolean;
-    setUserInfo:React.Dispatch<SetStateAction<UserInfoType>>;
+    setCurrentUser:React.Dispatch<SetStateAction<UserInfoType>>;
     setIsLogin:React.Dispatch<SetStateAction<Boolean>>;
-    isRegister: Boolean;
-    setIsRegister:React.Dispatch<SetStateAction<Boolean>>;
-    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleRegister: (event: FormEvent<HTMLFormElement>) => void;
-    handleLogin: (event: FormEvent<HTMLFormElement>) => void;
     handleLogout: MouseEventHandler;
+    showPassword: Boolean,
+    setShowPassword: React.Dispatch<SetStateAction<Boolean>>;
+    registerNewUser: (username:string, password:string, passwordConfirm:string)=> Promise<object>;
+    signIn: (username:string, password: string)=> Promise<object>;
 }
 
 const userInfoInitial:UserInfoType = {
@@ -34,114 +37,123 @@ const userInfoInitial:UserInfoType = {
 export const AuthContext = createContext<AuthContextType>({
     token: "",
     currentUser: {},
-    userInfo: userInfoInitial,
     isLogin: false,
-    setUserInfo: ()=>{},
+    setToken:()=>{},
     setIsLogin: ()=>{},
-    isRegister: false, 
-    setIsRegister: ()=>{},
-    handleChange: ()=> {},
-    handleRegister: ()=> {},
-    handleLogin: ()=> {},
-    handleLogout: ()=> {}
+    setCurrentUser: ()=>{},
+    handleLogout: ()=> {},
+    showPassword: false,
+    setShowPassword: ()=>{},
+    registerNewUser: async()=>({}),
+    signIn: async()=>({})
 });
 
 export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
 
     const [token, setToken] = useState("");
     const [currentUser, setCurrentUser] = useState<UserInfoType>({});
-    const [userInfo, setUserInfo] = useState<UserInfoType>(userInfoInitial);
-    const [isRegister, setIsRegister] = useState<Boolean>(false);
     const [isLogin, setIsLogin] = useState<Boolean>(false);
+    const [showPassword, setShowPassword] = useState<Boolean>(false);
+
+    const {formState:{errors}, setError} = useForm<FormData>({
+        resolver: zodResolver(UserSchema)
+    });
 
     useEffect(()=>{
 
-        if(pb.authStore.isValid && pb.authStore.model){
-            const model = pb.authStore.model;
+        let isAuth = document.cookie;
+        if(isAuth && pb.authStore.isValid){
             setIsLogin(true);
             setToken(pb.authStore.token);
+            const model = pb.authStore.model;
             setCurrentUser({
                 id: model?.id,
                 username: model?.username,
             })
-        }
-    },[])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-        const { name, value } = event.target;
-        setUserInfo(prevUserInfo => ({
-            ...prevUserInfo,
-            [name]: value,
-        }));
-        
-    };
+        }
+
+    },[])
 
     //register user 
 
-    const handleRegister= (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault()
-        const {username, password, passwordConfirm} = userInfo;
-
-        const register = pb.collection('users').create({
-            username,
-            password,
+    async function registerNewUser(username: string, password:string, passwordConfirm:string){
+        const userInfo = {
+            username, 
+            password, 
             passwordConfirm
         }
-        )
 
-        register.then((res)=>{
-            console.log(res,'result from register')
+        try{
+            const result = await pb.collection('users').create(userInfo)
+            const {errors = {}} = result.data;
 
-            let login = signIn(username,password);
-            login.then(res => {
-                console.log(res);
-            })
-        })
-        .catch(err => {
-            console.log(err,'error occurred')
-        })
+            const fieldErrorMapping: Record<string, ValidFieldNames> ={
+                username: "username",
+                password: "password",
+                passwordConfirm: "passwordConfirm"
+            }
+            
+            //find field with errors 
+            const fieldWithError = Object.keys(fieldErrorMapping).find(field => errors[field]);
 
+            //update error date to the error fields 
+            if(fieldWithError){
+                setError(fieldErrorMapping[fieldWithError],{
+                    type:'server',
+                    message:errors[fieldWithError],
+                })
+            }
+
+            console.log(result)
+
+            const loginResult = await signIn(username,password);
+
+            return loginResult;
+
+        } catch(err){
+            console.log(err)
+            return Promise.reject(`error occurred ${err}`)
+        }
     }
+
 
     async function signIn (username:string, password: string){
         try {
-            const result = await pb.collection('users').authWithPassword(
+            const response = await pb.collection('users').authWithPassword(
                 username,
                 password
             )
+            console.log(response)
+            const {token, record: model} = response;
+
             //result has token
             document.cookie = pb.authStore.exportToCookie({httpOnly: false})
             setIsLogin(true)
-            console.log(pb.authStore.model)
-            const model = pb.authStore.model;
-            setToken(pb.authStore.token);
+            setToken(token);
             setCurrentUser({
                 id: model?.id,
                 username: model?.username,
             })
+            return response;
 
         }catch(err){
             console.log(err)
+            return Promise.reject(`error has occurred ${err}`)
         }
     }
 
-    const handleLogin= (event: FormEvent<HTMLFormElement>): void =>{
-        event.preventDefault();
-
-        const {username, password} = userInfo;
-        signIn(username,password);
-    }
-
     const handleLogout = (): void =>{
-        pb.authStore.clear();
+        deleteCookie();
         setIsLogin(false)
     }
     
 
     return (
-        <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin, userInfo, setUserInfo,
-        isRegister, setIsRegister,
-        handleChange, handleRegister, handleLogin, handleLogout}}>
+        <AuthContext.Provider value={{token, currentUser, isLogin, setIsLogin,
+        setCurrentUser, setToken,
+        handleLogout,
+        showPassword,setShowPassword, registerNewUser,signIn}}>
             {children}
         </AuthContext.Provider>
     )
