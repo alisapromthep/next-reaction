@@ -56,7 +56,7 @@ export async function addNewEntry(formData: FormData){
                         "symptom": symptomsList.join(","),
                         "notes": formData.get('notes')?.toString(),
                         "custom_symptom": formData.get('customSymptom')?.toString(),
-                        "custom_food": formData.get('customFood')?.toString(),
+                        // "custom_food": formData.get('customFood')?.toString(),
                 };
 
                 try {

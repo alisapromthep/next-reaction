@@ -199,9 +199,9 @@ const NewEntryForm = ()=>{
                         )
                     })
                 }
-                <input type='text'
+                {/* <input type='text'
                 name='customFood'
-                placeholder='others'/>
+                placeholder='others'/> */}
             </fieldset>
             <label className="capitalize flex flex-col">
                 notes, additional info
