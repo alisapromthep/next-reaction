@@ -3,6 +3,7 @@
 import {AiOutlineCalendar, AiOutlineLogout} from 'react-icons/ai';
 import {TiDocumentAdd} from 'react-icons/ti';
 import { useAuthContext } from '@/context/authContext';
+import Link from 'next/link';
 
 const NavBar = ()=>{
 
@@ -20,9 +21,13 @@ const NavBar = ()=>{
                 onClick={handleClick}
                 className='md:px-4 flex flex-col items-center'><AiOutlineCalendar id="calendar"
                 className='text-3xl'/> Calendar </button>
-                <button
-                onClick={handleClick}
-                className='md:px-4 flex flex-col items-center'><TiDocumentAdd id="newEntry" className='text-3xl'/> New</button>
+                <Link
+                href="/forms"
+                className='md:px-4 flex flex-col items-center'
+                >
+                    <TiDocumentAdd id="newEntry" className='text-3xl'/>
+                    New
+                </Link>
                 <button
                 onClick={handleLogout}
                 className='md:px-4 flex flex-col items-center'>< AiOutlineLogout id="logout" className='text-3xl'/>Log out</button>
