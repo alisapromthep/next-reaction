@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import pb from "../../lib/pocketbase";
 import {cookies} from 'next/headers';
-import { UserSchema } from "@/components/FormField/types";
+import { UserSchema } from "@/components/AuthComponents/types";
 
 
 

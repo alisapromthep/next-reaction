@@ -5,7 +5,7 @@ import Button from '../../components/Buttons/Button';
 import EyeButton from '../Buttons/EyeButton';
 import { useRouter } from 'next/navigation';
 import {useForm} from "react-hook-form";
-import {FormData} from "@/components/FormField/types";
+import {FormData} from "@/components/AuthComponents/types";
 import FormField from '../FormField/FormField';
 import {zodResolver} from "@hookform/resolvers/zod";
 import { revalidatePath } from 'next/cache';

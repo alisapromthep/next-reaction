@@ -2,15 +2,14 @@
 
 import Header from '@/components/Header/Header';
 import {groupBy }from '@/utility/groupBy';
-//import mockUserData from '@/data/mockData.json';
 import foodIcons from '../Forms/foodIcons.json';
 import SummaryDetail from './SummaryDetail';
 import { useUserContext } from '@/context/userContext';
 
 
-function SummarySection({setEditEntry, setPostID}:{setEditEntry:React.Dispatch<React.SetStateAction<boolean>>, setPostID: React.Dispatch<React.SetStateAction<string>>}){
+function SummarySection(){
 
-    const {userLogs} = useUserContext();
+    const {userLogs, setEditEntry, setPostID} = useUserContext();
     const groupByFood = groupBy('food', userLogs);
     
     let groupLogArray = [];

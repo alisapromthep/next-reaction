@@ -1,4 +1,4 @@
-import { UserSchema } from "@/components/FormField/types";
+import { UserSchema } from "@/components/AuthComponents/types";
 import { NextResponse } from "next/server";
 //server-side validation
 

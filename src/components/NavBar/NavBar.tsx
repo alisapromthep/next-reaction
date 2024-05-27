@@ -9,6 +9,7 @@ const NavBar = ()=>{
     const {currentUser, handleLogout} = useAuthContext();
     const handleClick = ()=> console.log("click")
 
+
     return (
         <nav className="p-2.5 sticky bottom-0 w-full md:top-0 text-white bg-orange flex justify-evenly md:justify-between">
             <div className="hidden lg:block">

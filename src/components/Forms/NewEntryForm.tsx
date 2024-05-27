@@ -23,9 +23,9 @@ interface formType {
     postID: string;
 }
 
-const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
+const NewEntryForm = ()=>{
 
-    const {getEntryByID} = useUserContext();
+    const {getEntryByID, editEntry, postID} = useUserContext();
 
     const initialFormData = {
         date: getTodaysDate(),
@@ -205,7 +205,7 @@ const NewEntryForm = ({editEntry, buttonText, postID}: formType)=>{
                 />
             </label>
             <Button
-            text={buttonText}
+            text={editEntry ? "Edit Note":"Noted"}
             buttonType="submit"
             />
         </form>

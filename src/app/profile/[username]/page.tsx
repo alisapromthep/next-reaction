@@ -14,9 +14,8 @@ function profilePage() {
     const router = useRouter();
 
     const {userLogs, getUserLogs} = useUserContext();
-    const {currentUser, isLogin, token} = useAuthContext();
-    const [editEntry, setEditEntry] = useState<boolean>(false);
-    const [postID, setPostID] = useState<string>("");
+    const {currentUser, isLogin} = useAuthContext();
+    
 
     useEffect(()=>{
         if(!isLogin){
@@ -35,17 +34,9 @@ function profilePage() {
                 <div className='grid justify-items-center lg:grid-cols-2'>
                     <CalendarComponent/>
                     <div className='lg:order-first'>
-                        <SummarySection
-                        setEditEntry={setEditEntry}
-                        setPostID={setPostID}
-                        />
+                        <SummarySection/>
                     </div>
                 </div>
-                <NewEntryForm
-                editEntry={editEntry}
-                buttonText={editEntry ? "Edit Note":"Noted"}
-                postID = {postID}
-                />
             </div>
         </div>
     )
