@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest){
 
         } catch(err){
             //clear auth store if failed to refresh
-            console.log(err)
+            console.log(err,'from middleware')
             pb.authStore.clear();
         }
 
