@@ -8,6 +8,10 @@ import Button from "../Buttons/Button";
 import {getTodaysDate, getTimeNow, convertDate, convertTime} from "../../utility/dateAndTime";
 import { addNewEntry, editEntryByID } from "@/utility/formFunction";
 import { useUserContext } from '@/context/userContext';
+import FormField from '../FormField/FormField';
+import {FormFieldProps, FormData} from '@/components/FormField/types';
+import {zodResolver} from "@hookform/resolvers/zod";
+import {useForm} from "react-hook-form";
 
 interface formDataType {
     date: string;
@@ -40,6 +44,7 @@ const NewEntryForm = ()=>{
     const [formData, setFormData] = useState<formDataType>(initialFormData);
     console.log(editEntry,'edit in form')
 
+    const {register, handleSubmit, formState:{error}, setError} = useForm<FormData>();
 
     //if editing mode then, must retrive info for that post 
 
@@ -136,7 +141,17 @@ const NewEntryForm = ()=>{
                 <input type="hidden" name="postID" value={postID}/>:
                 <></>
             }
-            <label className="capitalize flex flex-col">
+                <FormField
+                labelName='date'
+                label='date'
+                type='date'
+                value={formData.date}
+                name='date'
+                onChange={handleChange}
+                register={register, }
+                error={error.date}
+                />
+            {/* <label >
                 date
                 <input
                 required
@@ -146,7 +161,7 @@ const NewEntryForm = ()=>{
                 name='date'
                 onChange={handleChange}
                 />
-            </label>
+            </label> */}
             <label className="capitalize flex flex-col">
                 What time did the reaction happen?
                 <input

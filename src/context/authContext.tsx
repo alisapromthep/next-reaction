@@ -2,9 +2,9 @@
 import {createContext, useState, useEffect, useContext, SetStateAction, FormEvent, MouseEventHandler} from 'react';
 import pb from '../../lib/pocketbase';
 import { deleteCookie } from '@/utility/authFunction';
-import { ValidFieldNames } from '@/components/AuthComponents/types';
+import { ValidFieldNames } from '@/components/FormField/types';
 import {useForm} from "react-hook-form";
-import {FormData, UserSchema} from "@/components/AuthComponents/types";
+import {FormData, UserSchema} from "@/components/FormField/types";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 

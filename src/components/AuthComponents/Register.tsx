@@ -4,7 +4,7 @@ import Button from '@/components/Buttons/Button';
 import {useAuthContext} from '../../context/authContext';
 import EyeButton from '../Buttons/EyeButton';
 import {useForm} from 'react-hook-form';
-import {FormData, UserSchema} from "@/components/AuthComponents/types";
+import {FormData, UserSchema} from "@/components/FormField/types";
 import FormField from '../FormField/FormField';
 import {zodResolver} from "@hookform/resolvers/zod";
 import { revalidatePath } from 'next/cache';
