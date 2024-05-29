@@ -14,7 +14,7 @@ const FormField: React.FC<FormFieldProps> =({
         placeholder={placeholder}
         value={value}
         {...register(name, {valueAsNumber,
-            onChange: {handleChange}
+            onChange: handleChange
         })}
         />
     {error && <span className='text-sm text-red-600'>{error.message}</span>}

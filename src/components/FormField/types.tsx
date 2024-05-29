@@ -40,7 +40,7 @@ export const UserSchema: ZodType<FormData> = z
     date:z.string(),
     time:z.string(),
     foodOption:z.string(),
-    symptoms:z.string().array().nonempty(),
+    symptoms:z.string().array().optional(),
     customSymptom:z.string().optional(),
     notes:z.optional(z.string()),
 })

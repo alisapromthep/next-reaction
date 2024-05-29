@@ -152,28 +152,16 @@ const NewEntryForm = ()=>{
                 register={register}
                 error={errors.date}
                 />
-            {/* <label >
-                date
-                <input
-                required
-                className=""
-                type='date'
-                value={formData.date}
-                name='date'
-                onChange={handleChange}
-                />
-            </label> */}
-            <label className="capitalize flex flex-col">
-                What time did the reaction happen?
-                <input
-                required
-                className=""
+                <FormField
+                labelName='time'
+                label='What time did the reaction happen?'
                 type='time'
                 value={formData.time}
                 name='time'
-                onChange={handleChange}
+                handleChange={handleChange}
+                register={register}
+                error={errors.date}
                 />
-            </label>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white">
                 <legend>What was the reaction?</legend>
                 {
@@ -201,11 +189,17 @@ const NewEntryForm = ()=>{
                         )
                     })
                 }
-                <input type='text'
-                name='customSymptom'
+                <FormField
+                labelName='customSymptom'
+                label='others?'
+                type='text'
+                placeholder='add your own'
                 value={formData.customSymptom}
-                onChange={handleCustomSymptom}
-                placeholder='others'/>
+                name='customSymptom'
+                handleChange={handleCustomSymptom}
+                register={register}
+                error={errors.customSymptom}
+                />
             </fieldset>
             <fieldset className="p-2 grid grid-cols-4 md:grid-cols-5 border-2 rounded-lg bg-white ">
                 <legend>What did you eat?</legend>
@@ -235,13 +229,17 @@ const NewEntryForm = ()=>{
                 name='customFood'
                 placeholder='others'/> */}
             </fieldset>
-            <label className="capitalize flex flex-col">
-                notes, additional info
-                <input
-                type="text"
-                name="notes"
+            <FormField
+                labelName='notes'
+                label='notes, additional info'
+                type='text'
+                placeholder='add your own'
+                value={formData.notes}
+                name='notes'
+                handleChange={handleChange}
+                register={register}
+                error={errors.notes}
                 />
-            </label>
             <Button
             text={editEntry ? "Edit Note":"Noted"}
             buttonType="submit"
