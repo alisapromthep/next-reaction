@@ -12,6 +12,7 @@ import FormField from '../FormField/FormField';
 import {FormFieldProps, FormData} from '@/components/FormField/types';
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
+import { errorToJSON } from 'next/dist/server/render';
 
 interface formDataType {
     date: string;
@@ -44,7 +45,7 @@ const NewEntryForm = ()=>{
     const [formData, setFormData] = useState<formDataType>(initialFormData);
     console.log(editEntry,'edit in form')
 
-    const {register, handleSubmit, formState:{error}, setError} = useForm<FormData>();
+    const {register, handleSubmit, formState:{errors}, setError} = useForm<FormData>();
 
     //if editing mode then, must retrive info for that post 
 
@@ -147,9 +148,9 @@ const NewEntryForm = ()=>{
                 type='date'
                 value={formData.date}
                 name='date'
-                onChange={handleChange}
-                register={register, }
-                error={error.date}
+                handleChange={handleChange}
+                register={register}
+                error={errors.date}
                 />
             {/* <label >
                 date

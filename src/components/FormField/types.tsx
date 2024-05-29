@@ -20,6 +20,7 @@ export type FormFieldProps = {
     placeholder?: string;
     value?: string | string[];
     name: ValidFieldNames;
+    handleChange?:(e: any)=>void;
     register: UseFormRegister<FormData>;
     error: FieldError | undefined;
     valueAsNumber?:boolean;
