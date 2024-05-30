@@ -20,6 +20,7 @@ export type FormFieldProps = {
     placeholder?: string;
     value?: string | string[];
     name: ValidFieldNames;
+    checked?: boolean;
     handleChange?:(e: any)=>void;
     register: UseFormRegister<FormData>;
     error: FieldError | undefined;
@@ -40,7 +41,7 @@ export const UserSchema: ZodType<FormData> = z
     date:z.string(),
     time:z.string(),
     foodOption:z.string(),
-    symptoms:z.string().array().optional(),
+    symptoms:z.string().array(),
     customSymptom:z.string().optional(),
     notes:z.optional(z.string()),
 })

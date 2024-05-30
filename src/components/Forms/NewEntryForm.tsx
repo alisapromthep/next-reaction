@@ -167,6 +167,20 @@ const NewEntryForm = ()=>{
                 {
                     symptomIcons.map((symptom,i)=>{
                         return (
+                            <div key={i}>
+
+                                <FormField
+                                labelName='foodOption'
+                                label={food.name}
+                                type="radio"
+                                value={food.name}
+                                name="foodOption"
+                                handleChange={handleFoodChange}
+                                checked = {formData.foodOption === food.name}
+                                register={register}
+                                error={errors.foodOption}
+                                />
+                            </div>
                             <label
                             key={i}
                             className="text-sm flex flex-col items-center w-24"
@@ -206,22 +220,43 @@ const NewEntryForm = ()=>{
                 {
                     foodIcons.map((food,i)=>{
                         return (
-                            <label key={i} className="text-sm flex flex-col items-center w-24">
+                            <div
+                            key={i}
+                            >
                                 <CldImage
                                 width={30}
                                 height={30}
                                 src={food.img_file}
                                 alt={food.name}                                
                                 />
-                                {food.name}
-                                <input
+                                <FormField
+                                labelName='foodOption'
+                                label={food.name}
                                 type="radio"
                                 value={food.name}
                                 name="foodOption"
-                                checked={formData.foodOption === food.name}
-                                onChange={handleFoodChange}
+                                handleChange={handleFoodChange}
+                                checked = {formData.foodOption === food.name}
+                                register={register}
+                                error={errors.foodOption}
                                 />
-                            </label>
+                            </div>
+                            // <label key={i} className="text-sm flex flex-col items-center w-24">
+                            //     {food.name}
+                            //     <CldImage
+                            //     width={30}
+                            //     height={30}
+                            //     src={food.img_file}
+                            //     alt={food.name}                                
+                            //     />
+                            //     <input
+                            //     type="radio"
+                            //     value={food.name}
+                            //     name="foodOption"
+                            //     checked={formData.foodOption === food.name}
+                            //     onChange={handleFoodChange}
+                            //     />
+                            // </label>
                         )
                     })
                 }

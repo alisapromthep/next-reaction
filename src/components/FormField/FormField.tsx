@@ -2,7 +2,7 @@ import { FormFieldProps} from './types';
 
 
 const FormField: React.FC<FormFieldProps> =({
-    labelName, label, type,placeholder, value, name, handleChange,
+    labelName, label, type,placeholder, value, name, handleChange, checked,
     register, error,valueAsNumber
 }) =>(
     <label className='h-24 font-bold flex flex-col py-2 capitalize text-lg'
@@ -11,6 +11,7 @@ const FormField: React.FC<FormFieldProps> =({
         <input
         className={`bg-transparent border-b border-green placeholder:font-light py-2`}
         type={type}
+        checked={checked}
         placeholder={placeholder}
         value={value}
         {...register(name, {valueAsNumber,
