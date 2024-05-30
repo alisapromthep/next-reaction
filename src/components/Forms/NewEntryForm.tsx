@@ -168,38 +168,43 @@ const NewEntryForm = ()=>{
                     symptomIcons.map((symptom,i)=>{
                         return (
                             <div key={i}>
-
-                                <FormField
-                                labelName='foodOption'
-                                label={food.name}
-                                type="radio"
-                                value={food.name}
-                                name="foodOption"
-                                handleChange={handleFoodChange}
-                                checked = {formData.foodOption === food.name}
-                                register={register}
-                                error={errors.foodOption}
-                                />
-                            </div>
-                            <label
-                            key={i}
-                            className="text-sm flex flex-col items-center w-24"
-                            >
-                                <CldImage
+                                    <CldImage
                                     width={30}
                                     height={30}
                                     src={symptom.img_file}
                                     alt={symptom.name}
                                 />
-                                {symptom.name}
-                                <input
+                                <FormField
+                                labelName='symptoms'
+                                label={symptom.name}
                                 type="checkbox"
                                 value={symptom.name}
                                 name="symptoms"
-                                checked={formData.symptoms.includes(symptom.name)}
-                                onChange={handleCheckBoxChange}
+                                handleChange={handleCheckBoxChange}
+                                checked = {formData.symptoms.includes(symptom.name)}
+                                register={register}
+                                error={errors.symptoms}
                                 />
-                            </label>
+                            </div>
+                            // <label
+                            // key={i}
+                            // className="text-sm flex flex-col items-center w-24"
+                            // >
+                            //     <CldImage
+                            //         width={30}
+                            //         height={30}
+                            //         src={symptom.img_file}
+                            //         alt={symptom.name}
+                            //     />
+                            //     {symptom.name}
+                            //     <input
+                            //     type="checkbox"
+                            //     value={symptom.name}
+                            //     name="symptoms"
+                            //     checked={formData.symptoms.includes(symptom.name)}
+                            //     onChange={handleCheckBoxChange}
+                            //     />
+                            // </label>
                         )
                     })
                 }
