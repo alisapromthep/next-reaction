@@ -167,7 +167,9 @@ const NewEntryForm = ()=>{
                 {
                     symptomIcons.map((symptom,i)=>{
                         return (
-                            <div key={i}>
+                            <div key={i}
+                            className='flex flex-col items-center'
+                            >
                                     <CldImage
                                     width={30}
                                     height={30}
@@ -186,25 +188,6 @@ const NewEntryForm = ()=>{
                                 error={errors.symptoms}
                                 />
                             </div>
-                            // <label
-                            // key={i}
-                            // className="text-sm flex flex-col items-center w-24"
-                            // >
-                            //     <CldImage
-                            //         width={30}
-                            //         height={30}
-                            //         src={symptom.img_file}
-                            //         alt={symptom.name}
-                            //     />
-                            //     {symptom.name}
-                            //     <input
-                            //     type="checkbox"
-                            //     value={symptom.name}
-                            //     name="symptoms"
-                            //     checked={formData.symptoms.includes(symptom.name)}
-                            //     onChange={handleCheckBoxChange}
-                            //     />
-                            // </label>
                         )
                     })
                 }
@@ -227,6 +210,7 @@ const NewEntryForm = ()=>{
                         return (
                             <div
                             key={i}
+                            className='flex flex-col items-center'
                             >
                                 <CldImage
                                 width={30}
@@ -246,22 +230,6 @@ const NewEntryForm = ()=>{
                                 error={errors.foodOption}
                                 />
                             </div>
-                            // <label key={i} className="text-sm flex flex-col items-center w-24">
-                            //     {food.name}
-                            //     <CldImage
-                            //     width={30}
-                            //     height={30}
-                            //     src={food.img_file}
-                            //     alt={food.name}                                
-                            //     />
-                            //     <input
-                            //     type="radio"
-                            //     value={food.name}
-                            //     name="foodOption"
-                            //     checked={formData.foodOption === food.name}
-                            //     onChange={handleFoodChange}
-                            //     />
-                            // </label>
                         )
                     })
                 }
